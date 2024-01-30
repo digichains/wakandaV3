@@ -10,6 +10,8 @@ import * as React from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { ProposalsClient } from '../contracts/proposals'
+import { useFetchWrapper } from '../hooks'
+import { API_URL } from '../constants/apiUrl'
 
 interface ProposalModalProps {
   open: boolean
@@ -36,41 +38,17 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
   const [endTime, setEndTime] = useState(0)
   const [endTimeString, setEndTimeString] = useState('')
   const [loading, setLoading] = useState(false)
+  const fetchWrapper = useFetchWrapper();
 
   const { activeAddress, signer } = useWallet()
   const sender = { signer, addr: activeAddress! }
-
-  async function createContract() {
-    setLoading(true)
-    console.log('Calling createApplication')
-
-    try {
-      toast.loading('Creating application', { id: 'loader' })
-      const response: any = await typedClient.create.bare({
-        sender,
-      })
-      console.log(response)
-
-      if (response.appId) {
-        toast.success('Contract created successfully')
-      }
-
-      toast.dismiss('loader')
-      setLoading(false)
-    } catch (error) {
-      console.error(error)
-      toast.dismiss('loader')
-      toast.error(error?.message)
-      setLoading(false)
-    }
-  }
 
   async function createProposal() {
     setLoading(true)
     console.log('Creating Proposal')
 
     try {
-      toast.loading('Funding app account', { id: 'loader' })
+      toast.loading('Funding app account with 0.2 Algos', { id: 'loader' })
 
       const res = await typedClient.appClient.fundAppAccount({
         amount: algokit.microAlgos(200_000),
@@ -79,7 +57,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
 
       console.log(res)
       toast.dismiss('loader')
-      toast.success('App account funded with 200_000 microAlgos')
+      toast.success('App account funded with 0.2 Algos')
       toast.loading('Creating Proposal', { id: 'loader' })
       const { appId } = await typedClient.appClient.getAppReference()
       const response: any = await typedClient.addProposal(
@@ -105,18 +83,40 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
 
       if (response?.transaction) {
         toast.success('The Proposal was created successfully')
-        toggle()
+        uploadProposal(Number(appId));
       }
     } catch (error) {
       console.error(error)
       toast.dismiss('loader')
-      toast.error(error?.message)
+      toast.error((error as any)?.message)
       setLoading(false)
     }
   }
 
   async function submit() {
     await createProposal()
+  }
+
+  async function uploadProposal(appId: number) {
+    toast.loading('Uploading Proposal', { id: 'loader' });
+
+    const response: any = await fetchWrapper.post(`${API_URL}/api/v1/proposals/proposal/`, {
+      name,
+      description,
+      end_time: endTimeString,
+      app_id: appId,
+    });
+
+    toast.dismiss('loader');
+
+    console.log(response);
+
+    if (response.error) {
+      toast.error(response.error?.toString());
+    } else {
+      toast.success('Proposal uploaded successfully');
+      toggle();
+    }
   }
 
   return (

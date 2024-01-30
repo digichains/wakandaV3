@@ -7,6 +7,12 @@ interface RowProps {
   value: string | number
 }
 
+interface VoterInfoProps {
+  created_on: string;
+  end_time: string;
+  total_votes: number;
+}
+
 const Row: React.FC<RowProps> = ({ title, value }) => {
   return (
     <Box display={'flex'} justifyContent={'space-between'}>
@@ -19,13 +25,17 @@ const Row: React.FC<RowProps> = ({ title, value }) => {
     </Box>
   );
 };
-const VoterInfo = () => {
+const VoterInfo = ({
+  created_on,
+  end_time,
+  total_votes,
+}: VoterInfoProps) => {
   const voteInfo = [
     { columName: 'Author', value: 'Tom' },
-    { columName: 'Start Date', value: '07 Nov, 2023' },
-    { columName: 'End Date', value: '15 Nov, 2023' },
-    { columName: 'Total votes', value: 1040 },
-    { columName: 'Algo Amounts', value: 546000 },
+    { columName: 'Start Date', value: (new Date(created_on)).toLocaleString() },
+    { columName: 'End Date', value: (new Date(end_time)).toLocaleString() },
+    { columName: 'Total votes', value: total_votes },
+    { columName: 'Algo Amounts', value: (0.2 * total_votes).toFixed(4) },
   ]
   return (
     <Card variant="outlined" sx={{ width: '100%', minHeight: 200, bgcolor: '#292f28', padding: 2 }}>

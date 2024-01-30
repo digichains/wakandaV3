@@ -6,7 +6,7 @@ import HistoryIcon from '@mui/icons-material/History'
 import LiveHelpIcon from '@mui/icons-material/LiveHelp'
 import { Box, Button, Divider, OutlinedInput, Typography } from '@mui/material'
 import Link from '@mui/material/Link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProposalAccordion from '../components/ProposalAccordion'
 import { SearchBarMenu } from '../components/SearchBar'
 import StakeInfoCard from '../components/StakeInfoCard'
@@ -14,18 +14,48 @@ import { APP_ID } from '../constants/AppID'
 import { ProposalsClient } from '../contracts/proposals'
 import ProposalModal from '../modals/ProposalModal'
 import { getAlgodConfigFromViteEnvironment } from '../utils/network/getAlgoClientConfigs'
+import toast from 'react-hot-toast'
+import { useFetchWrapper } from '../hooks'
+import { API_URL } from '../constants/apiUrl'
+import { IProposal } from '../interfaces/proposal'
 
 const Stake: React.FC = () => {
   const menuItems: string[] = ['All', 'Projects', 'Users', 'Time', 'Action']
   const [open, setOpen] = useState<boolean>(false)
+  const [proposals, setProposals] = useState<IProposal[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
   const toggleModal = () => setOpen(!open)
   const algodConfig = getAlgodConfigFromViteEnvironment()
+  const fetchWrapper = useFetchWrapper();
+
+  const fetchAllProposals = async () => {
+    toast.loading('Loading proposals', { id: 'loader' });
+
+    const response = await fetchWrapper.get(`${API_URL}/api/v1/proposals/proposal`);
+
+    toast.dismiss('loader');
+
+    if (response && Object.keys(response).includes('error')) {
+      toast.error('Error loading proposals');
+      return;
+    } else {
+      setProposals(response);
+    }
+  };
+
+  const filterProposals = () => {
+    if (searchTerm) {
+      return proposals.filter((proposal) => proposal.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }
+
+    return proposals;
+  }
 
   const algodClient = algokit.getAlgoClient({
     server: algodConfig.server,
     port: algodConfig.port,
     token: algodConfig.token,
-  })
+  });
 
   const typedClient = new ProposalsClient(
     {
@@ -33,7 +63,11 @@ const Stake: React.FC = () => {
       id: APP_ID,
     },
     algodClient,
-  )
+  );
+
+  useEffect(() => {
+    fetchAllProposals();
+  }, [open]);
 
   return (
     <Box bgcolor={'#1a2118'}>
@@ -111,6 +145,8 @@ const Stake: React.FC = () => {
 
         <OutlinedInput
           placeholder="Search proposals..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           // variant="outlined"
           sx={{
             borderRadius: 100,
@@ -123,8 +159,17 @@ const Stake: React.FC = () => {
           }}
         />
       </Box>
-      <Box padding={2.5}>
-        <ProposalAccordion title={'Algorand Hackathon Event in Abuja'} />
+
+      <Box padding={2.5} gap={2} display={'flex'} flexDirection={'column'}>
+        {/* <ProposalAccordion title={'Algorand Hackathon Event in Abuja'} /> */}
+        {filterProposals().map((proposal) => (
+          <ProposalAccordion 
+            proposal={proposal} 
+            key={proposal.id} 
+            typedClient={typedClient} 
+            refresh={fetchAllProposals}
+          />
+        ))}
       </Box>
       <ProposalModal toggle={toggleModal} open={open} typedClient={typedClient} />
     </Box>

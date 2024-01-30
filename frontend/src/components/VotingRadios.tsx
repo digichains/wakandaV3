@@ -4,7 +4,21 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 
-export default function VotingRadio({ yesPercentage = 30, noPercentage = 70 }) {
+interface Props {
+  yesPercentage?: number;
+  noPercentage ?: number;
+  yesVote?: boolean;
+  noVote?: boolean;
+  onVote?: (type: boolean) => void;
+}
+
+export default function VotingRadio({ 
+  yesPercentage = 30, 
+  noPercentage = 70, 
+  yesVote = false, 
+  noVote = false,
+  onVote, 
+}: Props) {
   return (
     <FormControl sx={{ width: '100%' }}>
       <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group">
@@ -19,6 +33,8 @@ export default function VotingRadio({ yesPercentage = 30, noPercentage = 70 }) {
                     color: '#eee',
                   },
                 }}
+                onChange={(event) => onVote?.(true)}
+                disabled={noVote}
               />
             }
             label={'Yes'}
@@ -44,6 +60,8 @@ export default function VotingRadio({ yesPercentage = 30, noPercentage = 70 }) {
                     color: '#eee',
                   },
                 }}
+                onChange={(event) => onVote?.(false)}
+                disabled={yesVote}
               />
             }
             label={'No'}
