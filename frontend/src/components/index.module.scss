@@ -1,0 +1,19 @@
+.modal {
+  position: fixed;
+  left: 25em;
+  top: 10rem;
+  width: 50vw;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 1rem;
+
+  .dialog {
+    width: 200px;
+    height: 200px;
+    background-color: black;
+    color: white;
+  }
+}
