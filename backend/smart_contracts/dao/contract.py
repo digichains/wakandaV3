@@ -4,7 +4,7 @@ from beaker.lib.storage import BoxMapping, BoxList
 from pyteal import *
 
 SECONDS_PER_DAY = Int(86400)
-
+WAKANDA_NFT_ASSET_ID = "573069487"
 
 class Proposal(abi.NamedTuple):
     name: abi.Field[abi.String]
@@ -19,7 +19,7 @@ class Proposal(abi.NamedTuple):
 class AppState:
     proposals = BoxMapping(abi.String, Proposal)
     membership_token = GlobalStateValue(
-        stack_type=TealType.bytes, default=Bytes("1238613556")
+        stack_type=TealType.bytes, default=Bytes(WAKANDA_NFT_ASSET_ID)
     )
 
 
@@ -28,8 +28,7 @@ app = Application("proposals", state=AppState()).apply(
 )
 
 
-# @app.external(authorize=Authorize.holds_token("1238613556"))
-@app.external
+@app.external(authorize=Authorize.holds_token(WAKANDA_NFT_ASSET_ID))
 def add_proposal(
     name: abi.String, description: abi.String, end_time: abi.Uint64
 ) -> Expr:
@@ -51,7 +50,7 @@ def read_proposal(name: abi.String, *, output: Proposal) -> Expr:
     return app.state.proposals[name.get()].store_into(output)
 
 
-@app.external
+@app.external(authorize=Authorize.holds_token(WAKANDA_NFT_ASSET_ID))
 def vote_yes(proposal_name: abi.String) -> Expr:
     yes = abi.Uint64()
     
@@ -70,7 +69,7 @@ def vote_yes(proposal_name: abi.String) -> Expr:
     )
 
 
-@app.external
+@app.external(authorize=Authorize.holds_token(WAKANDA_NFT_ASSET_ID))
 def vote_no(proposal_name: abi.String,) -> Expr:
     no = abi.Uint64()
     
@@ -87,7 +86,8 @@ def vote_no(proposal_name: abi.String,) -> Expr:
         ),
         app.state.proposals[proposal_name.get()].set(proposal),
     )
+    
 
-# @app.external
-# def delete_proposal(proposal_name: abi.String):
-#     Pop(app.state.proposals[proposal_name.get()].delete())
+@app.external(authorize=Authorize.holds_token(WAKANDA_NFT_ASSET_ID))
+def delete_proposal(proposal_name: abi.String) -> Expr:
+    return Pop(app.state.proposals[proposal_name.get()].delete())
