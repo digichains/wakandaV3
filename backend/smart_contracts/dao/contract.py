@@ -4,7 +4,7 @@ from beaker.lib.storage import BoxMapping, BoxList
 from pyteal import *
 
 SECONDS_PER_DAY = Int(86400)
-WAKANDA_NFT_ASSET_ID = "573069487"
+WAKANDA_NFT_ASSET_ID = Int(573069487)
 
 class Proposal(abi.NamedTuple):
     name: abi.Field[abi.String]
@@ -13,14 +13,11 @@ class Proposal(abi.NamedTuple):
     end_time: abi.Field[abi.Uint64]
     yes_count: abi.Field[abi.Uint64]
     no_count: abi.Field[abi.Uint64]
-    
+
 
 
 class AppState:
     proposals = BoxMapping(abi.String, Proposal)
-    membership_token = GlobalStateValue(
-        stack_type=TealType.bytes, default=Bytes(WAKANDA_NFT_ASSET_ID)
-    )
 
 
 app = Application("proposals", state=AppState()).apply(

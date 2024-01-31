@@ -56,6 +56,18 @@
             "returns": {
                 "type": "void"
             }
+        },
+        {
+            "name": "delete_proposal",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "proposal_name"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            }
         }
     ],
     "networks": {}

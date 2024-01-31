@@ -1,39 +1,31 @@
 #pragma version 8
-intcblock 0 1 29 65536
+intcblock 0 1 573069487 29 65536
 bytecblock 0x 0x00
 txn NumAppArgs
 intc_0 // 0
 ==
-bnz main_l10
+bnz main_l12
 txna ApplicationArgs 0
 pushbytes 0x7ce12c02 // "add_proposal(string,string,uint64)void"
 ==
-bnz main_l9
+bnz main_l11
 txna ApplicationArgs 0
 pushbytes 0xd778ad25 // "read_proposal(string)(string,string,bool,uint64,uint64,uint64)"
 ==
-bnz main_l8
+bnz main_l10
 txna ApplicationArgs 0
 pushbytes 0x44d07395 // "vote_yes(string)void"
 ==
-bnz main_l7
+bnz main_l9
 txna ApplicationArgs 0
 pushbytes 0x0e187034 // "vote_no(string)void"
 ==
-bnz main_l6
-err
-main_l6:
-txn OnCompletion
-intc_0 // NoOp
+bnz main_l8
+txna ApplicationArgs 0
+pushbytes 0x89cb8a9a // "delete_proposal(string)void"
 ==
-txn ApplicationID
-intc_0 // 0
-!=
-&&
-assert
-callsub votenocaster_8
-intc_1 // 1
-return
+bnz main_l7
+err
 main_l7:
 txn OnCompletion
 intc_0 // NoOp
@@ -43,7 +35,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub voteyescaster_7
+callsub deleteproposalcaster_10
 intc_1 // 1
 return
 main_l8:
@@ -55,7 +47,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub readproposalcaster_6
+callsub votenocaster_9
 intc_1 // 1
 return
 main_l9:
@@ -67,16 +59,40 @@ intc_0 // 0
 !=
 &&
 assert
-callsub addproposalcaster_5
+callsub voteyescaster_8
 intc_1 // 1
 return
 main_l10:
 txn OnCompletion
 intc_0 // NoOp
 ==
-bnz main_l12
-err
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub readproposalcaster_7
+intc_1 // 1
+return
+main_l11:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub addproposalcaster_6
+intc_1 // 1
+return
 main_l12:
+txn OnCompletion
+intc_0 // NoOp
+==
+bnz main_l14
+err
+main_l14:
 txn ApplicationID
 intc_0 // 0
 ==
@@ -88,9 +104,6 @@ return
 // create
 create_0:
 proto 0 0
-pushbytes 0x6d656d626572736869705f746f6b656e // "membership_token"
-pushbytes 0x31323338363133353536 // "1238613556"
-app_global_put
 retsub
 
 // add_proposal
@@ -102,6 +115,18 @@ intc_0 // 0
 dupn 3
 bytec_0 // ""
 dup
+txn Sender
+intc_2 // 573069487
+asset_holding_get AssetBalance
+store 1
+store 0
+load 1
+load 0
+intc_0 // 0
+>
+&&
+// unauthorized
+assert
 intc_1 // 1
 !
 !
@@ -114,7 +139,7 @@ frame_dig -3
 frame_bury 7
 frame_dig 7
 frame_bury 6
-intc_2 // 29
+intc_3 // 29
 frame_bury 4
 frame_dig 4
 frame_dig 7
@@ -122,7 +147,7 @@ len
 +
 frame_bury 5
 frame_dig 5
-intc_3 // 65536
+intc 4 // 65536
 <
 assert
 frame_dig 4
@@ -174,11 +199,11 @@ bytec_0 // ""
 frame_dig -1
 extract 2 0
 box_get
-store 1
-store 0
-load 1
+store 3
+store 2
+load 3
 assert
-load 0
+load 2
 frame_bury 0
 retsub
 
@@ -194,14 +219,26 @@ intc_0 // 0
 dupn 3
 bytec_0 // ""
 dup
+txn Sender
+intc_2 // 573069487
+asset_holding_get AssetBalance
+store 5
+store 4
+load 5
+load 4
+intc_0 // 0
+>
+&&
+// unauthorized
+assert
 frame_dig -1
 extract 2 0
 box_get
-store 3
-store 2
-load 3
+store 7
+store 6
+load 7
 assert
-load 2
+load 6
 frame_bury 1
 frame_dig 1
 pushint 13 // 13
@@ -235,7 +272,7 @@ frame_dig -1
 frame_bury 10
 frame_dig 10
 frame_bury 9
-intc_2 // 29
+intc_3 // 29
 frame_bury 7
 frame_dig 7
 frame_dig 10
@@ -243,7 +280,7 @@ len
 +
 frame_bury 8
 frame_dig 8
-intc_3 // 65536
+intc 4 // 65536
 <
 assert
 frame_dig 7
@@ -300,14 +337,26 @@ intc_0 // 0
 dupn 3
 bytec_0 // ""
 dup
+txn Sender
+intc_2 // 573069487
+asset_holding_get AssetBalance
+store 9
+store 8
+load 9
+load 8
+intc_0 // 0
+>
+&&
+// unauthorized
+assert
 frame_dig -1
 extract 2 0
 box_get
-store 5
-store 4
-load 5
+store 11
+store 10
+load 11
 assert
-load 4
+load 10
 frame_bury 1
 frame_dig 1
 pushint 21 // 21
@@ -341,7 +390,7 @@ frame_dig -1
 frame_bury 10
 frame_dig 10
 frame_bury 9
-intc_2 // 29
+intc_3 // 29
 frame_bury 7
 frame_dig 7
 frame_dig 10
@@ -349,7 +398,7 @@ len
 +
 frame_bury 8
 frame_dig 8
-intc_3 // 65536
+intc 4 // 65536
 <
 assert
 frame_dig 7
@@ -394,8 +443,29 @@ frame_dig 1
 box_put
 retsub
 
+// delete_proposal
+deleteproposal_5:
+proto 1 0
+txn Sender
+intc_2 // 573069487
+asset_holding_get AssetBalance
+store 13
+store 12
+load 13
+load 12
+intc_0 // 0
+>
+&&
+// unauthorized
+assert
+frame_dig -1
+extract 2 0
+box_del
+pop
+retsub
+
 // add_proposal_caster
-addproposalcaster_5:
+addproposalcaster_6:
 proto 0 0
 bytec_0 // ""
 dup
@@ -414,7 +484,7 @@ callsub addproposal_1
 retsub
 
 // read_proposal_caster
-readproposalcaster_6:
+readproposalcaster_7:
 proto 0 0
 bytec_0 // ""
 dup
@@ -430,7 +500,7 @@ log
 retsub
 
 // vote_yes_caster
-voteyescaster_7:
+voteyescaster_8:
 proto 0 0
 bytec_0 // ""
 txna ApplicationArgs 1
@@ -440,11 +510,21 @@ callsub voteyes_3
 retsub
 
 // vote_no_caster
-votenocaster_8:
+votenocaster_9:
 proto 0 0
 bytec_0 // ""
 txna ApplicationArgs 1
 frame_bury 0
 frame_dig 0
 callsub voteno_4
+retsub
+
+// delete_proposal_caster
+deleteproposalcaster_10:
+proto 0 0
+bytec_0 // ""
+txna ApplicationArgs 1
+frame_bury 0
+frame_dig 0
+callsub deleteproposal_5
 retsub
