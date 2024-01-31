@@ -22,29 +22,20 @@ interface VotingEndsIn {
   seconds: number
 }
 
-const ProposalAccordion: React.FC<{ 
-  proposal: IProposal, 
-  typedClient: ProposalsClient, 
-  refresh: () => void,
+const ProposalAccordion: React.FC<{
+  proposal: IProposal
+  typedClient: ProposalsClient
+  refresh: () => void
 }> = ({ proposal, typedClient, refresh }) => {
-  const {
-    name,
-    description,
-    yes_count,
-    no_count,
-    id,
-    app_id,
-    created_on,
-    is_open,
-    end_time,
-  } = proposal;
+  const { name, description, yes_count, no_count, id, app_id, created_on, is_open, end_time } = proposal
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [votingEndsIn, setVotingEndsIn] = React.useState<VotingEndsIn>({
     days: 6,
     hours: 20,
     minutes: 23,
     seconds: 12,
-  });
+  })
 
   const { activeAddress, signer } = useWallet()
   const sender = { signer, addr: activeAddress! }
@@ -56,10 +47,10 @@ const ProposalAccordion: React.FC<{
   const fetchWrapper = useFetchWrapper();
 
   const castVote = async (type: boolean) => {
-    setYesVote(true);
-    setNoVote(true);
+    setYesVote(true)
+    setNoVote(true)
 
-    toast.loading('Casting vote', { id: 'loader' });
+    toast.loading('Casting vote', { id: 'loader' })
 
     try {
       const res = type ?
@@ -76,7 +67,7 @@ const ProposalAccordion: React.FC<{
               }
             ]
           }
-        ) : 
+        ) :
         await typedClient.voteNo(
           {
             proposal_name: name,
@@ -116,7 +107,7 @@ const ProposalAccordion: React.FC<{
   const viewProposalDetails = async () => {
     toast.loading('Loading updated proposal details', { id: 'loader' });
 
-    try { 
+    try {
       const res = await typedClient.readProposal(
         { name },
         {
@@ -195,9 +186,9 @@ const ProposalAccordion: React.FC<{
           <Box width={'100%'}>
             <Typography color={'#fff'}>{name}</Typography>
             <Box display={'flex'} justifyContent={'space-between'} width={'100%'}>
-              <VotingRadio 
-                yesPercentage={isNaN(yesPercentage) ? 0 : yesPercentage} 
-                noPercentage={isNaN(noPercentage) ? 0 : noPercentage} 
+              <VotingRadio
+                yesPercentage={isNaN(yesPercentage) ? 0 : yesPercentage}
+                noPercentage={isNaN(noPercentage) ? 0 : noPercentage}
                 yesVote={yesVote}
                 noVote={noVote}
                 onVote={castVote}
@@ -241,11 +232,7 @@ const ProposalAccordion: React.FC<{
               {description}
             </Typography>
             <Box width={'25%'}>
-              <VoterInfo
-                created_on={created_on}
-                end_time={end_time}
-                total_votes={yes_count + no_count}
-              />
+              <VoterInfo created_on={created_on} end_time={end_time} total_votes={yes_count + no_count} />
             </Box>
           </Box>
 

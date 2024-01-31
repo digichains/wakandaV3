@@ -18,7 +18,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
         <form method="dialog" className="modal-box">
           <h3 className="font-bold text-lg">Select wallet provider</h3>
 
-          <div className="grid m-2 pt-5">
+          <div className={styles.trust}>
             {activeAddress && (
               <>
                 <Account />
@@ -30,7 +30,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
               providers?.map((provider) => (
                 <button
                   data-test-id={`${provider.metadata.id}-connect`}
-                  className="btn border-teal-800 border-1 m-2"
+                  className="btn border-teal-800 border-1"
                   key={`provider-${provider.metadata.id}`}
                   onClick={() => {
                     return provider.connect()
@@ -40,10 +40,11 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
                     <img
                       alt={`wallet_icon_${provider.metadata.id}`}
                       src={provider.metadata.icon}
-                      style={{ objectFit: 'contain', width: '30px', height: 'auto' }}
+                      style={{ width: '30px', height: '100%', marginLeft: '5px', marginTop: '25px', marginBottom: '0'}}
                     />
                   )}
-                  <span>{isKmd(provider) ? 'LocalNet Wallet' : provider.metadata.name}</span>
+                  <span style={{ width: '30px', height: '100%', marginLeft: '5px', marginTop: '25px', marginBottom: '0' }}>
+                  {isKmd(provider) ? 'LocalNet Wallet' : provider.metadata.name }</span>
                 </button>
               ))}
           </div>
