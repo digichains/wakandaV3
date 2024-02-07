@@ -106,7 +106,7 @@ def delete_proposal(proposal_name: abi.String) -> Expr:
 
 
 @app.external(authorize=Authorize.only_creator())
-def bootstrap(
+def generate_membership_token(
     seed: abi.PaymentTransaction,
     token_name: abi.String,
     *,
