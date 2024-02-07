@@ -54,3 +54,5 @@ app.build().export("./artifacts")
 # get_new_sudent = app_client.call(get_student, id=1).return_value
 # print(f"The new student is {get_new_sudent}")
 # print(f"The global state {globa_state}")
+
+

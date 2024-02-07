@@ -9,54 +9,18 @@ const Works = () => {
         <h1>How it works</h1>
       </div>
 
-      <div className="sm:hidden lg:m-2 ">
-        {/* steps */}
-        <div className="lg:w-[50%] max-w-[1240px] text-[#C7C6CA]  h-8 px-4 mx-auto justify-between items-center flex">
-          <div className="text-base font-semibold ">Step 1</div>
-          <div className="text-base font-semibold ">Step 2</div>
-          <div className="text-base font-semibold ">Step 3</div>
-        </div>
-      </div>
 
-      {/* mobile screen */}
-      <div className="lg:hidden sm:flex sm:flex-col sm:m-2 ">
-        {/* steps */}
-        <div className="lg:hidden bg-[#000] w-[70%] p-10 max-w-[1240px] text-[#C7C6CA] h-[100%] m-10 items-center flex-col flex">
-          <div className="text-3xl font-bold">Step 1</div>
-          <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
-            <img src={wallet} alt="wallet" className="w-[100px]" />
-          </div>
-          <h1 className="w-full text-center text-stone-300 text-3xl font-['Avenir LT Std']">Connect Your Wallet</h1>
-          <p className="w-[300px] text-center text-zinc-400 text-lg font-['Avenir LT Std']">
-            Connecting your wallet automatically makes you a member of the community.
-          </p>
-        </div>
-
-        <div className="lg:hidden bg-[#000] w-[70%] p-10  max-w-[1240px] text-[#C7C6CA] h-[100%] m-10 items-center flex-col flex">
-          <div className="text-3xl font-bold ">Step 2</div>
-          <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
-            <img src={payment} alt="payment" className="w-[100px]" />
-          </div>
-          <h1 className="w-full text-center text-stone-300 text-3xl font-['Avenir LT Std']">Buy Wakanda NFT</h1>
-          <p className="w-[400px] text-center text-zinc-400 text-lg font-['Avenir LT Std']">
-            To have the right to vote for or against proposals, you must possess our WAKANDA NFTs. If you do not have, kindly buy.
-          </p>
-        </div>
-
-        <div className="lg:hidden bg-[#000] w-[70%] p-10  max-w-[1240px] text-[#C7C6CA] h-[100%] m-10 items-center flex-col flex">
-          <div className="text-3xl font-bold ">Step 3</div>
-          <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
-            <img src={blockchain} alt="blockchain" className="w-[100px]" />
-          </div>
-          <h1 className="w-full text-center text-stone-300 text-3xl font-['Avenir LT Std']">Vote</h1>
-          <p className="w-[400px] text-center text-zinc-400 text-lg font-['Avenir LT Std']">
-            You may now vote during proposals. Your voice matters in the community. You are one of us, vote wisely.
-          </p>
+    {/* steps */}
+      <div className="md:m-2 ">
+        <div className="md:w-[50%] md:max-w-[1240px] md:text-[#C7C6CA]  md:h-8 md:px-4 md:mx-auto md:justify-between md:items-center md:flex">
+          <div className="md:text-base md:font-semibold ">Step 1</div>
+          <div className="md:text-base md:font-semibold ">Step 2</div>
+          <div className="md:text-base md:font-semibold ">Step 3</div>
         </div>
       </div>
 
       {/* icons */}
-      <div className="w-[700px] max-w-[1240px] h-24 px-4  mx-auto justify-center items-center flex">
+      <div className="sm:hidden md:w-[700px] md:max-w-[1240px] md:h-24 px-4  md:mx-auto md:justify-center md:items-center md:flex">
         {/* Adjusted padding and width for better spacing */}
         <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 justify-center items-center flex">
           <img src={wallet} alt="wallet" className="w-[100px]" />
@@ -98,6 +62,43 @@ const Works = () => {
               You may now vote during proposals. Your voice matters in the community. You are one of us, vote wisely.
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* mobile screen */}
+      <div className="md:hidden sm:flex sm:flex-col sm:m-2 ">
+        {/* steps */}
+        <div className="md:hidden bg-[#000] p-10 w-[100%] text-[#C7C6CA] h-[100%] m-5 items-center flex-col flex">
+          <div className="text-3xl font-bold">Step 1</div>
+          <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
+            <img src={wallet} alt="wallet" className="w-[100px]" />
+          </div>
+          <h1 className="w-full text-center text-stone-300 text-3xl font-['Avenir LT Std']">Connect Your Wallet</h1>
+          <p className="w-[300px] text-center text-zinc-400 text-lg font-['Avenir LT Std']">
+            Connecting your wallet automatically makes you a member of the community.
+          </p>
+        </div>
+
+        <div className="md:hidden bg-[#000] p-10 w-[100%] text-[#C7C6CA] h-[100%] m-5 items-center flex-col flex">
+          <div className="text-3xl font-bold ">Step 2</div>
+          <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
+            <img src={payment} alt="payment" className="w-[100px]" />
+          </div>
+          <h1 className="w-full text-center text-stone-300 text-3xl font-['Avenir LT Std']">Buy Wakanda NFT</h1>
+          <p className="w-[400px] text-center text-zinc-400 text-lg font-['Avenir LT Std']">
+            To have the right to vote for or against proposals, you must possess our WAKANDA NFTs. If you do not have, kindly buy.
+          </p>
+        </div>
+
+        <div className="md:hidden bg-[#000] p-10 w-[100%] text-[#C7C6CA] h-[100%] m-5 items-center flex-col flex">
+          <div className="text-3xl font-bold ">Step 3</div>
+          <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
+            <img src={blockchain} alt="blockchain" className="w-[100px]" />
+          </div>
+          <h1 className="w-full text-center text-stone-300 text-3xl font-['Avenir LT Std']">Vote</h1>
+          <p className="w-[400px] text-center text-zinc-400 text-lg font-['Avenir LT Std']">
+            You may now vote during proposals. Your voice matters in the community. You are one of us, vote wisely.
+          </p>
         </div>
       </div>
     </div>

@@ -21,14 +21,14 @@ const HomeNav = () => {
 
   return (
     <nav className="flex justify-between items-center bg-[#2F3033] w-[100%] overflow-hidden px-5 py-0 bg-opacity-30 backdrop-blur-[25px] ">
-      <div className="cursor-pointer w-[50%] flex lg:flex-col items-start">
+      <div className="cursor-pointer w-[50%]  mb-10 flex lg:flex-col items-start">
         {/* Brand */}
         <img src={logo} alt="logo" width={'100%'} height={'100px'} />
       </div>
 
       {/* Navbar Navigation */}
       <div
-        className={`lg:flex lg:flex-initial justify-between items-center p-3 w-[100%] ${
+        className={`lg:flex lg:flex-initial justify-between items-center p-3 w-[100%] mb-[30px] ${
           isMobileMenuOpen ? 'flex flex-col' : 'hidden'
         } lg:items-end`}
       >
@@ -77,7 +77,7 @@ const HomeNav = () => {
 
       <a
         href="https://twitter.com/DaoWakanda"
-        className="lg:flex hidden items-center justify-center bg-[#FFF] px-4 py-2 rounded-md text-black hover:bg-gray-400 w-[40%]"
+        className="lg:flex hidden  mb-10  items-center justify-center bg-[#FFF] px-4 py-2 rounded-md text-black hover:bg-gray-400 w-[40%]"
       >
         <img src={twitters} alt="twitter" className="mr-2" width={'20px'} />
         Join Twitter

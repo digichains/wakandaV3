@@ -4,7 +4,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import VotingRadio from './VotingRadios'
 import VoterInfo from './VoterInfo'
 import VoteData from './VoteInfo'
@@ -40,11 +40,11 @@ const ProposalAccordion: React.FC<{
   const { activeAddress, signer } = useWallet()
   const sender = { signer, addr: activeAddress! }
 
-  const yesPercentage = 100 * yes_count / (yes_count + no_count)
-  const noPercentage  = 100 * no_count / (yes_count + no_count)
-  const [noVote, setNoVote] = React.useState(false);
-  const [yesVote, setYesVote] = React.useState(false);
-  const fetchWrapper = useFetchWrapper();
+  const yesPercentage = (100 * yes_count) / (yes_count + no_count)
+  const noPercentage = (100 * no_count) / (yes_count + no_count)
+  const [noVote, setNoVote] = React.useState(false)
+  const [yesVote, setYesVote] = React.useState(false)
+  const fetchWrapper = useFetchWrapper()
 
   const castVote = async (type: boolean) => {
     setYesVote(true)
@@ -53,75 +53,75 @@ const ProposalAccordion: React.FC<{
     toast.loading('Casting vote', { id: 'loader' })
 
     try {
-      const res = type ?
-        await typedClient.voteYes(
-          {
-            proposal_name: name,
-          },
-          {
-            sender,
-            boxes: [
-              {
-                appId: Number(app_id),
-                name,
-              }
-            ]
-          }
-        ) :
-        await typedClient.voteNo(
-          {
-            proposal_name: name,
-          },
-          {
-            sender,
-            boxes: [
-              {
-                appId: Number(app_id),
-                name,
-              }
-            ],
-          }
-        );
+      const res = type
+        ? await typedClient.voteYes(
+            {
+              proposal_name: name,
+            },
+            {
+              sender,
+              boxes: [
+                {
+                  appId: Number(app_id),
+                  name,
+                },
+              ],
+            },
+          )
+        : await typedClient.voteNo(
+            {
+              proposal_name: name,
+            },
+            {
+              sender,
+              boxes: [
+                {
+                  appId: Number(app_id),
+                  name,
+                },
+              ],
+            },
+          )
 
-      toast.dismiss('loader');
-      toast.success('Your vote was recorded successfully');
+      toast.dismiss('loader')
+      toast.success('Your vote was recorded successfully')
 
-      console.log(res.return);
+      console.log(res.return)
 
       if (type) {
-        setNoVote(false);
+        setNoVote(false)
       } else {
-        setYesVote(false);
+        setYesVote(false)
       }
 
-      viewProposalDetails();
+      viewProposalDetails()
     } catch (error) {
       console.error(error)
       toast.dismiss('loader')
       toast.error((error as any)?.message)
-      setYesVote(false);
-      setNoVote(false);
+      setYesVote(false)
+      setNoVote(false)
     }
-  };
+  }
 
   const viewProposalDetails = async () => {
-    toast.loading('Loading updated proposal details', { id: 'loader' });
+    toast.loading('Loading updated proposal details', { id: 'loader' })
 
     try {
       const res = await typedClient.readProposal(
         { name },
         {
           sender,
-            boxes: [
-              {
-                appId: Number(app_id),
-                name,
-              }
-            ]
-        }
-      );
+          boxes: [
+            {
+              appId: Number(app_id),
+              name,
+            },
+          ],
+        },
+      )
 
-      toast.dismiss('loader');
+      toast.dismiss('loader')
 
       if (res.return?.end_time) {
         updateProposalDetails({
@@ -129,29 +129,51 @@ const ProposalAccordion: React.FC<{
           yes_count: Number(res.return.yes_count),
           name,
           end_time,
-        });
+        })
       }
     } catch (error) {
       console.error(error)
       toast.dismiss('loader')
       toast.error((error as any)?.message)
     }
-  };
+  }
 
   const updateProposalDetails = async (payload: any) => {
-    toast.loading('Updating proposal details', { id: 'loader' });
+    toast.loading('Updating proposal details', { id: 'loader' })
 
-    const response = await fetchWrapper.put(`${API_URL}/api/v1/proposals/proposal/${id}/`, payload);
+    const response = await fetchWrapper.put(`${API_URL}/api/v1/proposals/proposal/${id}/`, payload)
 
-    toast.dismiss('loader');
+    toast.dismiss('loader')
 
     if (response && Object.keys(response).includes('error')) {
-      toast.error(response.error?.toString());
+      toast.error(response.error?.toString())
     } else {
-      toast.success('Proposal details updated successfully');
-      refresh();
+      toast.success('Proposal details updated successfully')
+      refresh()
+    }
+  }
+
+  const deleteProposal = async () => {
+    toast.loading('Deleting proposal', { id: 'loader' });
+
+    try {
+      const response = await fetchWrapper.delete(`${API_URL}/api/v1/proposals/proposal/${id}/`);
+      toast.dismiss('loader');
+
+      if (response && Object.keys(response).includes('error')) {
+        toast.error(response.error?.toString());
+      } else {
+        toast.success('Proposal deleted successfully');
+        refresh();
+      }
+    } catch (error) {
+      // Handle any errors that occur during the delete operation
+      console.error(error);
+      toast.dismiss('loader');
+      toast.error((error as any)?.message);
     }
   };
+
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -195,28 +217,56 @@ const ProposalAccordion: React.FC<{
               />
             </Box>
             <Box display={'flex'} justifyContent={'space-between'} width={'100%'} mt={2}>
-              <Typography color={'#fff'} padding={1} bgcolor={'#292f28'} borderRadius={5} width={'20%'} textAlign={'center'}>
+              <Typography color={'#fff'} padding={2} bgcolor={'#292f28'} borderRadius={4} width={'20%'} textAlign={'center'}>
                 No Voting Power
               </Typography>
-              <Box display={'flex'} justifyContent={'space-between'} width={'50%'}>
-                <Typography color={'#fff'} padding={1} bgcolor={'blue'} borderRadius={5} width={'fit-content'} textAlign={'center'}>
+              <Box display={'flex'} justifyContent={'space-between'} width={'60%'}>
+                <Typography
+                  color={'#fff'}
+                  padding={2}
+                  bgcolor={'blue'}
+                  borderRadius={5}
+                  width={'fit-content'}
+                  textAlign={'center'}
+                  marginRight={1}
+                >
                   Tag #{app_id}
                 </Typography>
-                <Typography color={'#fff'} padding={1} bgcolor={'#c23d34'} borderRadius={5} width={'20%'} textAlign={'center'}>
-                  {is_open  ? 'Active' : 'Inactive' }
+                <Typography
+                  color={'#fff'}
+                  padding={2}
+                  bgcolor={'#c23d34'}
+                  borderRadius={5}
+                  width={'30%'}
+                  textAlign={'center'}
+                  marginRight={1}
+                >
+                  {is_open ? 'Active' : 'Inactive'}
                 </Typography>
 
                 <Typography
-                  color={'#fff'}
-                  padding={1}
+                  color={'#CAFFBB'}
+                  padding={2}
                   bgcolor={'#555'}
                   borderRadius={5}
-                  width={'50%'}
+                  width={'40%'}
                   textAlign={'center'}
                   fontWeight={'bold'}
+                  marginRight={1}
                 >
                   {/* Voting ends in: {votingEndsIn.days} days {votingEndsIn.hours}h {votingEndsIn.minutes}m {votingEndsIn.seconds}s */}
-                  Voting ends in: {(new Date(end_time)).toLocaleString()}
+                  Voting ends in: {new Date(end_time).toLocaleString()}
+                </Typography>
+                <Typography
+                  color={'Red'}
+                  paddingTop={3}
+                  bgcolor={'#fff'}
+                  borderRadius={5}
+                  width={'30%'}
+                  textAlign={'center'}
+                  marginRight={1}
+                >
+                  <button onClick={deleteProposal}>Delete</button>
                 </Typography>
               </Box>
             </Box>

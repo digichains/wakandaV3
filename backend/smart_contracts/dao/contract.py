@@ -4,7 +4,7 @@ from beaker.lib.storage import BoxMapping, BoxList
 from pyteal import *
 
 SECONDS_PER_DAY = Int(86400)
-WAKANDA_NFT_ASSET_ID = Int(573069487)
+WAKANDA_NFT_ASSET_ID = Int(591099355)
 
 class Proposal(abi.NamedTuple):
     name: abi.Field[abi.String]

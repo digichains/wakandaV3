@@ -18,44 +18,46 @@ import toast from 'react-hot-toast'
 import { useFetchWrapper } from '../hooks'
 import { API_URL } from '../constants/apiUrl'
 import { IProposal } from '../interfaces/proposal'
+import Hidden from '@mui/material/Hidden'
+import HelpCenterIcon from '@mui/icons-material/HelpCenter'
 
 const Stake: React.FC = () => {
   const menuItems: string[] = ['All', 'Projects', 'Users', 'Time', 'Action']
   const [open, setOpen] = useState<boolean>(false)
-  const [proposals, setProposals] = useState<IProposal[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [proposals, setProposals] = useState<IProposal[]>([])
+  const [searchTerm, setSearchTerm] = useState('')
   const toggleModal = () => setOpen(!open)
   const algodConfig = getAlgodConfigFromViteEnvironment()
-  const fetchWrapper = useFetchWrapper();
+  const fetchWrapper = useFetchWrapper()
 
   const fetchAllProposals = async () => {
-    toast.loading('Loading proposals', { id: 'loader' });
+    toast.loading('Loading proposals', { id: 'loader' })
 
-    const response = await fetchWrapper.get(`${API_URL}/api/v1/proposals/proposal`);
+    const response = await fetchWrapper.get(`${API_URL}/api/v1/proposals/proposal`)
 
-    toast.dismiss('loader');
+    toast.dismiss('loader')
 
     if (response && Object.keys(response).includes('error')) {
-      toast.error('Error loading proposals');
-      return;
+      toast.error('Error loading proposals')
+      return
     } else {
-      setProposals(response);
+      setProposals(response)
     }
-  };
+  }
 
   const filterProposals = () => {
     if (searchTerm) {
-      return proposals.filter((proposal) => proposal.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      return proposals.filter((proposal) => proposal.name.toLowerCase().includes(searchTerm.toLowerCase()))
     }
 
-    return proposals;
+    return proposals
   }
 
   const algodClient = algokit.getAlgoClient({
     server: algodConfig.server,
     port: algodConfig.port,
     token: algodConfig.token,
-  });
+  })
 
   const typedClient = new ProposalsClient(
     {
@@ -63,35 +65,35 @@ const Stake: React.FC = () => {
       id: APP_ID,
     },
     algodClient,
-  );
+  )
 
   useEffect(() => {
-    fetchAllProposals();
-  }, [open]);
+    fetchAllProposals()
+  }, [open])
 
   return (
-    <Box bgcolor={'#1a2118'}>
+    <Box bgcolor={'#000'}>
       <Box width={'100%'} margin={'auto'} display={'flex'} justifyContent={'space-between'} padding={2.5} paddingBottom={0}>
         <Typography variant="h5" color={'#fff'}>
-          Vote - Participate in decision making
+          DAO - Participate in decision making
         </Typography>
       </Box>
       <Box padding={2.5} paddingTop={1}>
         <Divider sx={{ bgcolor: '#fff' }} />
       </Box>
-      <Box padding={2.5} display={'flex'} justifyContent={'space-between'}>
+      {/* <Box padding={2.5} display={'flex'} justifyContent={'space-between'}>
         <StakeInfoCard title={'Your Reward | Claimed '} secondRowValue={'0 WKD NFT'} thirdRowValue={'0 USD'} />
 
         <StakeInfoCard title={'Your voting power'} secondRowValue={'10%'} thirdRowValue={'----'} />
-      </Box>
+      </Box> */}
 
-      <Box p={2.5} pt={0}>
+      {/* <Box p={2.5} pt={0}>
         <Typography fontStyle={'italic'} color={'#999'}>
           Note: Voting on DAO WAKANDA is only available on Algorand chain.
         </Typography>
-      </Box>
+      </Box> */}
 
-      <Box p={2.5} mt={5} pb={0}>
+      <Box p={2} mt={4} pb={0}>
         <Typography color={'#fff'} variant="h5">
           DAO Wakanda is a decentralized autonomous organization, to revolutionize community engagement and participation within Algorand
           Nigeria. This platform has been designed to create a vibrant ecosystem where contributors and developers are incentivized and
@@ -103,22 +105,35 @@ const Stake: React.FC = () => {
           <Typography variant="h5">Proposals</Typography>
         </Box>
         <Box display={'flex'} justifyContent={'space-between'} flex={1}>
-          <Link href={'#'}>
+          <Hidden smDown>
+            {/* This Link will be hidden on smaller devices */}
+            <Link href={'#'} sx={{ mb: 1 }}>
+              <Typography color="#fff">
+                <HistoryIcon
+                  style={{
+                    width: '20px',
+                    marginRight: '5px',
+                  }}
+                />
+                History
+              </Typography>
+            </Link>
+          </Hidden>
+          <Link href={'#'} sx={{ mb: 1 }}>
             <Typography color="#fff">
-              <HistoryIcon /> History
+              <ForumOutlinedIcon sx={{ width: '20px' }} /> Forum
             </Typography>
           </Link>
-          <Link href={'#'}>
+          <Link href={'#'} sx={{ mb: 1 }}>
             <Typography color="#fff">
-              <ForumOutlinedIcon /> Forum
+              <LiveHelpIcon
+                style={{
+                  width: '20px',
+                }}
+              />
+              FAQ
             </Typography>
           </Link>
-          <Link href={'#'}>
-            <Typography color="#fff">
-              <LiveHelpIcon /> FAQ
-            </Typography>
-          </Link>
-
           <Button
             style={{
               textTransform: 'capitalize',
@@ -130,10 +145,18 @@ const Stake: React.FC = () => {
             }}
             onClick={toggleModal}
           >
+            <HelpCenterIcon
+              style={{
+                backgroundColor: '#fff',
+                width: '15px',
+                marginRight: '5px',
+              }}
+            />
             Create Proposal
           </Button>
         </Box>
       </Box>
+
       <Box p={2.5} pt={0}>
         <Divider sx={{ bgcolor: '#999' }} />
       </Box>
@@ -163,12 +186,7 @@ const Stake: React.FC = () => {
       <Box padding={2.5} gap={2} display={'flex'} flexDirection={'column'}>
         {/* <ProposalAccordion title={'Algorand Hackathon Event in Abuja'} /> */}
         {filterProposals().map((proposal) => (
-          <ProposalAccordion 
-            proposal={proposal} 
-            key={proposal.id} 
-            typedClient={typedClient} 
-            refresh={fetchAllProposals}
-          />
+          <ProposalAccordion proposal={proposal} key={proposal.id} typedClient={typedClient} refresh={fetchAllProposals} />
         ))}
       </Box>
       <ProposalModal toggle={toggleModal} open={open} typedClient={typedClient} />

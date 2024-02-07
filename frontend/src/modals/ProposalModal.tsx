@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as algokit from '@algorandfoundation/algokit-utils'
-import { TextField } from '@mui/material'
+import { FormLabel, TextField } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
@@ -25,11 +25,12 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 700,
-  bgcolor: '#999',
+  bgcolor: '#4D4D4D',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
   borderRadius: 5,
+  height: '100%',
 }
 
 const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient }) => {
@@ -38,7 +39,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
   const [endTime, setEndTime] = useState(0)
   const [endTimeString, setEndTimeString] = useState('')
   const [loading, setLoading] = useState(false)
-  const fetchWrapper = useFetchWrapper();
+  const fetchWrapper = useFetchWrapper()
 
   const { activeAddress, signer } = useWallet()
   const sender = { signer, addr: activeAddress! }
@@ -83,7 +84,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
 
       if (response?.transaction) {
         toast.success('The Proposal was created successfully')
-        uploadProposal(Number(appId));
+        uploadProposal(Number(appId))
       }
     } catch (error) {
       console.error(error)
@@ -98,24 +99,24 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
   }
 
   async function uploadProposal(appId: number) {
-    toast.loading('Uploading Proposal', { id: 'loader' });
+    toast.loading('Uploading Proposal', { id: 'loader' })
 
     const response: any = await fetchWrapper.post(`${API_URL}/api/v1/proposals/proposal/`, {
       name,
       description,
       end_time: endTimeString,
       app_id: appId,
-    });
+    })
 
-    toast.dismiss('loader');
+    toast.dismiss('loader')
 
-    console.log(response);
+    console.log(response)
 
     if (response.error) {
-      toast.error(response.error?.toString());
+      toast.error(response.error?.toString())
     } else {
-      toast.success('Proposal uploaded successfully');
-      toggle();
+      toast.success('Proposal uploaded successfully')
+      toggle()
     }
   }
 
@@ -124,31 +125,40 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
       <Modal open={open} onClose={toggle} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Box display={'flex'} flexDirection={'column'}>
-            <Typography variant={'h5'} fontWeight={'bold'} sx={{ color: '#fff' }}>
+            <Typography
+              variant={'h5'}
+              fontWeight={'bold'}
+              sx={{
+                color: '#fff',
+                marginBottom: '2rem',
+                display: 'flex',
+                justifyContent: 'center'
+               }}
+            >
               Create Proposal
             </Typography>
+            <FormLabel component="legend">Proposal Title</FormLabel>
             <TextField
               value={name}
               onChange={(e) => setName(e.target.value)}
               id="outlined-basic"
-              label="Proposal title"
               variant="outlined"
               placeholder="Enter Proposal Title..."
               sx={{
                 input: { color: '#fff', borderColor: 'white' },
-                mt: 2,
+                mt: 1,
+                mb: 3,
                 border: 0,
               }}
             />
-
+            <FormLabel component="legend">Proposal Description</FormLabel>
             <TextField
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               id="outlined-basic"
-              label="Proposal Description"
               variant="outlined"
               placeholder="Say something about the proposal..."
-              sx={{ input: { color: '#fff', borderColor: 'white' }, mt: 2 }}
+              sx={{ input: { color: '#fff', borderColor: 'white' }, mt: 1, mb: 3 }}
               rows={4}
               //   multiline
             />
@@ -159,6 +169,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
               sx={{ input: { color: '#fff', borderColor: 'white' }, mt: 2 }}
             /> */}
 
+            <FormLabel component="legend">Set Date and Time</FormLabel>
             <TextField
               value={endTimeString}
               onChange={(e) => {
@@ -172,7 +183,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
               type="datetime-local"
               id="outlined-basic"
               variant="outlined"
-              sx={{ input: { color: '#fff', borderColor: 'white' }, mt: 2 }}
+              sx={{ input: { color: '#fff', borderColor: 'white' }, mt: 1, mb: 7 }}
               inputProps={{ style: { borderColor: 'red !important' } }}
             />
 

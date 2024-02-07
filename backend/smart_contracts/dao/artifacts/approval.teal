@@ -1,5 +1,5 @@
 #pragma version 8
-intcblock 0 1 573069487 29 65536
+intcblock 0 1 591099355 29 65536
 bytecblock 0x 0x00
 txn NumAppArgs
 intc_0 // 0
@@ -116,7 +116,7 @@ dupn 3
 bytec_0 // ""
 dup
 txn Sender
-intc_2 // 573069487
+intc_2 // 591099355
 asset_holding_get AssetBalance
 store 1
 store 0
@@ -220,7 +220,7 @@ dupn 3
 bytec_0 // ""
 dup
 txn Sender
-intc_2 // 573069487
+intc_2 // 591099355
 asset_holding_get AssetBalance
 store 5
 store 4
@@ -338,7 +338,7 @@ dupn 3
 bytec_0 // ""
 dup
 txn Sender
-intc_2 // 573069487
+intc_2 // 591099355
 asset_holding_get AssetBalance
 store 9
 store 8
@@ -447,7 +447,7 @@ retsub
 deleteproposal_5:
 proto 1 0
 txn Sender
-intc_2 // 573069487
+intc_2 // 591099355
 asset_holding_get AssetBalance
 store 13
 store 12
