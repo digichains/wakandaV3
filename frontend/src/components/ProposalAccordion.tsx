@@ -14,6 +14,7 @@ import toast from 'react-hot-toast'
 import { useWallet } from '@txnlab/use-wallet'
 import { useFetchWrapper } from '../hooks'
 import { API_URL } from '../constants/apiUrl'
+import { ASA_ID } from '../constants/AppID'
 
 interface VotingEndsIn {
   days: number
@@ -53,35 +54,37 @@ const ProposalAccordion: React.FC<{
     toast.loading('Casting vote', { id: 'loader' })
 
     try {
-      const res = type
-        ? await typedClient.voteYes(
-            {
-              proposal_name: name,
-            },
-            {
-              sender,
-              boxes: [
-                {
-                  appId: Number(app_id),
-                  name,
-                },
-              ],
-            },
-          )
-        : await typedClient.voteNo(
-            {
-              proposal_name: name,
-            },
-            {
-              sender,
-              boxes: [
-                {
-                  appId: Number(app_id),
-                  name,
-                },
-              ],
-            },
-          )
+      const res = type ?
+        await typedClient.voteYes(
+          {
+            proposal_name: name,
+            membership_token: ASA_ID,
+          },
+          {
+            sender,
+            boxes: [
+              {
+                appId: Number(app_id),
+                name,
+              }
+            ]
+          }
+        ) :
+        await typedClient.voteNo(
+          {
+            proposal_name: name,
+            membership_token: ASA_ID,
+          },
+          {
+            sender,
+            boxes: [
+              {
+                appId: Number(app_id),
+                name,
+              }
+            ],
+          }
+        );
 
       toast.dismiss('loader')
       toast.success('Your vote was recorded successfully')

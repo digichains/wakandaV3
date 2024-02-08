@@ -15,6 +15,10 @@
                 {
                     "type": "uint64",
                     "name": "end_time"
+                },
+                {
+                    "type": "asset",
+                    "name": "membership_token"
                 }
             ],
             "returns": {
@@ -39,6 +43,10 @@
                 {
                     "type": "string",
                     "name": "proposal_name"
+                },
+                {
+                    "type": "asset",
+                    "name": "membership_token"
                 }
             ],
             "returns": {
@@ -51,6 +59,10 @@
                 {
                     "type": "string",
                     "name": "proposal_name"
+                },
+                {
+                    "type": "asset",
+                    "name": "membership_token"
                 }
             ],
             "returns": {
@@ -63,6 +75,10 @@
                 {
                     "type": "string",
                     "name": "proposal_name"
+                },
+                {
+                    "type": "asset",
+                    "name": "membership_token"
                 }
             ],
             "returns": {

@@ -22,6 +22,11 @@ class Proposal(abi.NamedTuple):
 
 class AppState:
     proposals = BoxMapping(abi.String, Proposal)
+    membership_token = GlobalStateValue(
+        TealType.uint64,
+        static=True,
+        descr="The asset that represents membership in the DAO",
+    )
 
     def __init__(self, *, max_members: int):
         # Math for determining min balance based on expected size of boxes
@@ -30,6 +35,7 @@ class AppState:
             + (BOX_FLAT_MIN_BALANCE + (abi.size_of(abi.Address) * BOX_BYTE_MIN_BALANCE))
             * max_members  # cover min bal for member record boxes we might create
         )
+        self.membership_token = Int(591099355);
 
 
 app = Application("proposals", state=AppState(max_members=2000)).apply(
@@ -37,9 +43,10 @@ app = Application("proposals", state=AppState(max_members=2000)).apply(
 )
 
 
-@app.external(authorize=Authorize.holds_token(WAKANDA_NFT_ASSET_ID))
+@app.external(authorize=Authorize.holds_token(app.state.membership_token))
 def add_proposal(
-    name: abi.String, description: abi.String, end_time: abi.Uint64
+    name: abi.String, description: abi.String, end_time: abi.Uint64,
+    membership_token: abi.Asset = app.state.membership_token,
 ) -> Expr:
     is_open = abi.Bool()
     proposal_obj = Proposal()
@@ -59,8 +66,8 @@ def read_proposal(name: abi.String, *, output: Proposal) -> Expr:
     return app.state.proposals[name.get()].store_into(output)
 
 
-@app.external(authorize=Authorize.holds_token(WAKANDA_NFT_ASSET_ID))
-def vote_yes(proposal_name: abi.String) -> Expr:
+@app.external(authorize=Authorize.holds_token(app.state.membership_token))
+def vote_yes(proposal_name: abi.String, membership_token: abi.Asset = app.state.membership_token,) -> Expr:
     yes = abi.Uint64()
 
     return Seq(
@@ -78,9 +85,10 @@ def vote_yes(proposal_name: abi.String) -> Expr:
     )
 
 
-@app.external(authorize=Authorize.holds_token(WAKANDA_NFT_ASSET_ID))
+@app.external(authorize=Authorize.holds_token(app.state.membership_token))
 def vote_no(
     proposal_name: abi.String,
+    membership_token: abi.Asset = app.state.membership_token,
 ) -> Expr:
     no = abi.Uint64()
 
@@ -99,8 +107,8 @@ def vote_no(
     )
 
 
-@app.external(authorize=Authorize.holds_token(WAKANDA_NFT_ASSET_ID))
-def delete_proposal(proposal_name: abi.String) -> Expr:
+@app.external(authorize=Authorize.holds_token(app.state.membership_token))
+def delete_proposal(proposal_name: abi.String, membership_token: abi.Asset = app.state.membership_token,) -> Expr:
     return Pop(app.state.proposals[proposal_name.get()].delete())
 
 
