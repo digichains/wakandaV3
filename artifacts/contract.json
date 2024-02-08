@@ -56,35 +56,6 @@
             "returns": {
                 "type": "void"
             }
-        },
-        {
-            "name": "delete_proposal",
-            "args": [
-                {
-                    "type": "string",
-                    "name": "proposal_name"
-                }
-            ],
-            "returns": {
-                "type": "void"
-            }
-        },
-        {
-            "name": "generate_membership_token",
-            "args": [
-                {
-                    "type": "pay",
-                    "name": "seed"
-                },
-                {
-                    "type": "string",
-                    "name": "token_name"
-                }
-            ],
-            "returns": {
-                "type": "uint64"
-            },
-            "desc": "create membership token and receive initial seed payment"
         }
     ],
     "networks": {}

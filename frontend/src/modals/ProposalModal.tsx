@@ -24,13 +24,20 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 700,
+  width: '90%',
+  maxWidth: 700,
   bgcolor: '#4D4D4D',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
   borderRadius: 5,
-  height: '100%',
+  height: 'auto',
+
+  // Media query for smaller screens (up to 600px)
+  '@media (max-width: 600px)': {
+    width: '90%',
+    maxWidth: '90%',
+  },
 }
 
 const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient }) => {
@@ -132,8 +139,8 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
                 color: '#fff',
                 marginBottom: '2rem',
                 display: 'flex',
-                justifyContent: 'center'
-               }}
+                justifyContent: 'center',
+              }}
             >
               Create Proposal
             </Typography>

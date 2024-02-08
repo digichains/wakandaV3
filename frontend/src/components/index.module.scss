@@ -1,18 +1,54 @@
 .modal {
   position: fixed;
   left: 25em;
-  top: 5rem;
-  width: 50vw;
-  height: 70vh;
+  top: 1rem;
+  width: 40vw;
+  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: #46464A;
   border-radius: 1rem;
+  color: white;
+}
 
-  .trust {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
+.modal .trust {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal .individual {
+  margin-bottom: 1rem;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.modal .individual:hover {
+  border-radius: 10px; /* Increase border radius on hover */
+  background-color: #E8DACC; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+}
+
+.modal .icons {
+  margin-top: 2rem;
+  margin-right: 20px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.modal .names {
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 600px) {
+  .modal {
+    width: 80vw;
+    height: 80vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 }

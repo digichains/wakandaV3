@@ -153,28 +153,6 @@ const ProposalAccordion: React.FC<{
     }
   }
 
-  const deleteProposal = async () => {
-    toast.loading('Deleting proposal', { id: 'loader' });
-
-    try {
-      const response = await fetchWrapper.delete(`${API_URL}/api/v1/proposals/proposal/${id}/`);
-      toast.dismiss('loader');
-
-      if (response && Object.keys(response).includes('error')) {
-        toast.error(response.error?.toString());
-      } else {
-        toast.success('Proposal deleted successfully');
-        refresh();
-      }
-    } catch (error) {
-      // Handle any errors that occur during the delete operation
-      console.error(error);
-      toast.dismiss('loader');
-      toast.error((error as any)?.message);
-    }
-  };
-
-
   React.useEffect(() => {
     const interval = setInterval(() => {
       // Update the countdown every second
@@ -265,9 +243,7 @@ const ProposalAccordion: React.FC<{
                   width={'30%'}
                   textAlign={'center'}
                   marginRight={1}
-                >
-                  <button onClick={deleteProposal}>Delete</button>
-                </Typography>
+                ></Typography>
               </Box>
             </Box>
           </Box>

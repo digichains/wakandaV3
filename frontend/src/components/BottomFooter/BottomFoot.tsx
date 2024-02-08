@@ -1,11 +1,11 @@
-import { FaGithub } from 'react-icons/fa'
-import { RiTwitterXLine } from 'react-icons/ri'
+import { FaGithub } from 'react-icons/fa';
+import { RiTwitterXLine } from 'react-icons/ri';
 
 const BottomFoot = () => {
   return (
-    <div className="flex justify-between items-center bg-[#000] pl-[50px] pr-[200px] py-[50px] gap-1">
-      <div className="flex flex-col">
-        <h1 className="mb-10 font-bold">DaoWakanda Communities</h1>
+    <div className="flex flex-col bg-[#000] pl-[20px] pr-[20px] py-[50px] gap-4 md:flex-row md:justify-between md:pl-[50px] md:pr-[10px] md:items-start">
+      <div className="flex flex-col md:w-1/4">
+        <h1 className="mb-5 font-bold">DaoWakanda Communities</h1>
         <a href="https://twitter.com/DaoWakanda" target="_blank" rel="noopener noreferrer">
           <div className="flex font-sm text-[#ABABAF]">
             <RiTwitterXLine className="mr-5" /> Twitter
@@ -28,8 +28,8 @@ const BottomFoot = () => {
         </a>
       </div>
 
-      <div className="flex flex-col">
-        <h1 className="mb-10 font-extrabold">Useful Links</h1>
+      <div className="flex flex-col md:w-1/4">
+        <h1 className="mb-5 font-extrabold">Useful Links</h1>
         <div className="font-sm text-[#ABABAF]">
           <p>Governance</p>
           <p>DAO Voting</p>
@@ -38,8 +38,8 @@ const BottomFoot = () => {
         </div>
       </div>
 
-      <div className="flex flex-col">
-        <h1 className="mb-10 font-extrabold"> About Us</h1>
+      <div className="flex flex-col md:w-1/4">
+        <h1 className="mb-5 font-extrabold"> About Us</h1>
         <div className="font-sm text-[#ABABAF]">
           <p>FAQs</p>
           <p>Help Center </p>
@@ -48,7 +48,7 @@ const BottomFoot = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BottomFoot
+export default BottomFoot;

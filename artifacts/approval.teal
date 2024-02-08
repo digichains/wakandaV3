@@ -1,35 +1,51 @@
 #pragma version 8
-intcblock 0 1 591099355 29 65536
-bytecblock 0x 0x00 0x151f7c75
+intcblock 0 1 29 65536
+bytecblock 0x 0x00
 txn NumAppArgs
 intc_0 // 0
 ==
-bnz main_l14
+bnz main_l10
 txna ApplicationArgs 0
 pushbytes 0x7ce12c02 // "add_proposal(string,string,uint64)void"
 ==
-bnz main_l13
+bnz main_l9
 txna ApplicationArgs 0
 pushbytes 0xd778ad25 // "read_proposal(string)(string,string,bool,uint64,uint64,uint64)"
 ==
-bnz main_l12
+bnz main_l8
 txna ApplicationArgs 0
 pushbytes 0x44d07395 // "vote_yes(string)void"
 ==
-bnz main_l11
+bnz main_l7
 txna ApplicationArgs 0
 pushbytes 0x0e187034 // "vote_no(string)void"
 ==
-bnz main_l10
-txna ApplicationArgs 0
-pushbytes 0x89cb8a9a // "delete_proposal(string)void"
-==
-bnz main_l9
-txna ApplicationArgs 0
-pushbytes 0x07f9598d // "generate_membership_token(pay,string)uint64"
-==
-bnz main_l8
+bnz main_l6
 err
+main_l6:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub votenocaster_8
+intc_1 // 1
+return
+main_l7:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub voteyescaster_7
+intc_1 // 1
+return
 main_l8:
 txn OnCompletion
 intc_0 // NoOp
@@ -39,7 +55,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub generatemembershiptokencaster_12
+callsub readproposalcaster_6
 intc_1 // 1
 return
 main_l9:
@@ -51,64 +67,16 @@ intc_0 // 0
 !=
 &&
 assert
-callsub deleteproposalcaster_11
+callsub addproposalcaster_5
 intc_1 // 1
 return
 main_l10:
 txn OnCompletion
 intc_0 // NoOp
 ==
-txn ApplicationID
-intc_0 // 0
-!=
-&&
-assert
-callsub votenocaster_10
-intc_1 // 1
-return
-main_l11:
-txn OnCompletion
-intc_0 // NoOp
-==
-txn ApplicationID
-intc_0 // 0
-!=
-&&
-assert
-callsub voteyescaster_9
-intc_1 // 1
-return
-main_l12:
-txn OnCompletion
-intc_0 // NoOp
-==
-txn ApplicationID
-intc_0 // 0
-!=
-&&
-assert
-callsub readproposalcaster_8
-intc_1 // 1
-return
-main_l13:
-txn OnCompletion
-intc_0 // NoOp
-==
-txn ApplicationID
-intc_0 // 0
-!=
-&&
-assert
-callsub addproposalcaster_7
-intc_1 // 1
-return
-main_l14:
-txn OnCompletion
-intc_0 // NoOp
-==
-bnz main_l16
+bnz main_l12
 err
-main_l16:
+main_l12:
 txn ApplicationID
 intc_0 // 0
 ==
@@ -120,6 +88,9 @@ return
 // create
 create_0:
 proto 0 0
+pushbytes 0x6d656d626572736869705f746f6b656e // "membership_token"
+pushbytes 0x31323338363133353536 // "1238613556"
+app_global_put
 retsub
 
 // add_proposal
@@ -131,18 +102,6 @@ intc_0 // 0
 dupn 3
 bytec_0 // ""
 dup
-txn Sender
-intc_2 // 591099355
-asset_holding_get AssetBalance
-store 1
-store 0
-load 1
-load 0
-intc_0 // 0
->
-&&
-// unauthorized
-assert
 intc_1 // 1
 !
 !
@@ -155,7 +114,7 @@ frame_dig -3
 frame_bury 7
 frame_dig 7
 frame_bury 6
-intc_3 // 29
+intc_2 // 29
 frame_bury 4
 frame_dig 4
 frame_dig 7
@@ -163,7 +122,7 @@ len
 +
 frame_bury 5
 frame_dig 5
-intc 4 // 65536
+intc_3 // 65536
 <
 assert
 frame_dig 4
@@ -215,11 +174,11 @@ bytec_0 // ""
 frame_dig -1
 extract 2 0
 box_get
-store 3
-store 2
-load 3
+store 1
+store 0
+load 1
 assert
-load 2
+load 0
 frame_bury 0
 retsub
 
@@ -235,26 +194,14 @@ intc_0 // 0
 dupn 3
 bytec_0 // ""
 dup
-txn Sender
-intc_2 // 591099355
-asset_holding_get AssetBalance
-store 5
-store 4
-load 5
-load 4
-intc_0 // 0
->
-&&
-// unauthorized
-assert
 frame_dig -1
 extract 2 0
 box_get
-store 7
-store 6
-load 7
+store 3
+store 2
+load 3
 assert
-load 6
+load 2
 frame_bury 1
 frame_dig 1
 pushint 13 // 13
@@ -288,7 +235,7 @@ frame_dig -1
 frame_bury 10
 frame_dig 10
 frame_bury 9
-intc_3 // 29
+intc_2 // 29
 frame_bury 7
 frame_dig 7
 frame_dig 10
@@ -296,7 +243,7 @@ len
 +
 frame_bury 8
 frame_dig 8
-intc 4 // 65536
+intc_3 // 65536
 <
 assert
 frame_dig 7
@@ -353,26 +300,14 @@ intc_0 // 0
 dupn 3
 bytec_0 // ""
 dup
-txn Sender
-intc_2 // 591099355
-asset_holding_get AssetBalance
-store 9
-store 8
-load 9
-load 8
-intc_0 // 0
->
-&&
-// unauthorized
-assert
 frame_dig -1
 extract 2 0
 box_get
-store 11
-store 10
-load 11
+store 5
+store 4
+load 5
 assert
-load 10
+load 4
 frame_bury 1
 frame_dig 1
 pushint 21 // 21
@@ -406,7 +341,7 @@ frame_dig -1
 frame_bury 10
 frame_dig 10
 frame_bury 9
-intc_3 // 29
+intc_2 // 29
 frame_bury 7
 frame_dig 7
 frame_dig 10
@@ -414,7 +349,7 @@ len
 +
 frame_bury 8
 frame_dig 8
-intc 4 // 65536
+intc_3 // 65536
 <
 assert
 frame_dig 7
@@ -459,73 +394,8 @@ frame_dig 1
 box_put
 retsub
 
-// delete_proposal
-deleteproposal_5:
-proto 1 0
-txn Sender
-intc_2 // 591099355
-asset_holding_get AssetBalance
-store 13
-store 12
-load 13
-load 12
-intc_0 // 0
->
-&&
-// unauthorized
-assert
-frame_dig -1
-extract 2 0
-box_del
-pop
-retsub
-
-// generate_membership_token
-generatemembershiptoken_6:
-proto 2 1
-intc_0 // 0
-txn Sender
-global CreatorAddress
-==
-// unauthorized
-assert
-frame_dig -2
-gtxns Receiver
-global CurrentApplicationAddress
-==
-// payment must be to app address
-assert
-frame_dig -2
-gtxns Amount
-pushint 30700000 // 30700000
->=
-// payment must be for >= 30700000
-assert
-itxn_begin
-pushint 3 // acfg
-itxn_field TypeEnum
-frame_dig -1
-extract 2 0
-itxn_field ConfigAssetName
-pushint 2000 // 2000
-itxn_field ConfigAssetTotal
-intc_1 // 1
-itxn_field ConfigAssetDefaultFrozen
-global CurrentApplicationAddress
-itxn_field ConfigAssetManager
-global CurrentApplicationAddress
-itxn_field ConfigAssetClawback
-global CurrentApplicationAddress
-itxn_field ConfigAssetFreeze
-global CurrentApplicationAddress
-itxn_field ConfigAssetReserve
-intc_0 // 0
-itxn_field Fee
-itxn_submit
-retsub
-
 // add_proposal_caster
-addproposalcaster_7:
+addproposalcaster_5:
 proto 0 0
 bytec_0 // ""
 dup
@@ -544,7 +414,7 @@ callsub addproposal_1
 retsub
 
 // read_proposal_caster
-readproposalcaster_8:
+readproposalcaster_6:
 proto 0 0
 bytec_0 // ""
 dup
@@ -553,14 +423,14 @@ frame_bury 1
 frame_dig 1
 callsub readproposal_2
 frame_bury 0
-bytec_2 // 0x151f7c75
+pushbytes 0x151f7c75 // 0x151f7c75
 frame_dig 0
 concat
 log
 retsub
 
 // vote_yes_caster
-voteyescaster_9:
+voteyescaster_7:
 proto 0 0
 bytec_0 // ""
 txna ApplicationArgs 1
@@ -570,49 +440,11 @@ callsub voteyes_3
 retsub
 
 // vote_no_caster
-votenocaster_10:
+votenocaster_8:
 proto 0 0
 bytec_0 // ""
 txna ApplicationArgs 1
 frame_bury 0
 frame_dig 0
 callsub voteno_4
-retsub
-
-// delete_proposal_caster
-deleteproposalcaster_11:
-proto 0 0
-bytec_0 // ""
-txna ApplicationArgs 1
-frame_bury 0
-frame_dig 0
-callsub deleteproposal_5
-retsub
-
-// generate_membership_token_caster
-generatemembershiptokencaster_12:
-proto 0 0
-intc_0 // 0
-dup
-bytec_0 // ""
-txna ApplicationArgs 1
-frame_bury 2
-txn GroupIndex
-intc_1 // 1
--
-frame_bury 1
-frame_dig 1
-gtxns TypeEnum
-intc_1 // pay
-==
-assert
-frame_dig 1
-frame_dig 2
-callsub generatemembershiptoken_6
-frame_bury 0
-bytec_2 // 0x151f7c75
-frame_dig 0
-itob
-concat
-log
 retsub

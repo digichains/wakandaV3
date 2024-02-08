@@ -30,7 +30,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
               providers?.map((provider) => (
                 <button
                   data-test-id={`${provider.metadata.id}-connect`}
-                  className="btn border-teal-800 border-1"
+                  className={styles.individual}
                   key={`provider-${provider.metadata.id}`}
                   onClick={() => {
                     return provider.connect()
@@ -40,10 +40,11 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
                     <img
                       alt={`wallet_icon_${provider.metadata.id}`}
                       src={provider.metadata.icon}
-                      style={{ width: '30px', height: '100%', marginLeft: '5px', marginTop: '25px', marginBottom: '0'}}
+                      style={{ objectFit: 'contain', width: '30px', height: 'auto' }}
+                      className={styles.icons}
                     />
                   )}
-                  <span style={{ width: '30px', height: '100%', marginLeft: '5px', marginTop: '25px', marginBottom: '0' }}>
+                  <span className={styles.names}>
                   {isKmd(provider) ? 'LocalNet Wallet' : provider.metadata.name }</span>
                 </button>
               ))}
@@ -52,7 +53,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
           <div className="modal-action ">
             <button
               data-test-id="close-wallet-modal"
-              className="btn"
+              className="btn  mr-10 bg-[#EBE8E2] text-black p-3 w-[100px] rounded-md"
               onClick={() => {
                 closeModal()
               }}
@@ -61,7 +62,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
             </button>
             {activeAddress && (
               <button
-                className="btn btn-warning"
+                className="btn btn-warning bg-[red] text-white p-3 w-[100px] rounded-md "
                 data-test-id="logout"
                 onClick={() => {
                   if (providers) {

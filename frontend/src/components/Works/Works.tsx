@@ -9,18 +9,17 @@ const Works = () => {
         <h1>How it works</h1>
       </div>
 
-
-    {/* steps */}
-      <div className="md:m-2 ">
-        <div className="md:w-[50%] md:max-w-[1240px] md:text-[#C7C6CA]  md:h-8 md:px-4 md:mx-auto md:justify-between md:items-center md:flex">
-          <div className="md:text-base md:font-semibold ">Step 1</div>
-          <div className="md:text-base md:font-semibold ">Step 2</div>
-          <div className="md:text-base md:font-semibold ">Step 3</div>
+      <div className=" lg:m-2 ">
+        {/* steps */}
+        <div className="lg:w-[50%] max-w-[1240px] text-[#C7C6CA]  h-8 px-4 mx-auto justify-between items-center flex">
+          <div className="text-base font-semibold ">Step 1</div>
+          <div className="text-base font-semibold ">Step 2</div>
+          <div className="text-base font-semibold ">Step 3</div>
         </div>
       </div>
 
       {/* icons */}
-      <div className="sm:hidden md:w-[700px] md:max-w-[1240px] md:h-24 px-4  md:mx-auto md:justify-center md:items-center md:flex">
+      <div className="w-[700px] max-w-[1240px] h-24 px-4  mx-auto justify-center items-center flex">
         {/* Adjusted padding and width for better spacing */}
         <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 justify-center items-center flex">
           <img src={wallet} alt="wallet" className="w-[100px]" />
@@ -66,9 +65,9 @@ const Works = () => {
       </div>
 
       {/* mobile screen */}
-      <div className="md:hidden sm:flex sm:flex-col sm:m-2 ">
+      <div className="lg:hidden sm:flex sm:flex-col sm:m-2 ">
         {/* steps */}
-        <div className="md:hidden bg-[#000] p-10 w-[100%] text-[#C7C6CA] h-[100%] m-5 items-center flex-col flex">
+        <div className="lg:hidden bg-[#000] w-[70%] p-10 max-w-[1240px] text-[#C7C6CA] h-[100%] m-10 items-center flex-col flex">
           <div className="text-3xl font-bold">Step 1</div>
           <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
             <img src={wallet} alt="wallet" className="w-[100px]" />
@@ -79,7 +78,7 @@ const Works = () => {
           </p>
         </div>
 
-        <div className="md:hidden bg-[#000] p-10 w-[100%] text-[#C7C6CA] h-[100%] m-5 items-center flex-col flex">
+        <div className="lg:hidden bg-[#000] w-[70%] p-10  max-w-[1240px] text-[#C7C6CA] h-[100%] m-10 items-center flex-col flex">
           <div className="text-3xl font-bold ">Step 2</div>
           <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
             <img src={payment} alt="payment" className="w-[100px]" />
@@ -90,7 +89,7 @@ const Works = () => {
           </p>
         </div>
 
-        <div className="md:hidden bg-[#000] p-10 w-[100%] text-[#C7C6CA] h-[100%] m-5 items-center flex-col flex">
+        <div className="lg:hidden bg-[#000] w-[70%] p-10  max-w-[1240px] text-[#C7C6CA] h-[100%] m-10 items-center flex-col flex">
           <div className="text-3xl font-bold ">Step 3</div>
           <div className="w-[60px] h-[60px] p-2 bg-rose-100 rounded-[50px] mx-2 items-center flex">
             <img src={blockchain} alt="blockchain" className="w-[100px]" />

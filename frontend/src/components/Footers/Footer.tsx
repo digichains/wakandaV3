@@ -9,17 +9,17 @@ const Footer = () => {
   return (
     <div className="flex flex-col w-full bg-[#272727]">
       <div className="lg:flex lg:justify-center lg:flex-col lg:m-9 lg:items-center">
-        <h1 className="text-3xl font-bold text-white">Join Our Commuity</h1>
+        <h1 className="text-3xl font-bold text-white ">Join Our Commuity</h1>
         <p className="text-sm mt-2 text-[#919094]">
           Be part of the community and have a say in the future of the Algorand Nigeria community
         </p>
       </div>
 
-      <div className=" lg:ml-10 lg:p-10 lg:grid lg:grid-cols-3 lg:gap-6">
-        <a href="https://t.me/daowakanda" target="_blank" rel="noopener noreferrer">
+      <div className="lg:ml-10 lg:p-10 sm:ml-10 sm:p-10 lg:grid lg:grid-cols-3 lg:gap-6">
+        <a href="https://t.me/daowakanda" target="_blank" rel="noopener noreferrer" className="mb-4">
           <div className="w-[370px] p-5 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#2AABEE] items-start gap-1 inline-flex">
             <div className="flex justify-between">
-              <img src={telegram} alt="telegtam" width={'90px'} />
+              <img src={telegram} alt="telegram" width={'90px'} />
               <div className="flex flex-col pl-4 pt-5 pr-5 pb-5">
                 <h1 className="text-white text-2xl font-black font-['Avenir']"> Telegram</h1>
                 <p className="text-neutral-400 text-base font-normal font-['Plus Jakarta Sans']">Join chat</p>
@@ -28,7 +28,7 @@ const Footer = () => {
           </div>
         </a>
 
-        <a href="https://twitter.com/DaoWakanda" target="_blank" rel="noopener noreferrer">
+        <a href="https://twitter.com/DaoWakanda" target="_blank" rel="noopener noreferrer" className="mb-4">
           <div className="w-[370px] p-5 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#000] items-start gap-1 inline-flex">
             <div className="flex justify-between">
               <img src={X} alt="twitter[X]" width={'90px'} className="rounded-[40px]" />
@@ -40,10 +40,10 @@ const Footer = () => {
           </div>
         </a>
 
-        <a href="https://github.com/realsurd/wakandaV3.git" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/realsurd/wakandaV3.git" target="_blank" rel="noopener noreferrer" className="mb-4">
           <div className="w-[370px] p-5 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#CD6116]  items-start gap-1 inline-flex">
             <div className="flex justify-between">
-              <img src={Github} alt="telegtam" width={'90px'} className=" rounded-[40px]" />
+              <img src={Github} alt="github" width={'90px'} className="rounded-[40px]" />
               <div className="flex flex-col pl-4 pt-5 pr-5 pb-5">
                 <h1 className="text-white text-2xl font-black font-['Avenir']"> Github</h1>
                 <p className="text-neutral-400 text-base font-normal font-['Plus Jakarta Sans']">Follow us</p>
@@ -51,7 +51,8 @@ const Footer = () => {
             </div>
           </div>
         </a>
-        <a href="mailto:daowakanda@gmail.com" target="_blank" rel="noopener noreferrer">
+
+        <a href="mailto:daowakanda@gmail.com" target="_blank" rel="noopener noreferrer" className="mb-4">
           <div className="w-[370px] p-5 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#2AABEE] items-start gap-1 inline-flex">
             <div className="flex justify-between">
               <div className="bg-[#E3E3E3] rounded-full p-5">
@@ -65,7 +66,7 @@ const Footer = () => {
           </div>
         </a>
 
-        <div className="col-start-2 bg-[#1E1E1E] w-[760px] hover:bg-[#E3E3E3]  p-5 rounded-[15px]">
+        <div className="col-start-2 bg-[#1E1E1E] w-[760px]  hover:bg-[#E3E3E3]  p-5 rounded-[15px]">
           <a href="https://medium.com/@daowakanda" className="flex pl-5">
             <div className="bg-[#E3E3E3] rounded-full p-5">
               <CiMail className="w-[50px] h-[50px]" />
@@ -80,19 +81,20 @@ const Footer = () => {
 
       <div className="bg-black h-px w-full"></div>
       <div className="w-full h-[321px] py-12 flex-col justify-center items-center gap-2 inline-flex">
-        <div className="flex-col justify-start items-center gap-1 flex">
-          <div className="text-white text-[35px] font-black font-['Avenir']">Subscribe to our mailing list</div>
-          <div className="text-neutral-400 text-md font-normal font-['Plus Jakarta Sans']">
-            Stay up to date with Algorand projects developments
-          </div>
-        </div>
-        <div className="w-[629px] h-16 p-4 bg-white rounded-[50px] justify-start items-center gap-1 inline-flex">
-          <div className="grow shrink basis-0 text-neutral-400 text-xl font-light font-['Plus Jakarta Sans']">Email address</div>
-          <div className="px-8 py-2 bg-green-950 rounded-[100px] justify-start items-center gap-2.5 flex">
-            <div className="text-white text-xl font-black font-['Avenir']">Subscribe</div>
-          </div>
-        </div>
-      </div>
+  <div className="flex-col justify-start items-center gap-1 flex">
+  <div className="text-white sm:text-2xl md:text-[35px] font-black font-['Avenir']">Subscribe to our mailing list</div>
+    <div className="text-neutral-400 text-md font-normal font-['Plus Jakarta Sans']">
+      Stay up to date with Algorand projects developments
+    </div>
+  </div>
+  <div className="sm:w-[629px] w-90% h-16 p-4 bg-white rounded-[50px] justify-start items-center gap-1 inline-flex">
+    <div className="grow shrink basis-0 text-neutral-400 text-xl font-light font-['Plus Jakarta Sans']">Email address</div>
+    <div className="px-8 py-2 bg-green-950 rounded-[100px] justify-start items-center gap-2.5 flex">
+      <div className="text-white text-xl font-black font-['Avenir']">Subscribe</div>
+    </div>
+  </div>
+</div>
+
       <GovernanceBot />
       <BottomFoot />
     </div>
