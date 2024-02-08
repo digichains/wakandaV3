@@ -14,6 +14,7 @@ import toast from 'react-hot-toast'
 import { useWallet } from '@txnlab/use-wallet'
 import { useFetchWrapper } from '../hooks'
 import { API_URL } from '../constants/apiUrl'
+import { ASA_ID } from '../constants/AppID'
 
 interface VotingEndsIn {
   days: number
@@ -57,6 +58,7 @@ const ProposalAccordion: React.FC<{
         await typedClient.voteYes(
           {
             proposal_name: name,
+            membership_token: ASA_ID,
           },
           {
             sender,
@@ -71,6 +73,7 @@ const ProposalAccordion: React.FC<{
         await typedClient.voteNo(
           {
             proposal_name: name,
+            membership_token: ASA_ID,
           },
           {
             sender,

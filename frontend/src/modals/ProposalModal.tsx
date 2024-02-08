@@ -12,6 +12,7 @@ import toast from 'react-hot-toast'
 import { ProposalsClient } from '../contracts/proposals'
 import { useFetchWrapper } from '../hooks'
 import { API_URL } from '../constants/apiUrl'
+import { ASA_ID } from '../constants/AppID'
 
 interface ProposalModalProps {
   open: boolean
@@ -65,6 +66,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
           name,
           description,
           end_time: endTime,
+          membership_token: ASA_ID,
         },
         {
           sender,
