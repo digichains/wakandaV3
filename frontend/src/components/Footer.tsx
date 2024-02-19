@@ -4,8 +4,8 @@ import { Twitter, Favorite, Telegram, GitHub, Mail } from '@mui/icons-material'
 const Footer = () => {
   return (
     <footer>
-      <div className="bg-[#1E1E1E] w-[100%] h-[70px] px-[30px] justify-center items-center flex">
-        <div className="justify-between items-center flex">
+      <div className="bg-[#1E1E1E] w-[100%] h-[70px] justify-center items-center flex">
+        <div className="justify-between flex">
           <div className="justify-start flex">
             <h3 className="text-neutral-400 text-base font-medium font-['Space Grotesk'] leading-normal">
               Built with <Favorite /> at

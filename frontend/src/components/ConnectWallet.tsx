@@ -1,6 +1,7 @@
 import { Provider, useWallet } from '@txnlab/use-wallet'
 import Account from './Account'
 import styles from './index.module.scss'
+import logo from '/src/assets/DaoWakanda - Black.png'
 interface ConnectWalletInterface {
   openModal: boolean
   closeModal: () => void
@@ -16,7 +17,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
     <div className={styles.modal}>
       <div id="connect_wallet_modal" className="dialog">
         <form method="dialog" className="modal-box">
-          <h3 className="font-bold text-lg">Select wallet provider</h3>
+        <img src={logo} alt="logo" width={'200px'} height={'100px'} />
 
           <div className={styles.trust}>
             {activeAddress && (

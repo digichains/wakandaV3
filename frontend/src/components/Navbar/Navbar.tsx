@@ -76,11 +76,11 @@ const Navbar: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
                     Communities
                   </a>
                 </li>
-                <li>
+                {/* <li>
                   <a href="#" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
                     Developers
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a href="#" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
                     About
@@ -109,9 +109,9 @@ const Navbar: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
               <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 Communities
               </a>
-              <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
+              {/* <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 Developers
-              </a>
+              </a> */}
               <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 About
               </a>
