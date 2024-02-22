@@ -163,7 +163,6 @@ const ProposalAccordion: React.FC<{
       refresh()
     }
   }
-  // delete button popUP
 
   // const deleteProposal = async () => {
   //   try {
@@ -215,14 +214,16 @@ const ProposalAccordion: React.FC<{
     <Box>
       <Grid container>
         <Grid item xs={12}>
-          <Accordion sx={{ bgcolor: '#222'}}>
+          <Accordion sx={{ bgcolor: '#222' }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon sx={{ color: 'white', position: 'relative', bottom: 10 }} />}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
               <Box width={'100%'}>
-                <Typography color={'#fff'} paddingBottom={'1rem'}>{name}</Typography>
+                <Typography color={'#fff'} paddingBottom={'1rem'}>
+                  {name}
+                </Typography>
                 <Box display={'flex'} borderRadius={'50px'} justifyContent={'space-between'} width={'100%'}>
                   <VotingRadio
                     yesPercentage={isNaN(yesPercentage) ? 0 : yesPercentage}
@@ -317,14 +318,7 @@ const ProposalAccordion: React.FC<{
                       <Button onClick={handleDeleteButtonClick}>Delete</Button>
 
                       {/* DeleteButton popup */}
-                      {showDeletePopup && (
-                        <DeleteButton
-                          proposal={proposal}
-                          typedClient={typedClient}
-                          refresh={refresh}
-                          onCancel={handleCancelDelete} // Pass onCancel function to close the popup
-                        />
-                      )}
+                      {showDeletePopup && <DeleteButton proposal={proposal} typedClient={typedClient} refresh={refresh} />}
                     </Typography>
                   </Box>
                 </Box>

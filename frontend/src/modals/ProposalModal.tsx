@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as algokit from '@algorandfoundation/algokit-utils'
-import { FormLabel, TextField } from '@mui/material'
+import { FormLabel, TextField, Checkbox } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
@@ -29,7 +29,7 @@ const style = {
   maxWidth: 700,
   bgcolor: '#4D4D4D',
   border: '2px solid #000',
-  boxShadow: 24,
+  boxShadow: 50,
   p: 4,
   borderRadius: 5,
   height: 'auto',
@@ -48,6 +48,8 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
   const [endTimeString, setEndTimeString] = useState('')
   const [loading, setLoading] = useState(false)
   const fetchWrapper = useFetchWrapper()
+  const [isClaimable, setIsClaimable] = useState(false)
+  const [formError, setFormError] = useState('')
 
   const { activeAddress, signer } = useWallet()
   const sender = { signer, addr: activeAddress! }
@@ -171,12 +173,6 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
               rows={4}
               //   multiline
             />
-            {/* <TextField
-              id="outlined-basic"
-              label="Outlined"
-              variant="outlined"
-              sx={{ input: { color: '#fff', borderColor: 'white' }, mt: 2 }}
-            /> */}
 
             <FormLabel component="legend">Set Date and Time</FormLabel>
             <TextField
@@ -192,9 +188,23 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
               type="datetime-local"
               id="outlined-basic"
               variant="outlined"
-              sx={{ input: { color: '#fff', borderColor: 'white' }, mt: 1, mb: 7 }}
+              sx={{ input: { color: '#fff', borderColor: 'white' }, mt: 1, mb: 4 }}
               inputProps={{ style: { borderColor: 'red !important' } }}
             />
+
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+              <Checkbox
+                checked={isClaimable}
+                onChange={(e) => setIsClaimable(e.target.checked)}
+                color="primary"
+                style={{ marginRight: '10px' }}
+              />
+              <FormLabel component="legend" style={{ color: '#919094' }}>
+                Claimable Proposal
+              </FormLabel>
+            </div>
+
+            {formError && <p style={{ color: 'red' }}>{formError}</p>}
 
             <Button
               sx={{ width: '100%', margin: 'auto', mt: 2 }}
