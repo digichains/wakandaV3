@@ -37,7 +37,7 @@ const DeleteButton: React.FC<{
         refresh()
         handleClose()
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error)
       toast.error(error.message || 'Failed to delete proposal')
     }

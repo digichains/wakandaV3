@@ -38,7 +38,7 @@ const formatWalletAddress = (address: string) => {
 const VoterInfo = ({ created_on, end_time, total_votes }: VoterInfoProps) => {
   const { activeAddress } = useWallet()
   const voteInfo = [
-    { columnName: 'Author', value: formatWalletAddress(activeAddress) },
+    { columnName: 'Author', value: formatWalletAddress(activeAddress || '') },
     { columnName: 'Start Date', value: moment(created_on).format('DD/MM/YYYY') },
     { columnName: 'End Date', value: moment(end_time).format('DD/MM/YYYY') },
     { columnName: 'Total votes', value: total_votes },

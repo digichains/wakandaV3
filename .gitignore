@@ -20,6 +20,7 @@ env/
 # misc
 /dist
 .DS_Store
+frontend/dist
 
 
 npm-debug.log*
@@ -36,3 +37,4 @@ yarn-error.log*
 !.idea/runConfigurations/
 
 .vscode/settings.json
+frontend/yarn.lock
