@@ -4,36 +4,22 @@ import GovernanceBot from '../GovernanceBot/GovernanceBot'
 import Github from '/src/assets/Github svg.svg'
 import telegram from '/src/assets/Group.svg'
 import X from '/src/assets/X.jpg'
-<<<<<<< HEAD
-=======
 import { LuGlobe2 } from "react-icons/lu"
->>>>>>> master
 
 const Footer = () => {
   return (
     <div className="flex flex-col w-full bg-[#272727]">
-<<<<<<< HEAD
-      <div className="lg:flex lg:justify-center lg:flex-col lg:m-9 lg:items-center">
-=======
       <div className="flex justify-center flex-col md:flex md:justify-center md:flex-col m-9 items-center">
->>>>>>> master
         <h1 className="text-3xl font-bold text-white ">Join Our Commuity</h1>
         <p className="text-sm mt-2 text-[#919094]">
           Be part of the community and have a say in the future of the Algorand Nigeria community
         </p>
       </div>
 
-<<<<<<< HEAD
-      <div className="lg:ml-10 lg:p-10 lg:grid lg:grid-cols-3 lg:gap-6 sm:flex sm:flex-col sm:mx-auto sm:ml-10">
-        <a href="https://t.me/daowakanda" target="_blank" rel="noopener noreferrer" className="mb-4">
-          <div className="w-[370px] p-5 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#2AABEE] items-start gap-1 inline-flex">
-            <div className="flex justify-between">
-=======
       <div className="ml-3 p-3 md:ml-10 md:p-10 md:grid md:grid-cols-3 md:gap-6 sm:flex sm:flex-col sm:mx-auto sm:ml-10">
         <a href="https://t.me/daowakanda" target="_blank" rel="noopener noreferrer" className="mb-4">
           <div className="w-[370px] p-5 mb-3 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#2AABEE] items-start gap-1 inline-flex">
             <div className="flex justify-between md:flex md:justify-between">
->>>>>>> master
               <img src={telegram} alt="telegram" width={'90px'} />
               <div className="flex flex-col pl-4 pt-5 pr-5 pb-5">
                 <h1 className="text-white text-2xl font-black font-['Avenir']"> Telegram</h1>
@@ -44,13 +30,8 @@ const Footer = () => {
         </a>
 
         <a href="https://twitter.com/DaoWakanda" target="_blank" rel="noopener noreferrer" className="mb-4">
-<<<<<<< HEAD
-          <div className="w-[370px] p-5 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#000] items-start gap-1 inline-flex">
-            <div className="flex justify-between">
-=======
           <div className="w-[370px] p-5 mb-3 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#000] items-start gap-1 inline-flex">
             <div className="flex justify-between md:flex md:justify-between">
->>>>>>> master
               <img src={X} alt="twitter[X]" width={'90px'} className="rounded-[40px]" />
               <div className="flex flex-col pl-4 pt-5 pr-5 pb-5">
                 <h1 className="text-white text-2xl font-black font-['Avenir']"> Twitter</h1>
@@ -61,13 +42,8 @@ const Footer = () => {
         </a>
 
         <a href="https://github.com/realsurd/wakandaV3.git" target="_blank" rel="noopener noreferrer" className="mb-4">
-<<<<<<< HEAD
-          <div className="w-[370px] p-5 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#CD6116]  items-start gap-1 inline-flex">
-            <div className="flex justify-between">
-=======
           <div className="w-[370px] p-5 mb-3 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#CD6116]  items-start gap-1 inline-flex">
             <div className="flex justify-between md:flex md:justify-between">
->>>>>>> master
               <img src={Github} alt="github" width={'90px'} className="rounded-[40px]" />
               <div className="flex flex-col pl-4 pt-5 pr-5 pb-5">
                 <h1 className="text-white text-2xl font-black font-['Avenir']"> Github</h1>
@@ -78,13 +54,8 @@ const Footer = () => {
         </a>
 
         <a href="mailto:daowakanda@gmail.com" target="_blank" rel="noopener noreferrer" className="mb-4">
-<<<<<<< HEAD
-          <div className="w-[370px] p-5 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#2AABEE] items-start gap-1 inline-flex">
-            <div className="flex justify-between">
-=======
           <div className="w-[370px] p-5  mb-3 rounded-[15px] justify-between bg-[#1E1E1E] hover:bg-[#2AABEE] items-start gap-1 inline-flex">
             <div className="flex justify-between md:flex md:justify-between">
->>>>>>> master
               <div className="bg-[#E3E3E3] rounded-full p-5">
                 <CiMail className="w-[50px] h-[50px]" />
               </div>
@@ -96,21 +67,12 @@ const Footer = () => {
           </div>
         </a>
 
-<<<<<<< HEAD
-        <div className="col-start-2 bg-[#1E1E1E] w-[760px]  hover:bg-[#E3E3E3]  p-5 rounded-[15px]">
-          <a href="https://medium.com/@daowakanda" className="flex pl-5">
-            <div className="bg-[#E3E3E3] rounded-full p-5">
-              <CiMail className="w-[50px] h-[50px]" />
-            </div>
-            <div className="flex flex-col pl-4 pt-5 pb-5 hover:text-[#000]">
-=======
         <div className="col-start-2 bg-[#1E1E1E] w-[365px] md:w-[760px] mb-7 md:mb-7 hover:bg-[#E3E3E3] p-3 rounded-[15px]">
           <a href="https://medium.com/@daowakanda" className="flex pl-5">
             <div className="bg-[#E3E3E3] rounded-full p-3">
               <LuGlobe2 className="w-[60px] h-[50px]" />
             </div>
             <div className="flex flex-col pl-4 pt-2 md:pt-7 hover:text-[#000]">
->>>>>>> master
               <h1 className="text-white text-2xl font-black font-['Avenir']"> Blog</h1>
               <p className="text-neutral-400 text-base font-normal font-['Plus Jakarta Sans']">Learn about Daowakanda</p>
             </div>

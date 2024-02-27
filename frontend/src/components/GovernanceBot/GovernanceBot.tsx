@@ -1,24 +1,9 @@
-<<<<<<< HEAD
-
-
-import { Box, Button, Typography } from '@mui/material';
-import TelegramIcon from '/src/assets/Group.svg';
-
-const GovernanceBot = () => {
-  return (
-    <Box
-      className="flex justify-center items-center"
-      bgcolor="#2A84EE"
-      p={4}
-    >
-=======
 import { Box, Button, Typography } from '@mui/material'
 import TelegramIcon from '/src/assets/Group.svg'
 
 const GovernanceBot = () => {
   return (
     <Box className="flex justify-center items-center" bgcolor="#2A84EE" p={4}>
->>>>>>> master
       <Box mr={4}>
         <img src={TelegramIcon} alt="telegram" width={90} />
       </Box>
@@ -36,14 +21,7 @@ const GovernanceBot = () => {
         </Button>
       </Box>
     </Box>
-<<<<<<< HEAD
-  );
-};
-
-export default GovernanceBot;
-=======
   )
 }
 
 export default GovernanceBot
->>>>>>> master

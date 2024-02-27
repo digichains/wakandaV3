@@ -28,11 +28,7 @@ const HomeNav = () => {
 
       {/* Navbar Navigation */}
       <div
-<<<<<<< HEAD
-        className={`lg:flex lg:flex-initial justify-between items-center p-3 w-[100%] mb-[30px] ${
-=======
         className={`flex flex-initial md:flex md:flex-initial md:justify-between md:items-center md:p-3 md:w-[100%] md:mb-[30px] ${
->>>>>>> master
           isMobileMenuOpen ? 'flex flex-col' : 'hidden'
         } lg:items-end`}
       >
