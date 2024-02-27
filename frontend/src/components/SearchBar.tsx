@@ -78,7 +78,11 @@ export const SearchBarMenu: React.FC<SearchBarMenuProps> = ({ menuItems }) => {
                       <MenuItem
                         onClick={(event) => {
                           setSelectedFilter(item)
+<<<<<<< HEAD
                           handleClose(event as any)
+=======
+                          handleClose(event)
+>>>>>>> master
                         }}
                         key={`search-${index + 1}`}
                       >

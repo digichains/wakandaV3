@@ -262,10 +262,10 @@ const ProposalAccordion: React.FC<{
                       padding={isSmallerScreen ? '1rem' : '5px'}
                       bgcolor={'blue'}
                       borderRadius={5}
-                      width={isSmallerScreen ? '40%' : '40%'}
+                      width={isSmallerScreen ? '40%' : '30%'}
                       height={isSmallerScreen ? '40%' : '80%'}
                       marginLeft={isSmallerScreen ? '1%' : 'none'}
-                      marginTop={isSmallerScreen ? '5%' : 'none'}
+                      marginTop={isSmallerScreen ? '5%' : '5px'}
                       textAlign={'center'}
                       marginRight={1}
                       fontSize={isSmallerScreen ? '0.45rem' : '1rem'} // Adjust font size for smaller screens
@@ -283,7 +283,7 @@ const ProposalAccordion: React.FC<{
                       fontSize={isSmallerScreen ? '0.45rem' : '1rem'}
                       width={isSmallerScreen ? '40%' : '20%'}
                       height={isSmallerScreen ? '10%' : '80%'}
-                      marginTop={isSmallerScreen ? '5%' : 'none'}
+                      marginTop={isSmallerScreen ? '5%' : '5px'}
                     >
                       {is_open ? 'Active' : 'Inactive'}
                     </Typography>
@@ -299,21 +299,21 @@ const ProposalAccordion: React.FC<{
                       fontSize={isSmallerScreen ? '0.5rem' : '0.6rem'}
                       width={isSmallerScreen ? '100%' : '30%'}
                       height={isSmallerScreen ? '10%' : '80%'}
-                      marginTop={isSmallerScreen ? '5%' : 'none'}
+                      marginTop={isSmallerScreen ? '5%' : '5px'}
                     >
                       Voting ends in: {new Date(end_time).toLocaleString()}
                     </Typography>
                     <Typography
                       color={'red'}
-                      padding={isSmallerScreen ? '1rem' : '5px'}
+                      padding={isSmallerScreen ? '1rem' : '3px'}
                       bgcolor={'#fff'}
                       borderRadius={5}
                       textAlign={'center'}
                       marginRight={1}
-                      fontSize={isSmallerScreen ? '0.45rem' : '0.6rem'}
+                      fontSize={isSmallerScreen ? '0.45rem' : '0.1rem'}
                       width={isSmallerScreen ? '40%' : '30%'}
                       height={isSmallerScreen ? '10%' : '80%'}
-                      marginTop={isSmallerScreen ? '5%' : 'none'}
+                      marginTop={isSmallerScreen ? '5%' : '5px'}
                     >
                       <Button onClick={handleDeleteButtonClick}>Delete</Button>
 

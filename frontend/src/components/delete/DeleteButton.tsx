@@ -4,7 +4,7 @@ import { API_URL } from '../../constants/apiUrl'
 import toast from 'react-hot-toast'
 import { IProposal } from '../../interfaces/proposal'
 import { ProposalsClient } from '../../contracts/proposals'
-import { Button, Dialog, DialogActions, DialogTitle, useMediaQuery } from '@mui/material'
+import { Button, Dialog, DialogActions, DialogTitle, useMediaQuery, Modal } from '@mui/material'
 
 const DeleteButton: React.FC<{
   proposal: IProposal
@@ -37,7 +37,7 @@ const DeleteButton: React.FC<{
         refresh()
         handleClose()
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error(error)
       toast.error(error.message || 'Failed to delete proposal')
     }
@@ -65,7 +65,7 @@ const DeleteButton: React.FC<{
               backgroundColor: 'red',
               width: isSmallerScreen ? '100%' : '50%',
               marginBottom: isSmallerScreen ? '10px' : '0',
-              marginRight: isSmallerScreen ? '0' : '11px',
+              marginRight: isSmallerScreen ? '0' : '10px',
             }}
           >
             Yes,Delete

@@ -15,6 +15,7 @@ import Developers from './pages/Developers'
 import Governance from './pages/Governance'
 import Home from './pages/Home'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
+import Congratulations from './components/Congratulations/Congratulations'
 
 let providersArray: ProvidersArray
 if (import.meta.env.VITE_ALGOD_NETWORK === '') {
@@ -129,6 +130,8 @@ export default function App() {
               Contract Interactions Demo
             </button>
           )} */}
+
+
 
           <Routes>
             <Route path="/" element={<Home />} />

@@ -57,7 +57,11 @@ const AppCalls = ({ openModal, setModalState }: AppCallsInterface) => {
       onSchemaBreak: isLocal ? 'replace' : 'fail',
       onUpdate: isLocal ? 'update' : 'fail',
     }
+<<<<<<< HEAD
     await appClient.deploy(deployParams as any).catch((e: Error) => {
+=======
+    await appClient.deploy(deployParams).catch((e: Error) => {
+>>>>>>> master
       enqueueSnackbar(`Error deploying the contract: ${e.message}`, { variant: 'error' })
       setLoading(false)
       return
