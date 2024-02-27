@@ -65,7 +65,7 @@ const DeleteButton: React.FC<{
               backgroundColor: 'red',
               width: isSmallerScreen ? '100%' : '50%',
               marginBottom: isSmallerScreen ? '10px' : '0',
-              marginRight: isSmallerScreen ? '0' : '10px',
+              marginRight: isSmallerScreen ? '0' : '11px',
             }}
           >
             Yes,Delete
