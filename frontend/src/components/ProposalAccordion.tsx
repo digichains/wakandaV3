@@ -113,13 +113,13 @@ const ProposalAccordion: React.FC<{
     } catch (error) {
       console.error(error)
       toast.dismiss('loader')
-      toast.error((error as any)?.message)
+      toast.error((error as unknown)?.message)
       setYesVote(false)
       setNoVote(false)
     }
   }
 
-  const viewProposalDetails = async (payload: any) => {
+  const viewProposalDetails = async (payload: unknown) => {
     toast.loading('Loading updated proposal details', { id: 'loader' })
 
     try {
@@ -145,11 +145,11 @@ const ProposalAccordion: React.FC<{
     } catch (error) {
       console.error(error)
       toast.dismiss('loader')
-      toast.error((error as any)?.message)
+      toast.error((error as unknown)?.message)
     }
   }
 
-  const updateProposalDetails = async (payload: any) => {
+  const updateProposalDetails = async (payload: unknown) => {
     toast.loading('Updating proposal details', { id: 'loader' })
 
     const response = await fetchWrapper.post(`${API_URL}/api/v1/proposals/vote/`, payload)
