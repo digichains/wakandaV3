@@ -31,17 +31,20 @@ const DeleteButton: React.FC<{
     try {
       const response = await fetchWrapper.delete(`${API_URL}/api/v1/proposals/proposal/${id}/`)
       if (response && Object.keys(response).includes('error')) {
-        toast.error(response.error?.toString())
+        const errorMessage = (response.error as Error)?.message ?? 'Unknown error occurred'
+        toast.error(errorMessage)
       } else {
         toast.success('Proposal deleted successfully')
         refresh()
         handleClose()
       }
-    } catch (error) {
+    } catch (error: unknown) {
       console.error(error)
-      toast.error(error.message || 'Failed to delete proposal')
+      const errorMessage = error instanceof Error ? error.message : 'Failed to delete proposal'
+      toast.error(errorMessage)
     }
   }
+
   const isSmallerScreen = useMediaQuery('(max-width:600px)')
   return (
     <>
@@ -53,7 +56,7 @@ const DeleteButton: React.FC<{
         onClose={handleClose}
         PaperProps={{ style: { backgroundColor: '#46464A', textAlign: 'center', padding: '3rem', borderRadius: '15px' } }}
       >
-        <DialogTitle style={{ color: '#fff'}}>Are you sure you want to delete this proposal?</DialogTitle>
+        <DialogTitle style={{ color: '#fff' }}>Are you sure you want to delete this proposal?</DialogTitle>
         <DialogActions style={{ justifyContent: 'center', flexDirection: isSmallerScreen ? 'column' : 'row' }}>
           <Button
             onClick={deleteProposal}

@@ -37,13 +37,16 @@ const formatWalletAddress = (address: string) => {
 
 const VoterInfo = ({ created_on, end_time, total_votes }: VoterInfoProps) => {
   const { activeAddress } = useWallet()
+  const formattedAddress = activeAddress ? formatWalletAddress(activeAddress) : ''
+
   const voteInfo = [
-    { columnName: 'Author', value: formatWalletAddress(activeAddress) },
+    { columnName: 'Author', value: formattedAddress },
     { columnName: 'Start Date', value: moment(created_on).format('DD/MM/YYYY') },
     { columnName: 'End Date', value: moment(end_time).format('DD/MM/YYYY') },
     { columnName: 'Total votes', value: total_votes },
     { columnName: 'Algo Amounts', value: (0.2 * total_votes).toFixed(4) },
-  ]
+  ];
+
   // Inside your component
   const isSmallerScreen = useMediaQuery('(max-width:600px)')
   return (
