@@ -1,0 +1,107 @@
+{
+    "name": "proposals",
+    "methods": [
+        {
+            "name": "add_proposal",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "string",
+                    "name": "description"
+                },
+                {
+                    "type": "uint64",
+                    "name": "end_time"
+                },
+                {
+                    "type": "asset",
+                    "name": "membership_token"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            }
+        },
+        {
+            "name": "read_proposal",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "name"
+                }
+            ],
+            "returns": {
+                "type": "(string,string,bool,uint64,uint64,uint64)"
+            }
+        },
+        {
+            "name": "vote_yes",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "proposal_name"
+                },
+                {
+                    "type": "asset",
+                    "name": "membership_token"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            }
+        },
+        {
+            "name": "vote_no",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "proposal_name"
+                },
+                {
+                    "type": "asset",
+                    "name": "membership_token"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            }
+        },
+        {
+            "name": "delete_proposal",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "proposal_name"
+                },
+                {
+                    "type": "asset",
+                    "name": "membership_token"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            }
+        },
+        {
+            "name": "generate_membership_token",
+            "args": [
+                {
+                    "type": "pay",
+                    "name": "seed"
+                },
+                {
+                    "type": "string",
+                    "name": "token_name"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "create membership token and receive initial seed payment"
+        }
+    ],
+    "networks": {}
+}
