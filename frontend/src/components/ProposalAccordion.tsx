@@ -111,11 +111,11 @@ const ProposalAccordion: React.FC<{
 
       viewProposalDetails(payload)
     } catch (error) {
-      console.error(error)
-      toast.dismiss('loader')
-      toast.error((error as unknown)?.message)
-      setYesVote(false)
-      setNoVote(false)
+      console.error(error);
+      toast.dismiss('loader');
+      toast.error((error as unknown as Error).message || 'An error occurred');
+      setYesVote(false);
+      setNoVote(false);
     }
   }
 
@@ -143,9 +143,11 @@ const ProposalAccordion: React.FC<{
         updateProposalDetails(payload)
       }
     } catch (error) {
-      console.error(error)
-      toast.dismiss('loader')
-      toast.error((error as unknown)?.message)
+      console.error(error);
+      toast.dismiss('loader');
+      toast.error((error as unknown as Error).message || 'An error occurred');
+      setYesVote(false);
+      setNoVote(false);
     }
   }
 
