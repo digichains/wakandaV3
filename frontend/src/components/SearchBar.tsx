@@ -16,7 +16,7 @@ export const SearchBarMenu: React.FC<SearchBarMenuProps> = ({ menuItems }) => {
     setOpen((prevOpen) => !prevOpen)
   }
 
-  const handleClose = (event: React.MouseEvent<HTMLLIElement, MouseEvent> | React.TouchEvent<HTMLLIElement>) => {
+  const handleClose = (event: React.MouseEvent<HTMLLIElement, MouseEvent> | React.TouchEvent<HTMLLIElement> | MouseEvent | TouchEvent) => {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return
     }
