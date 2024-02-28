@@ -6,7 +6,7 @@ algod_server: http://localhost
 algod_token: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 author_email: your@email.tld
 author_name: Your-Name
-contract_name: hello_world
+contract_name: dao
 deployment_language: typescript
 ide_jetbrains: false
 ide_vscode: true

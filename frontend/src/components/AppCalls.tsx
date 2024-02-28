@@ -1,10 +1,10 @@
 import * as algokit from '@algorandfoundation/algokit-utils'
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account'
-import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client'
+import { AppClientDeployCoreParams, AppDetails } from '@algorandfoundation/algokit-utils/types/app-client'
 import { useWallet } from '@txnlab/use-wallet'
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
-import { HelloWorldClient } from '../contracts/hello_world'
+import { HelloWorldClient, HelloWorldDeployArgs } from '../contracts/hello_world'
 import { getAlgodConfigFromViteEnvironment, getIndexerConfigFromViteEnvironment } from '../utils/network/getAlgoClientConfigs'
 
 interface AppCallsInterface {
@@ -51,7 +51,7 @@ const AppCalls = ({ openModal, setModalState }: AppCallsInterface) => {
     // Given the simplicity of the starter contract, we are deploying it on the frontend
     // for demonstration purposes.
     const isLocal = await algokit.isLocalNet(algodClient)
-    const deployParams = {
+    const deployParams: HelloWorldDeployArgs & AppClientDeployCoreParams = {
       allowDelete: isLocal,
       allowUpdate: isLocal,
       onSchemaBreak: isLocal ? 'replace' : 'fail',

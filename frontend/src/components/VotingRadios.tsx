@@ -5,24 +5,18 @@ import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 
 interface Props {
-  yesPercentage?: number;
-  noPercentage ?: number;
-  yesVote?: boolean;
-  noVote?: boolean;
-  onVote?: (type: boolean) => void;
+  yesPercentage?: number
+  noPercentage?: number
+  yesVote?: boolean
+  noVote?: boolean
+  onVote?: (type: 'yes' | 'no') => void
 }
 
-export default function VotingRadio({ 
-  yesPercentage = 30, 
-  noPercentage = 70, 
-  yesVote = false, 
-  noVote = false,
-  onVote, 
-}: Props) {
+export default function VotingRadio({ yesPercentage = 30, noPercentage = 70, yesVote = false, noVote = false, onVote }: Props) {
   return (
     <FormControl sx={{ width: '100%' }}>
       <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group">
-        <Box flex={1} bgcolor={'#444'} display={'flex'} justifyContent={'space-between'} pr={2}>
+        <Box flex={1} bgcolor={'#444'} display={'flex'} justifyContent={'space-between'} pr={3}>
           <FormControlLabel
             value="yes"
             control={
@@ -33,7 +27,7 @@ export default function VotingRadio({
                     color: '#eee',
                   },
                 }}
-                onChange={(event) => onVote?.(true)}
+                onChange={(event) => onVote?.('yes')}
                 disabled={noVote}
               />
             }
@@ -60,7 +54,7 @@ export default function VotingRadio({
                     color: '#eee',
                   },
                 }}
-                onChange={(event) => onVote?.(false)}
+                onChange={(event) => onVote?.('no')}
                 disabled={yesVote}
               />
             }

@@ -16,7 +16,7 @@ export const SearchBarMenu: React.FC<SearchBarMenuProps> = ({ menuItems }) => {
     setOpen((prevOpen) => !prevOpen)
   }
 
-  const handleClose = (event: MouseEvent | TouchEvent) => {
+  const handleClose = (event: React.MouseEvent<HTMLLIElement, MouseEvent> | React.TouchEvent<HTMLLIElement> | MouseEvent | TouchEvent) => {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return
     }
@@ -33,7 +33,7 @@ export const SearchBarMenu: React.FC<SearchBarMenuProps> = ({ menuItems }) => {
   }
 
   // return focus to the button when we transitioned from !open -> open
-  const prevOpen = React.useRef(open);
+  const prevOpen = React.useRef(open)
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
       anchorRef.current?.focus()

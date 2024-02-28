@@ -1,4 +1,5 @@
 export interface IProposal {
+  creator_address: string;
   id: number;
   name: string;
   app_id: string;
@@ -9,4 +10,5 @@ export interface IProposal {
   no_count: number;
   updated_on: string;
   yes_count: number;
+  is_claimable: string;
 }

@@ -27,7 +27,13 @@ import type { TransactionWithSigner } from 'algosdk'
 import { Algodv2, OnApplicationComplete, Transaction, AtomicTransactionComposer } from 'algosdk'
 export const APP_SPEC: AppSpec = {
   "hints": {
-    "add_proposal(string,string,uint64)void": {
+    "add_proposal(string,string,uint64,asset)void": {
+      "default_arguments": {
+        "membership_token": {
+          "source": "constant",
+          "data": 591099355
+        }
+      },
       "call_config": {
         "no_op": "CALL"
       }
@@ -68,24 +74,52 @@ export const APP_SPEC: AppSpec = {
         "no_op": "CALL"
       }
     },
-    "vote_yes(string)void": {
+    "vote_yes(string,asset)void": {
+      "default_arguments": {
+        "membership_token": {
+          "source": "constant",
+          "data": 591099355
+        }
+      },
       "call_config": {
         "no_op": "CALL"
       }
     },
-    "vote_no(string)void": {
+    "vote_no(string,asset)void": {
+      "default_arguments": {
+        "membership_token": {
+          "source": "constant",
+          "data": 591099355
+        }
+      },
+      "call_config": {
+        "no_op": "CALL"
+      }
+    },
+    "delete_proposal(string,asset)void": {
+      "default_arguments": {
+        "membership_token": {
+          "source": "constant",
+          "data": 591099355
+        }
+      },
+      "call_config": {
+        "no_op": "CALL"
+      }
+    },
+    "generate_membership_token(pay,string)uint64": {
       "call_config": {
         "no_op": "CALL"
       }
     }
   },
   "source": {
-    "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMSAyOSA2NTUzNgpieXRlY2Jsb2NrIDB4IDB4MDAKdHhuIE51bUFwcEFyZ3MKaW50Y18wIC8vIDAKPT0KYm56IG1haW5fbDEwCnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4N2NlMTJjMDIgLy8gImFkZF9wcm9wb3NhbChzdHJpbmcsc3RyaW5nLHVpbnQ2NCl2b2lkIgo9PQpibnogbWFpbl9sOQp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweGQ3NzhhZDI1IC8vICJyZWFkX3Byb3Bvc2FsKHN0cmluZykoc3RyaW5nLHN0cmluZyxib29sLHVpbnQ2NCx1aW50NjQsdWludDY0KSIKPT0KYm56IG1haW5fbDgKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHg0NGQwNzM5NSAvLyAidm90ZV95ZXMoc3RyaW5nKXZvaWQiCj09CmJueiBtYWluX2w3CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4MGUxODcwMzQgLy8gInZvdGVfbm8oc3RyaW5nKXZvaWQiCj09CmJueiBtYWluX2w2CmVycgptYWluX2w2Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIHZvdGVub2Nhc3Rlcl84CmludGNfMSAvLyAxCnJldHVybgptYWluX2w3Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIHZvdGV5ZXNjYXN0ZXJfNwppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sODoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiByZWFkcHJvcG9zYWxjYXN0ZXJfNgppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sOToKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiBhZGRwcm9wb3NhbGNhc3Rlcl81CmludGNfMSAvLyAxCnJldHVybgptYWluX2wxMDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQpibnogbWFpbl9sMTIKZXJyCm1haW5fbDEyOgp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAo9PQphc3NlcnQKY2FsbHN1YiBjcmVhdGVfMAppbnRjXzEgLy8gMQpyZXR1cm4KCi8vIGNyZWF0ZQpjcmVhdGVfMDoKcHJvdG8gMCAwCnB1c2hieXRlcyAweDZkNjU2ZDYyNjU3MjczNjg2OTcwNWY3NDZmNmI2NTZlIC8vICJtZW1iZXJzaGlwX3Rva2VuIgpwdXNoYnl0ZXMgMHgzMTMyMzMzODM2MzEzMzM1MzUzNiAvLyAiMTIzODYxMzU1NiIKYXBwX2dsb2JhbF9wdXQKcmV0c3ViCgovLyBhZGRfcHJvcG9zYWwKYWRkcHJvcG9zYWxfMToKcHJvdG8gMyAwCmludGNfMCAvLyAwCmJ5dGVjXzAgLy8gIiIKaW50Y18wIC8vIDAKZHVwbiAzCmJ5dGVjXzAgLy8gIiIKZHVwCmludGNfMSAvLyAxCiEKIQpmcmFtZV9idXJ5IDAKaW50Y18wIC8vIDAKZnJhbWVfYnVyeSAyCmludGNfMCAvLyAwCmZyYW1lX2J1cnkgMwpmcmFtZV9kaWcgLTMKZnJhbWVfYnVyeSA3CmZyYW1lX2RpZyA3CmZyYW1lX2J1cnkgNgppbnRjXzIgLy8gMjkKZnJhbWVfYnVyeSA0CmZyYW1lX2RpZyA0CmZyYW1lX2RpZyA3CmxlbgorCmZyYW1lX2J1cnkgNQpmcmFtZV9kaWcgNQppbnRjXzMgLy8gNjU1MzYKPAphc3NlcnQKZnJhbWVfZGlnIDQKaXRvYgpleHRyYWN0IDYgMApmcmFtZV9kaWcgLTIKZnJhbWVfYnVyeSA3CmZyYW1lX2RpZyA2CmZyYW1lX2RpZyA3CmNvbmNhdApmcmFtZV9idXJ5IDYKZnJhbWVfZGlnIDUKZnJhbWVfYnVyeSA0CmZyYW1lX2RpZyA0Cml0b2IKZXh0cmFjdCA2IDAKY29uY2F0CmJ5dGVjXzEgLy8gMHgwMAppbnRjXzAgLy8gMApmcmFtZV9kaWcgMApzZXRiaXQKY29uY2F0CmZyYW1lX2RpZyAtMQppdG9iCmNvbmNhdApmcmFtZV9kaWcgMgppdG9iCmNvbmNhdApmcmFtZV9kaWcgMwppdG9iCmNvbmNhdApmcmFtZV9kaWcgNgpjb25jYXQKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAtMwpleHRyYWN0IDIgMApib3hfZGVsCnBvcApmcmFtZV9kaWcgLTMKZXh0cmFjdCAyIDAKZnJhbWVfZGlnIDEKYm94X3B1dApyZXRzdWIKCi8vIHJlYWRfcHJvcG9zYWwKcmVhZHByb3Bvc2FsXzI6CnByb3RvIDEgMQpieXRlY18wIC8vICIiCmZyYW1lX2RpZyAtMQpleHRyYWN0IDIgMApib3hfZ2V0CnN0b3JlIDEKc3RvcmUgMApsb2FkIDEKYXNzZXJ0CmxvYWQgMApmcmFtZV9idXJ5IDAKcmV0c3ViCgovLyB2b3RlX3llcwp2b3RleWVzXzM6CnByb3RvIDEgMAppbnRjXzAgLy8gMApieXRlY18wIC8vICIiCmludGNfMCAvLyAwCmR1cApieXRlY18wIC8vICIiCmludGNfMCAvLyAwCmR1cG4gMwpieXRlY18wIC8vICIiCmR1cApmcmFtZV9kaWcgLTEKZXh0cmFjdCAyIDAKYm94X2dldApzdG9yZSAzCnN0b3JlIDIKbG9hZCAzCmFzc2VydApsb2FkIDIKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAxCnB1c2hpbnQgMTMgLy8gMTMKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSAwCmZyYW1lX2RpZyAwCmludGNfMSAvLyAxCisKZnJhbWVfYnVyeSAyCmZyYW1lX2RpZyAxCnB1c2hpbnQgMjEgLy8gMjEKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSAzCmZyYW1lX2RpZyAxCmZyYW1lX2RpZyAxCnB1c2hpbnQgMiAvLyAyCmV4dHJhY3RfdWludDE2CmRpZyAxCmxlbgpzdWJzdHJpbmczCmZyYW1lX2J1cnkgNApmcmFtZV9kaWcgMQpwdXNoaW50IDMyIC8vIDMyCmdldGJpdApmcmFtZV9idXJ5IDUKZnJhbWVfZGlnIDEKcHVzaGludCA1IC8vIDUKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSA2CmZyYW1lX2RpZyAtMQpmcmFtZV9idXJ5IDEwCmZyYW1lX2RpZyAxMApmcmFtZV9idXJ5IDkKaW50Y18yIC8vIDI5CmZyYW1lX2J1cnkgNwpmcmFtZV9kaWcgNwpmcmFtZV9kaWcgMTAKbGVuCisKZnJhbWVfYnVyeSA4CmZyYW1lX2RpZyA4CmludGNfMyAvLyA2NTUzNgo8CmFzc2VydApmcmFtZV9kaWcgNwppdG9iCmV4dHJhY3QgNiAwCmZyYW1lX2RpZyA0CmZyYW1lX2J1cnkgMTAKZnJhbWVfZGlnIDkKZnJhbWVfZGlnIDEwCmNvbmNhdApmcmFtZV9idXJ5IDkKZnJhbWVfZGlnIDgKZnJhbWVfYnVyeSA3CmZyYW1lX2RpZyA3Cml0b2IKZXh0cmFjdCA2IDAKY29uY2F0CmJ5dGVjXzEgLy8gMHgwMAppbnRjXzAgLy8gMApmcmFtZV9kaWcgNQpzZXRiaXQKY29uY2F0CmZyYW1lX2RpZyA2Cml0b2IKY29uY2F0CmZyYW1lX2RpZyAyCml0b2IKY29uY2F0CmZyYW1lX2RpZyAzCml0b2IKY29uY2F0CmZyYW1lX2RpZyA5CmNvbmNhdApmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmJveF9kZWwKcG9wCmZyYW1lX2RpZyAtMQpleHRyYWN0IDIgMApmcmFtZV9kaWcgMQpib3hfcHV0CnJldHN1YgoKLy8gdm90ZV9ubwp2b3Rlbm9fNDoKcHJvdG8gMSAwCmludGNfMCAvLyAwCmJ5dGVjXzAgLy8gIiIKaW50Y18wIC8vIDAKZHVwCmJ5dGVjXzAgLy8gIiIKaW50Y18wIC8vIDAKZHVwbiAzCmJ5dGVjXzAgLy8gIiIKZHVwCmZyYW1lX2RpZyAtMQpleHRyYWN0IDIgMApib3hfZ2V0CnN0b3JlIDUKc3RvcmUgNApsb2FkIDUKYXNzZXJ0CmxvYWQgNApmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIDEKcHVzaGludCAyMSAvLyAyMQpleHRyYWN0X3VpbnQ2NApmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKaW50Y18xIC8vIDEKKwpmcmFtZV9idXJ5IDIKZnJhbWVfZGlnIDEKcHVzaGludCAxMyAvLyAxMwpleHRyYWN0X3VpbnQ2NApmcmFtZV9idXJ5IDMKZnJhbWVfZGlnIDEKZnJhbWVfZGlnIDEKcHVzaGludCAyIC8vIDIKZXh0cmFjdF91aW50MTYKZGlnIDEKbGVuCnN1YnN0cmluZzMKZnJhbWVfYnVyeSA0CmZyYW1lX2RpZyAxCnB1c2hpbnQgMzIgLy8gMzIKZ2V0Yml0CmZyYW1lX2J1cnkgNQpmcmFtZV9kaWcgMQpwdXNoaW50IDUgLy8gNQpleHRyYWN0X3VpbnQ2NApmcmFtZV9idXJ5IDYKZnJhbWVfZGlnIC0xCmZyYW1lX2J1cnkgMTAKZnJhbWVfZGlnIDEwCmZyYW1lX2J1cnkgOQppbnRjXzIgLy8gMjkKZnJhbWVfYnVyeSA3CmZyYW1lX2RpZyA3CmZyYW1lX2RpZyAxMApsZW4KKwpmcmFtZV9idXJ5IDgKZnJhbWVfZGlnIDgKaW50Y18zIC8vIDY1NTM2CjwKYXNzZXJ0CmZyYW1lX2RpZyA3Cml0b2IKZXh0cmFjdCA2IDAKZnJhbWVfZGlnIDQKZnJhbWVfYnVyeSAxMApmcmFtZV9kaWcgOQpmcmFtZV9kaWcgMTAKY29uY2F0CmZyYW1lX2J1cnkgOQpmcmFtZV9kaWcgOApmcmFtZV9idXJ5IDcKZnJhbWVfZGlnIDcKaXRvYgpleHRyYWN0IDYgMApjb25jYXQKYnl0ZWNfMSAvLyAweDAwCmludGNfMCAvLyAwCmZyYW1lX2RpZyA1CnNldGJpdApjb25jYXQKZnJhbWVfZGlnIDYKaXRvYgpjb25jYXQKZnJhbWVfZGlnIDMKaXRvYgpjb25jYXQKZnJhbWVfZGlnIDIKaXRvYgpjb25jYXQKZnJhbWVfZGlnIDkKY29uY2F0CmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgLTEKZXh0cmFjdCAyIDAKYm94X2RlbApwb3AKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmZyYW1lX2RpZyAxCmJveF9wdXQKcmV0c3ViCgovLyBhZGRfcHJvcG9zYWxfY2FzdGVyCmFkZHByb3Bvc2FsY2FzdGVyXzU6CnByb3RvIDAgMApieXRlY18wIC8vICIiCmR1cAppbnRjXzAgLy8gMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmZyYW1lX2J1cnkgMQp0eG5hIEFwcGxpY2F0aW9uQXJncyAzCmJ0b2kKZnJhbWVfYnVyeSAyCmZyYW1lX2RpZyAwCmZyYW1lX2RpZyAxCmZyYW1lX2RpZyAyCmNhbGxzdWIgYWRkcHJvcG9zYWxfMQpyZXRzdWIKCi8vIHJlYWRfcHJvcG9zYWxfY2FzdGVyCnJlYWRwcm9wb3NhbGNhc3Rlcl82Ogpwcm90byAwIDAKYnl0ZWNfMCAvLyAiIgpkdXAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIDEKY2FsbHN1YiByZWFkcHJvcG9zYWxfMgpmcmFtZV9idXJ5IDAKcHVzaGJ5dGVzIDB4MTUxZjdjNzUgLy8gMHgxNTFmN2M3NQpmcmFtZV9kaWcgMApjb25jYXQKbG9nCnJldHN1YgoKLy8gdm90ZV95ZXNfY2FzdGVyCnZvdGV5ZXNjYXN0ZXJfNzoKcHJvdG8gMCAwCmJ5dGVjXzAgLy8gIiIKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKY2FsbHN1YiB2b3RleWVzXzMKcmV0c3ViCgovLyB2b3RlX25vX2Nhc3Rlcgp2b3Rlbm9jYXN0ZXJfODoKcHJvdG8gMCAwCmJ5dGVjXzAgLy8gIiIKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKY2FsbHN1YiB2b3Rlbm9fNApyZXRzdWI=",
+    "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMSA1OTEwOTkzNTUgMjkgNjU1MzYKYnl0ZWNibG9jayAweCAweDAwIDB4MTUxZjdjNzUKdHhuIE51bUFwcEFyZ3MKaW50Y18wIC8vIDAKPT0KYm56IG1haW5fbDE0CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4ZmU2Y2FjYzMgLy8gImFkZF9wcm9wb3NhbChzdHJpbmcsc3RyaW5nLHVpbnQ2NCxhc3NldCl2b2lkIgo9PQpibnogbWFpbl9sMTMKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHhkNzc4YWQyNSAvLyAicmVhZF9wcm9wb3NhbChzdHJpbmcpKHN0cmluZyxzdHJpbmcsYm9vbCx1aW50NjQsdWludDY0LHVpbnQ2NCkiCj09CmJueiBtYWluX2wxMgp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDIxMTQxNjg3IC8vICJ2b3RlX3llcyhzdHJpbmcsYXNzZXQpdm9pZCIKPT0KYm56IG1haW5fbDExCnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4YTUyNWVmOTQgLy8gInZvdGVfbm8oc3RyaW5nLGFzc2V0KXZvaWQiCj09CmJueiBtYWluX2wxMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweGRmMjMxMjA0IC8vICJkZWxldGVfcHJvcG9zYWwoc3RyaW5nLGFzc2V0KXZvaWQiCj09CmJueiBtYWluX2w5CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4MDdmOTU5OGQgLy8gImdlbmVyYXRlX21lbWJlcnNoaXBfdG9rZW4ocGF5LHN0cmluZyl1aW50NjQiCj09CmJueiBtYWluX2w4CmVycgptYWluX2w4Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGdlbmVyYXRlbWVtYmVyc2hpcHRva2VuY2FzdGVyXzEyCmludGNfMSAvLyAxCnJldHVybgptYWluX2w5Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGRlbGV0ZXByb3Bvc2FsY2FzdGVyXzExCmludGNfMSAvLyAxCnJldHVybgptYWluX2wxMDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiB2b3Rlbm9jYXN0ZXJfMTAKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDExOgp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIHZvdGV5ZXNjYXN0ZXJfOQppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sMTI6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgcmVhZHByb3Bvc2FsY2FzdGVyXzgKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDEzOgp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGFkZHByb3Bvc2FsY2FzdGVyXzcKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDE0Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CmJueiBtYWluX2wxNgplcnIKbWFpbl9sMTY6CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCj09CmFzc2VydApjYWxsc3ViIGNyZWF0ZV8wCmludGNfMSAvLyAxCnJldHVybgoKLy8gY3JlYXRlCmNyZWF0ZV8wOgpwcm90byAwIDAKcmV0c3ViCgovLyBhZGRfcHJvcG9zYWwKYWRkcHJvcG9zYWxfMToKcHJvdG8gNCAwCmludGNfMCAvLyAwCmJ5dGVjXzAgLy8gIiIKaW50Y18wIC8vIDAKZHVwbiAzCmJ5dGVjXzAgLy8gIiIKZHVwCnR4biBTZW5kZXIKaW50Y18yIC8vIDU5MTA5OTM1NQphc3NldF9ob2xkaW5nX2dldCBBc3NldEJhbGFuY2UKc3RvcmUgMQpzdG9yZSAwCmxvYWQgMQpsb2FkIDAKaW50Y18wIC8vIDAKPgomJgovLyB1bmF1dGhvcml6ZWQKYXNzZXJ0CmludGNfMSAvLyAxCiEKIQpmcmFtZV9idXJ5IDAKaW50Y18wIC8vIDAKZnJhbWVfYnVyeSAyCmludGNfMCAvLyAwCmZyYW1lX2J1cnkgMwpmcmFtZV9kaWcgLTQKZnJhbWVfYnVyeSA3CmZyYW1lX2RpZyA3CmZyYW1lX2J1cnkgNgppbnRjXzMgLy8gMjkKZnJhbWVfYnVyeSA0CmZyYW1lX2RpZyA0CmZyYW1lX2RpZyA3CmxlbgorCmZyYW1lX2J1cnkgNQpmcmFtZV9kaWcgNQppbnRjIDQgLy8gNjU1MzYKPAphc3NlcnQKZnJhbWVfZGlnIDQKaXRvYgpleHRyYWN0IDYgMApmcmFtZV9kaWcgLTMKZnJhbWVfYnVyeSA3CmZyYW1lX2RpZyA2CmZyYW1lX2RpZyA3CmNvbmNhdApmcmFtZV9idXJ5IDYKZnJhbWVfZGlnIDUKZnJhbWVfYnVyeSA0CmZyYW1lX2RpZyA0Cml0b2IKZXh0cmFjdCA2IDAKY29uY2F0CmJ5dGVjXzEgLy8gMHgwMAppbnRjXzAgLy8gMApmcmFtZV9kaWcgMApzZXRiaXQKY29uY2F0CmZyYW1lX2RpZyAtMgppdG9iCmNvbmNhdApmcmFtZV9kaWcgMgppdG9iCmNvbmNhdApmcmFtZV9kaWcgMwppdG9iCmNvbmNhdApmcmFtZV9kaWcgNgpjb25jYXQKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAtNApleHRyYWN0IDIgMApib3hfZGVsCnBvcApmcmFtZV9kaWcgLTQKZXh0cmFjdCAyIDAKZnJhbWVfZGlnIDEKYm94X3B1dApyZXRzdWIKCi8vIHJlYWRfcHJvcG9zYWwKcmVhZHByb3Bvc2FsXzI6CnByb3RvIDEgMQpieXRlY18wIC8vICIiCmZyYW1lX2RpZyAtMQpleHRyYWN0IDIgMApib3hfZ2V0CnN0b3JlIDMKc3RvcmUgMgpsb2FkIDMKYXNzZXJ0CmxvYWQgMgpmcmFtZV9idXJ5IDAKcmV0c3ViCgovLyB2b3RlX3llcwp2b3RleWVzXzM6CnByb3RvIDIgMAppbnRjXzAgLy8gMApieXRlY18wIC8vICIiCmludGNfMCAvLyAwCmR1cApieXRlY18wIC8vICIiCmludGNfMCAvLyAwCmR1cG4gMwpieXRlY18wIC8vICIiCmR1cAp0eG4gU2VuZGVyCmludGNfMiAvLyA1OTEwOTkzNTUKYXNzZXRfaG9sZGluZ19nZXQgQXNzZXRCYWxhbmNlCnN0b3JlIDUKc3RvcmUgNApsb2FkIDUKbG9hZCA0CmludGNfMCAvLyAwCj4KJiYKLy8gdW5hdXRob3JpemVkCmFzc2VydApmcmFtZV9kaWcgLTIKZXh0cmFjdCAyIDAKYm94X2dldApzdG9yZSA3CnN0b3JlIDYKbG9hZCA3CmFzc2VydApsb2FkIDYKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAxCnB1c2hpbnQgMTMgLy8gMTMKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSAwCmZyYW1lX2RpZyAwCmludGNfMSAvLyAxCisKZnJhbWVfYnVyeSAyCmZyYW1lX2RpZyAxCnB1c2hpbnQgMjEgLy8gMjEKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSAzCmZyYW1lX2RpZyAxCmZyYW1lX2RpZyAxCnB1c2hpbnQgMiAvLyAyCmV4dHJhY3RfdWludDE2CmRpZyAxCmxlbgpzdWJzdHJpbmczCmZyYW1lX2J1cnkgNApmcmFtZV9kaWcgMQpwdXNoaW50IDMyIC8vIDMyCmdldGJpdApmcmFtZV9idXJ5IDUKZnJhbWVfZGlnIDEKcHVzaGludCA1IC8vIDUKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSA2CmZyYW1lX2RpZyAtMgpmcmFtZV9idXJ5IDEwCmZyYW1lX2RpZyAxMApmcmFtZV9idXJ5IDkKaW50Y18zIC8vIDI5CmZyYW1lX2J1cnkgNwpmcmFtZV9kaWcgNwpmcmFtZV9kaWcgMTAKbGVuCisKZnJhbWVfYnVyeSA4CmZyYW1lX2RpZyA4CmludGMgNCAvLyA2NTUzNgo8CmFzc2VydApmcmFtZV9kaWcgNwppdG9iCmV4dHJhY3QgNiAwCmZyYW1lX2RpZyA0CmZyYW1lX2J1cnkgMTAKZnJhbWVfZGlnIDkKZnJhbWVfZGlnIDEwCmNvbmNhdApmcmFtZV9idXJ5IDkKZnJhbWVfZGlnIDgKZnJhbWVfYnVyeSA3CmZyYW1lX2RpZyA3Cml0b2IKZXh0cmFjdCA2IDAKY29uY2F0CmJ5dGVjXzEgLy8gMHgwMAppbnRjXzAgLy8gMApmcmFtZV9kaWcgNQpzZXRiaXQKY29uY2F0CmZyYW1lX2RpZyA2Cml0b2IKY29uY2F0CmZyYW1lX2RpZyAyCml0b2IKY29uY2F0CmZyYW1lX2RpZyAzCml0b2IKY29uY2F0CmZyYW1lX2RpZyA5CmNvbmNhdApmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIC0yCmV4dHJhY3QgMiAwCmJveF9kZWwKcG9wCmZyYW1lX2RpZyAtMgpleHRyYWN0IDIgMApmcmFtZV9kaWcgMQpib3hfcHV0CnJldHN1YgoKLy8gdm90ZV9ubwp2b3Rlbm9fNDoKcHJvdG8gMiAwCmludGNfMCAvLyAwCmJ5dGVjXzAgLy8gIiIKaW50Y18wIC8vIDAKZHVwCmJ5dGVjXzAgLy8gIiIKaW50Y18wIC8vIDAKZHVwbiAzCmJ5dGVjXzAgLy8gIiIKZHVwCnR4biBTZW5kZXIKaW50Y18yIC8vIDU5MTA5OTM1NQphc3NldF9ob2xkaW5nX2dldCBBc3NldEJhbGFuY2UKc3RvcmUgOQpzdG9yZSA4CmxvYWQgOQpsb2FkIDgKaW50Y18wIC8vIDAKPgomJgovLyB1bmF1dGhvcml6ZWQKYXNzZXJ0CmZyYW1lX2RpZyAtMgpleHRyYWN0IDIgMApib3hfZ2V0CnN0b3JlIDExCnN0b3JlIDEwCmxvYWQgMTEKYXNzZXJ0CmxvYWQgMTAKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAxCnB1c2hpbnQgMjEgLy8gMjEKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSAwCmZyYW1lX2RpZyAwCmludGNfMSAvLyAxCisKZnJhbWVfYnVyeSAyCmZyYW1lX2RpZyAxCnB1c2hpbnQgMTMgLy8gMTMKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSAzCmZyYW1lX2RpZyAxCmZyYW1lX2RpZyAxCnB1c2hpbnQgMiAvLyAyCmV4dHJhY3RfdWludDE2CmRpZyAxCmxlbgpzdWJzdHJpbmczCmZyYW1lX2J1cnkgNApmcmFtZV9kaWcgMQpwdXNoaW50IDMyIC8vIDMyCmdldGJpdApmcmFtZV9idXJ5IDUKZnJhbWVfZGlnIDEKcHVzaGludCA1IC8vIDUKZXh0cmFjdF91aW50NjQKZnJhbWVfYnVyeSA2CmZyYW1lX2RpZyAtMgpmcmFtZV9idXJ5IDEwCmZyYW1lX2RpZyAxMApmcmFtZV9idXJ5IDkKaW50Y18zIC8vIDI5CmZyYW1lX2J1cnkgNwpmcmFtZV9kaWcgNwpmcmFtZV9kaWcgMTAKbGVuCisKZnJhbWVfYnVyeSA4CmZyYW1lX2RpZyA4CmludGMgNCAvLyA2NTUzNgo8CmFzc2VydApmcmFtZV9kaWcgNwppdG9iCmV4dHJhY3QgNiAwCmZyYW1lX2RpZyA0CmZyYW1lX2J1cnkgMTAKZnJhbWVfZGlnIDkKZnJhbWVfZGlnIDEwCmNvbmNhdApmcmFtZV9idXJ5IDkKZnJhbWVfZGlnIDgKZnJhbWVfYnVyeSA3CmZyYW1lX2RpZyA3Cml0b2IKZXh0cmFjdCA2IDAKY29uY2F0CmJ5dGVjXzEgLy8gMHgwMAppbnRjXzAgLy8gMApmcmFtZV9kaWcgNQpzZXRiaXQKY29uY2F0CmZyYW1lX2RpZyA2Cml0b2IKY29uY2F0CmZyYW1lX2RpZyAzCml0b2IKY29uY2F0CmZyYW1lX2RpZyAyCml0b2IKY29uY2F0CmZyYW1lX2RpZyA5CmNvbmNhdApmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIC0yCmV4dHJhY3QgMiAwCmJveF9kZWwKcG9wCmZyYW1lX2RpZyAtMgpleHRyYWN0IDIgMApmcmFtZV9kaWcgMQpib3hfcHV0CnJldHN1YgoKLy8gZGVsZXRlX3Byb3Bvc2FsCmRlbGV0ZXByb3Bvc2FsXzU6CnByb3RvIDIgMAp0eG4gU2VuZGVyCmludGNfMiAvLyA1OTEwOTkzNTUKYXNzZXRfaG9sZGluZ19nZXQgQXNzZXRCYWxhbmNlCnN0b3JlIDEzCnN0b3JlIDEyCmxvYWQgMTMKbG9hZCAxMgppbnRjXzAgLy8gMAo+CiYmCi8vIHVuYXV0aG9yaXplZAphc3NlcnQKZnJhbWVfZGlnIC0yCmV4dHJhY3QgMiAwCmJveF9kZWwKcG9wCnJldHN1YgoKLy8gZ2VuZXJhdGVfbWVtYmVyc2hpcF90b2tlbgpnZW5lcmF0ZW1lbWJlcnNoaXB0b2tlbl82Ogpwcm90byAyIDEKaW50Y18wIC8vIDAKdHhuIFNlbmRlcgpnbG9iYWwgQ3JlYXRvckFkZHJlc3MKPT0KLy8gdW5hdXRob3JpemVkCmFzc2VydApmcmFtZV9kaWcgLTIKZ3R4bnMgUmVjZWl2ZXIKZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKPT0KLy8gcGF5bWVudCBtdXN0IGJlIHRvIGFwcCBhZGRyZXNzCmFzc2VydApmcmFtZV9kaWcgLTIKZ3R4bnMgQW1vdW50CnB1c2hpbnQgMzA3MDAwMDAgLy8gMzA3MDAwMDAKPj0KLy8gcGF5bWVudCBtdXN0IGJlIGZvciA+PSAzMDcwMDAwMAphc3NlcnQKaXR4bl9iZWdpbgpwdXNoaW50IDMgLy8gYWNmZwppdHhuX2ZpZWxkIFR5cGVFbnVtCmZyYW1lX2RpZyAtMQpleHRyYWN0IDIgMAppdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0TmFtZQpwdXNoaW50IDIwMDAgLy8gMjAwMAppdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0VG90YWwKaW50Y18xIC8vIDEKaXR4bl9maWVsZCBDb25maWdBc3NldERlZmF1bHRGcm96ZW4KZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKaXR4bl9maWVsZCBDb25maWdBc3NldE1hbmFnZXIKZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKaXR4bl9maWVsZCBDb25maWdBc3NldENsYXdiYWNrCmdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCml0eG5fZmllbGQgQ29uZmlnQXNzZXRGcmVlemUKZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKaXR4bl9maWVsZCBDb25maWdBc3NldFJlc2VydmUKaW50Y18wIC8vIDAKaXR4bl9maWVsZCBGZWUKaXR4bl9zdWJtaXQKcmV0c3ViCgovLyBhZGRfcHJvcG9zYWxfY2FzdGVyCmFkZHByb3Bvc2FsY2FzdGVyXzc6CnByb3RvIDAgMApieXRlY18wIC8vICIiCmR1cAppbnRjXzAgLy8gMApkdXAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgpmcmFtZV9idXJ5IDEKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMwpidG9pCmZyYW1lX2J1cnkgMgp0eG5hIEFwcGxpY2F0aW9uQXJncyA0CmludGNfMCAvLyAwCmdldGJ5dGUKZnJhbWVfYnVyeSAzCmZyYW1lX2RpZyAwCmZyYW1lX2RpZyAxCmZyYW1lX2RpZyAyCmZyYW1lX2RpZyAzCmNhbGxzdWIgYWRkcHJvcG9zYWxfMQpyZXRzdWIKCi8vIHJlYWRfcHJvcG9zYWxfY2FzdGVyCnJlYWRwcm9wb3NhbGNhc3Rlcl84Ogpwcm90byAwIDAKYnl0ZWNfMCAvLyAiIgpkdXAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIDEKY2FsbHN1YiByZWFkcHJvcG9zYWxfMgpmcmFtZV9idXJ5IDAKYnl0ZWNfMiAvLyAweDE1MWY3Yzc1CmZyYW1lX2RpZyAwCmNvbmNhdApsb2cKcmV0c3ViCgovLyB2b3RlX3llc19jYXN0ZXIKdm90ZXllc2Nhc3Rlcl85Ogpwcm90byAwIDAKYnl0ZWNfMCAvLyAiIgppbnRjXzAgLy8gMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmludGNfMCAvLyAwCmdldGJ5dGUKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAwCmZyYW1lX2RpZyAxCmNhbGxzdWIgdm90ZXllc18zCnJldHN1YgoKLy8gdm90ZV9ub19jYXN0ZXIKdm90ZW5vY2FzdGVyXzEwOgpwcm90byAwIDAKYnl0ZWNfMCAvLyAiIgppbnRjXzAgLy8gMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmludGNfMCAvLyAwCmdldGJ5dGUKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAwCmZyYW1lX2RpZyAxCmNhbGxzdWIgdm90ZW5vXzQKcmV0c3ViCgovLyBkZWxldGVfcHJvcG9zYWxfY2FzdGVyCmRlbGV0ZXByb3Bvc2FsY2FzdGVyXzExOgpwcm90byAwIDAKYnl0ZWNfMCAvLyAiIgppbnRjXzAgLy8gMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmludGNfMCAvLyAwCmdldGJ5dGUKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAwCmZyYW1lX2RpZyAxCmNhbGxzdWIgZGVsZXRlcHJvcG9zYWxfNQpyZXRzdWIKCi8vIGdlbmVyYXRlX21lbWJlcnNoaXBfdG9rZW5fY2FzdGVyCmdlbmVyYXRlbWVtYmVyc2hpcHRva2VuY2FzdGVyXzEyOgpwcm90byAwIDAKaW50Y18wIC8vIDAKZHVwCmJ5dGVjXzAgLy8gIiIKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDIKdHhuIEdyb3VwSW5kZXgKaW50Y18xIC8vIDEKLQpmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIDEKZ3R4bnMgVHlwZUVudW0KaW50Y18xIC8vIHBheQo9PQphc3NlcnQKZnJhbWVfZGlnIDEKZnJhbWVfZGlnIDIKY2FsbHN1YiBnZW5lcmF0ZW1lbWJlcnNoaXB0b2tlbl82CmZyYW1lX2J1cnkgMApieXRlY18yIC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKaXRvYgpjb25jYXQKbG9nCnJldHN1Yg==",
     "clear": "I3ByYWdtYSB2ZXJzaW9uIDgKcHVzaGludCAwIC8vIDAKcmV0dXJu"
   },
   "state": {
     "global": {
-      "num_byte_slices": 1,
+      "num_byte_slices": 0,
       "num_uints": 0
     },
     "local": {
@@ -95,13 +129,7 @@ export const APP_SPEC: AppSpec = {
   },
   "schema": {
     "global": {
-      "declared": {
-        "membership_token": {
-          "type": "bytes",
-          "key": "membership_token",
-          "descr": ""
-        }
-      },
+      "declared": {},
       "reserved": {}
     },
     "local": {
@@ -126,6 +154,10 @@ export const APP_SPEC: AppSpec = {
           {
             "type": "uint64",
             "name": "end_time"
+          },
+          {
+            "type": "asset",
+            "name": "membership_token"
           }
         ],
         "returns": {
@@ -150,6 +182,10 @@ export const APP_SPEC: AppSpec = {
           {
             "type": "string",
             "name": "proposal_name"
+          },
+          {
+            "type": "asset",
+            "name": "membership_token"
           }
         ],
         "returns": {
@@ -162,11 +198,48 @@ export const APP_SPEC: AppSpec = {
           {
             "type": "string",
             "name": "proposal_name"
+          },
+          {
+            "type": "asset",
+            "name": "membership_token"
           }
         ],
         "returns": {
           "type": "void"
         }
+      },
+      {
+        "name": "delete_proposal",
+        "args": [
+          {
+            "type": "string",
+            "name": "proposal_name"
+          },
+          {
+            "type": "asset",
+            "name": "membership_token"
+          }
+        ],
+        "returns": {
+          "type": "void"
+        }
+      },
+      {
+        "name": "generate_membership_token",
+        "args": [
+          {
+            "type": "pay",
+            "name": "seed"
+          },
+          {
+            "type": "string",
+            "name": "token_name"
+          }
+        ],
+        "returns": {
+          "type": "uint64"
+        },
+        "desc": "create membership token and receive initial seed payment"
       }
     ],
     "networks": {}
@@ -231,13 +304,14 @@ export type Proposals = {
    * Maps method signatures / names to their argument and return types.
    */
   methods:
-    & Record<'add_proposal(string,string,uint64)void' | 'add_proposal', {
+    & Record<'add_proposal(string,string,uint64,asset)void' | 'add_proposal', {
       argsObj: {
         name: string
         description: string
         end_time: bigint | number
+        membership_token?: number | bigint
       }
-      argsTuple: [name: string, description: string, end_time: bigint | number]
+      argsTuple: [name: string, description: string, end_time: bigint | number, membership_token: number | bigint | undefined]
       returns: void
     }>
     & Record<'read_proposal(string)(string,string,bool,uint64,uint64,uint64)' | 'read_proposal', {
@@ -247,28 +321,38 @@ export type Proposals = {
       argsTuple: [name: string]
       returns: Proposal
     }>
-    & Record<'vote_yes(string)void' | 'vote_yes', {
+    & Record<'vote_yes(string,asset)void' | 'vote_yes', {
       argsObj: {
         proposal_name: string
+        membership_token?: number | bigint
       }
-      argsTuple: [proposal_name: string]
+      argsTuple: [proposal_name: string, membership_token: number | bigint | undefined]
       returns: void
     }>
-    & Record<'vote_no(string)void' | 'vote_no', {
+    & Record<'vote_no(string,asset)void' | 'vote_no', {
       argsObj: {
         proposal_name: string
+        membership_token?: number | bigint
       }
-      argsTuple: [proposal_name: string]
+      argsTuple: [proposal_name: string, membership_token: number | bigint | undefined]
       returns: void
     }>
-  /**
-   * Defines the shape of the global and local state of the application.
-   */
-  state: {
-    global: {
-      'membership_token'?: BinaryState
-    }
-  }
+    & Record<'delete_proposal(string,asset)void' | 'delete_proposal', {
+      argsObj: {
+        proposal_name: string
+        membership_token?: number | bigint
+      }
+      argsTuple: [proposal_name: string, membership_token: number | bigint | undefined]
+      returns: void
+    }>
+    & Record<'generate_membership_token(pay,string)uint64' | 'generate_membership_token', {
+      argsObj: {
+        seed: TransactionToSign | Transaction | Promise<SendTransactionResult>
+        token_name: string
+      }
+      argsTuple: [seed: TransactionToSign | Transaction | Promise<SendTransactionResult>, token_name: string]
+      returns: bigint
+    }>
 }
 /**
  * Defines the possible abi call signatures
@@ -365,16 +449,16 @@ export abstract class ProposalsCallFactory {
   }
 
   /**
-   * Constructs a no op call for the add_proposal(string,string,uint64)void ABI method
+   * Constructs a no op call for the add_proposal(string,string,uint64,asset)void ABI method
    *
    * @param args Any args for the contract call
    * @param params Any additional parameters for the call
    * @returns A TypedCallParams object for the call
    */
-  static addProposal(args: MethodArgs<'add_proposal(string,string,uint64)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+  static addProposal(args: MethodArgs<'add_proposal(string,string,uint64,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
     return {
-      method: 'add_proposal(string,string,uint64)void' as const,
-      methodArgs: Array.isArray(args) ? args : [args.name, args.description, args.end_time],
+      method: 'add_proposal(string,string,uint64,asset)void' as const,
+      methodArgs: Array.isArray(args) ? args : [args.name, args.description, args.end_time, args.membership_token],
       ...params,
     }
   }
@@ -393,30 +477,60 @@ export abstract class ProposalsCallFactory {
     }
   }
   /**
-   * Constructs a no op call for the vote_yes(string)void ABI method
+   * Constructs a no op call for the vote_yes(string,asset)void ABI method
    *
    * @param args Any args for the contract call
    * @param params Any additional parameters for the call
    * @returns A TypedCallParams object for the call
    */
-  static voteYes(args: MethodArgs<'vote_yes(string)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+  static voteYes(args: MethodArgs<'vote_yes(string,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
     return {
-      method: 'vote_yes(string)void' as const,
-      methodArgs: Array.isArray(args) ? args : [args.proposal_name],
+      method: 'vote_yes(string,asset)void' as const,
+      methodArgs: Array.isArray(args) ? args : [args.proposal_name, args.membership_token],
       ...params,
     }
   }
   /**
-   * Constructs a no op call for the vote_no(string)void ABI method
+   * Constructs a no op call for the vote_no(string,asset)void ABI method
    *
    * @param args Any args for the contract call
    * @param params Any additional parameters for the call
    * @returns A TypedCallParams object for the call
    */
-  static voteNo(args: MethodArgs<'vote_no(string)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+  static voteNo(args: MethodArgs<'vote_no(string,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
     return {
-      method: 'vote_no(string)void' as const,
-      methodArgs: Array.isArray(args) ? args : [args.proposal_name],
+      method: 'vote_no(string,asset)void' as const,
+      methodArgs: Array.isArray(args) ? args : [args.proposal_name, args.membership_token],
+      ...params,
+    }
+  }
+  /**
+   * Constructs a no op call for the delete_proposal(string,asset)void ABI method
+   *
+   * @param args Any args for the contract call
+   * @param params Any additional parameters for the call
+   * @returns A TypedCallParams object for the call
+   */
+  static deleteProposal(args: MethodArgs<'delete_proposal(string,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+    return {
+      method: 'delete_proposal(string,asset)void' as const,
+      methodArgs: Array.isArray(args) ? args : [args.proposal_name, args.membership_token],
+      ...params,
+    }
+  }
+  /**
+   * Constructs a no op call for the generate_membership_token(pay,string)uint64 ABI method
+   *
+   * create membership token and receive initial seed payment
+   *
+   * @param args Any args for the contract call
+   * @param params Any additional parameters for the call
+   * @returns A TypedCallParams object for the call
+   */
+  static generateMembershipToken(args: MethodArgs<'generate_membership_token(pay,string)uint64'>, params: AppClientCallCoreParams & CoreAppCallArgs) {
+    return {
+      method: 'generate_membership_token(pay,string)uint64' as const,
+      methodArgs: Array.isArray(args) ? args : [args.seed, args.token_name],
       ...params,
     }
   }
@@ -519,13 +633,13 @@ export class ProposalsClient {
   }
 
   /**
-   * Calls the add_proposal(string,string,uint64)void ABI method.
+   * Calls the add_proposal(string,string,uint64,asset)void ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The result of the call
    */
-  public addProposal(args: MethodArgs<'add_proposal(string,string,uint64)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+  public addProposal(args: MethodArgs<'add_proposal(string,string,uint64,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
     return this.call(ProposalsCallFactory.addProposal(args, params))
   }
 
@@ -541,81 +655,49 @@ export class ProposalsClient {
   }
 
   /**
-   * Calls the vote_yes(string)void ABI method.
+   * Calls the vote_yes(string,asset)void ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The result of the call
    */
-  public voteYes(args: MethodArgs<'vote_yes(string)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+  public voteYes(args: MethodArgs<'vote_yes(string,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
     return this.call(ProposalsCallFactory.voteYes(args, params))
   }
 
   /**
-   * Calls the vote_no(string)void ABI method.
+   * Calls the vote_no(string,asset)void ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The result of the call
    */
-  public voteNo(args: MethodArgs<'vote_no(string)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+  public voteNo(args: MethodArgs<'vote_no(string,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
     return this.call(ProposalsCallFactory.voteNo(args, params))
   }
 
   /**
-   * Extracts a binary state value out of an AppState dictionary
+   * Calls the delete_proposal(string,asset)void ABI method.
    *
-   * @param state The state dictionary containing the state value
-   * @param key The key of the state value
-   * @returns A BinaryState instance containing the state value, or undefined if the key was not found
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The result of the call
    */
-  private static getBinaryState(state: AppState, key: string): BinaryState | undefined {
-    const value = state[key]
-    if (!value) return undefined
-    if (!('valueRaw' in value))
-      throw new Error(`Failed to parse state value for ${key}; received an int when expected a byte array`)
-    return {
-      asString(): string {
-        return value.value
-      },
-      asByteArray(): Uint8Array {
-        return value.valueRaw
-      }
-    }
+  public deleteProposal(args: MethodArgs<'delete_proposal(string,asset)void'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+    return this.call(ProposalsCallFactory.deleteProposal(args, params))
   }
 
   /**
-   * Extracts a integer state value out of an AppState dictionary
+   * Calls the generate_membership_token(pay,string)uint64 ABI method.
    *
-   * @param state The state dictionary containing the state value
-   * @param key The key of the state value
-   * @returns An IntegerState instance containing the state value, or undefined if the key was not found
+   * create membership token and receive initial seed payment
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The result of the call
    */
-  private static getIntegerState(state: AppState, key: string): IntegerState | undefined {
-    const value = state[key]
-    if (!value) return undefined
-    if ('valueRaw' in value)
-      throw new Error(`Failed to parse state value for ${key}; received a byte array when expected a number`)
-    return {
-      asBigInt() {
-        return typeof value.value === 'bigint' ? value.value : BigInt(value.value)
-      },
-      asNumber(): number {
-        return typeof value.value === 'bigint' ? Number(value.value) : value.value
-      },
-    }
-  }
-
-  /**
-   * Returns the smart contract's global state wrapped in a strongly typed accessor with options to format the stored value
-   */
-  public async getGlobalState(): Promise<Proposals['state']['global']> {
-    const state = await this.appClient.getGlobalState()
-    return {
-      get membership_token() {
-        return ProposalsClient.getBinaryState(state, 'membership_token')
-      },
-    }
+  public generateMembershipToken(args: MethodArgs<'generate_membership_token(pay,string)uint64'>, params: AppClientCallCoreParams & CoreAppCallArgs = {}) {
+    return this.call(ProposalsCallFactory.generateMembershipToken(args, params))
   }
 
   public compose(): ProposalsComposer {
@@ -624,7 +706,7 @@ export class ProposalsClient {
     let promiseChain:Promise<unknown> = Promise.resolve()
     const resultMappers: Array<undefined | ((x: any) => any)> = []
     return {
-      addProposal(args: MethodArgs<'add_proposal(string,string,uint64)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
+      addProposal(args: MethodArgs<'add_proposal(string,string,uint64,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
         promiseChain = promiseChain.then(() => client.addProposal(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
         resultMappers.push(undefined)
         return this
@@ -634,13 +716,23 @@ export class ProposalsClient {
         resultMappers.push(Proposal)
         return this
       },
-      voteYes(args: MethodArgs<'vote_yes(string)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
+      voteYes(args: MethodArgs<'vote_yes(string,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
         promiseChain = promiseChain.then(() => client.voteYes(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
         resultMappers.push(undefined)
         return this
       },
-      voteNo(args: MethodArgs<'vote_no(string)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
+      voteNo(args: MethodArgs<'vote_no(string,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
         promiseChain = promiseChain.then(() => client.voteNo(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
+        resultMappers.push(undefined)
+        return this
+      },
+      deleteProposal(args: MethodArgs<'delete_proposal(string,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
+        promiseChain = promiseChain.then(() => client.deleteProposal(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
+        resultMappers.push(undefined)
+        return this
+      },
+      generateMembershipToken(args: MethodArgs<'generate_membership_token(pay,string)uint64'>, params?: AppClientCallCoreParams & CoreAppCallArgs) {
+        promiseChain = promiseChain.then(() => client.generateMembershipToken(args, {...params, sendParams: {...params?.sendParams, skipSending: true, atc}}))
         resultMappers.push(undefined)
         return this
       },
@@ -670,13 +762,13 @@ export class ProposalsClient {
 }
 export type ProposalsComposer<TReturns extends [...any[]] = []> = {
   /**
-   * Calls the add_proposal(string,string,uint64)void ABI method.
+   * Calls the add_proposal(string,string,uint64,asset)void ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  addProposal(args: MethodArgs<'add_proposal(string,string,uint64)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'add_proposal(string,string,uint64)void'>]>
+  addProposal(args: MethodArgs<'add_proposal(string,string,uint64,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'add_proposal(string,string,uint64,asset)void'>]>
 
   /**
    * Calls the read_proposal(string)(string,string,bool,uint64,uint64,uint64) ABI method.
@@ -688,22 +780,42 @@ export type ProposalsComposer<TReturns extends [...any[]] = []> = {
   readProposal(args: MethodArgs<'read_proposal(string)(string,string,bool,uint64,uint64,uint64)'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'read_proposal(string)(string,string,bool,uint64,uint64,uint64)'>]>
 
   /**
-   * Calls the vote_yes(string)void ABI method.
+   * Calls the vote_yes(string,asset)void ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  voteYes(args: MethodArgs<'vote_yes(string)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'vote_yes(string)void'>]>
+  voteYes(args: MethodArgs<'vote_yes(string,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'vote_yes(string,asset)void'>]>
 
   /**
-   * Calls the vote_no(string)void ABI method.
+   * Calls the vote_no(string,asset)void ABI method.
    *
    * @param args The arguments for the contract call
    * @param params Any additional parameters for the call
    * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
    */
-  voteNo(args: MethodArgs<'vote_no(string)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'vote_no(string)void'>]>
+  voteNo(args: MethodArgs<'vote_no(string,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'vote_no(string,asset)void'>]>
+
+  /**
+   * Calls the delete_proposal(string,asset)void ABI method.
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+   */
+  deleteProposal(args: MethodArgs<'delete_proposal(string,asset)void'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'delete_proposal(string,asset)void'>]>
+
+  /**
+   * Calls the generate_membership_token(pay,string)uint64 ABI method.
+   *
+   * create membership token and receive initial seed payment
+   *
+   * @param args The arguments for the contract call
+   * @param params Any additional parameters for the call
+   * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+   */
+  generateMembershipToken(args: MethodArgs<'generate_membership_token(pay,string)uint64'>, params?: AppClientCallCoreParams & CoreAppCallArgs): ProposalsComposer<[...TReturns, MethodReturn<'generate_membership_token(pay,string)uint64'>]>
 
   /**
    * Makes a clear_state call to an existing instance of the proposals smart contract.
