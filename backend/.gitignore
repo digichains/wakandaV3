@@ -178,3 +178,4 @@ cython_debug/
 
 # NPM
 node_modules
+venv/
