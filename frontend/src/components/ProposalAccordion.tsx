@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -7,7 +9,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Box, Button, Grid, useMediaQuery } from '@mui/material'
 import VotingRadio from './VotingRadios'
 import VoterInfo from './VoterInfo'
-import VoteData from './VoteInfo'
 import { IProposal } from '../interfaces/proposal'
 import { ProposalsClient } from '../contracts/proposals'
 import toast from 'react-hot-toast'
@@ -111,11 +112,11 @@ const ProposalAccordion: React.FC<{
 
       viewProposalDetails(payload)
     } catch (error) {
-      console.error(error);
-      toast.dismiss('loader');
-      toast.error((error as unknown as Error).message || 'An error occurred');
-      setYesVote(false);
-      setNoVote(false);
+      console.error(error)
+      toast.dismiss('loader')
+      toast.error((error as unknown as Error).message || 'An error occurred')
+      setYesVote(false)
+      setNoVote(false)
     }
   }
 
@@ -143,11 +144,11 @@ const ProposalAccordion: React.FC<{
         updateProposalDetails(payload)
       }
     } catch (error) {
-      console.error(error);
-      toast.dismiss('loader');
-      toast.error((error as unknown as Error).message || 'An error occurred');
-      setYesVote(false);
-      setNoVote(false);
+      console.error(error)
+      toast.dismiss('loader')
+      toast.error((error as unknown as Error).message || 'An error occurred')
+      setYesVote(false)
+      setNoVote(false)
     }
   }
 
