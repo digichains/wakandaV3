@@ -7,6 +7,7 @@ from beaker.consts import (
     FALSE,
 )
 from pyteal import *
+from pyteal.types import require_type
 
 SECONDS_PER_DAY = Int(86400)
 WAKANDA_NFT_ASSET_ID = Int(591099355)
@@ -42,8 +43,26 @@ app = Application("proposals", state=AppState(max_members=2000)).apply(
     unconditional_create_approval, initialize_global_state=True
 )
 
+@Subroutine(TealType.uint64)
+def holds_any_wakanda_token(sender: Expr) -> Expr:
+    """Require that the sender of the app call holds > 0 of any asset in the list"""
+    asset_ids = [627600640, 627600224, 627600054]
 
-@app.external(authorize=Authorize.holds_token(app.state.membership_token))
+    # Loop through the asset_ids
+    for asset in asset_ids:
+        require_type(Int(asset), TealType.uint64)
+        If(
+            And(
+                (bal := AssetHolding.balance(sender, Int(asset))).hasValue(),
+                bal.value() > Int(0),
+            )
+        ).Then(Return(Int(1)))
+
+    # If none of the conditions were met, return false
+    return Int(0)
+
+
+@app.external(authorize=holds_any_wakanda_token)
 def add_proposal(
     name: abi.String, description: abi.String, end_time: abi.Uint64,
     membership_token: abi.Asset = app.state.membership_token,
