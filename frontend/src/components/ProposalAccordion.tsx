@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from 'react'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -17,6 +15,10 @@ import { useFetchWrapper } from '../hooks'
 import { API_URL } from '../constants/apiUrl'
 import { ASA_ID } from '../constants/AppID'
 import DeleteButton from './delete/DeleteButton'
+import { useEffect, useState } from 'react'
+import Decline from '../modals/Decline'
+import Congratulations from '../modals/Congratulations'
+import moment from 'moment'
 
 interface VotingEndsIn {
   days: number
@@ -64,7 +66,6 @@ const ProposalAccordion: React.FC<{
       vote_value: type === 'yes',
       proposal: id,
     }
-    console.log('type', type)
 
     try {
       const res = type
@@ -167,22 +168,7 @@ const ProposalAccordion: React.FC<{
     }
   }
 
-  // const deleteProposal = async () => {
-  //   try {
-  //     const response = await fetchWrapper.delete(`${API_URL}/api/v1/proposals/proposal/${id}/`)
-  //     if (response && Object.keys(response).includes('error')) {
-  //       toast.error(response.error?.toString())
-  //     } else {
-  //       toast.success('Proposal deleted successfully')
-  //       refresh()
-  //     }
-  //   } catch (error) {
-  //     console.error(error)
-  //     toast.error(error.message || 'Failed to delete proposal')
-  //   }
-  // }
-
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       // Update the countdown every second
       setVotingEndsIn((prev) => {
@@ -213,9 +199,53 @@ const ProposalAccordion: React.FC<{
     setShowDeletePopup(false)
   }
 
+  // Function to check conditions and show pop-up modals
+  const [showCongratulations, setShowCongratulations] = useState(false)
+  const [showDecline, setShowDecline] = useState(false)
+
+  // Function to check conditions and show pop-up pages
+  const checkVoteStatus = () => {
+    if (yesPercentage > noPercentage) {
+      setShowCongratulations(true)
+    } else if (noPercentage > yesPercentage) {
+      setShowDecline(true)
+    }
+  }
+
+  useEffect(() => {
+    checkVoteStatus()
+  }, [yesPercentage, noPercentage])
+
+  //    // Function to check if voting has ended
+  //    const hasVotingEnded = () => {
+  //     const currentTime = moment.utc();
+  //     const endTime = moment.utc(end_time);
+  //     return currentTime.isAfter(endTime);
+  //   };
+
+  // // Function to check conditions and show pop-up modals
+  // const [showCongratulations, setShowCongratulations] = useState(false)
+  // const [showDecline, setShowDecline] = useState(false)
+
+  // // Check if voting has ended when the component mounts
+  // useEffect(() => {
+  //   if (hasVotingEnded()) {
+  //     // If voting has ended, determine whether to show congratulations or decline
+  //     if (yesPercentage > noPercentage) {
+  //       setShowCongratulations(true);
+  //     } else if (noPercentage > yesPercentage) {
+  //       setShowDecline(true);
+  //     }
+  //   }
+  // }, [yesPercentage, noPercentage, end_time]);
+
   return (
     <Box>
       <Grid container>
+        {showCongratulations && (
+          <Congratulations totalVotes={yes_count + no_count} yesPercentage={yesPercentage} noPercentage={noPercentage} />
+        )}
+        {showDecline && <Decline totalVotes={yes_count + no_count} yesPercentage={yesPercentage} noPercentage={noPercentage} />}
         <Grid item xs={12}>
           <Accordion sx={{ bgcolor: '#222' }}>
             <AccordionSummary
@@ -275,7 +305,6 @@ const ProposalAccordion: React.FC<{
                     >
                       Tag #{app_id.substring(0, 2)}
                     </Typography>
-
                     <Typography
                       color={'#fff'}
                       padding={isSmallerScreen ? '1rem' : '5px'}
@@ -290,7 +319,6 @@ const ProposalAccordion: React.FC<{
                     >
                       {is_open ? 'Active' : 'Inactive'}
                     </Typography>
-
                     <Typography
                       color={'#CAFFBB'}
                       padding={isSmallerScreen ? '1rem' : '9px'}
@@ -304,7 +332,7 @@ const ProposalAccordion: React.FC<{
                       height={isSmallerScreen ? '10%' : '80%'}
                       marginTop={isSmallerScreen ? '5%' : '5px'}
                     >
-                      Voting ends in: {new Date(end_time).toLocaleString()}
+                      Voting ends in: {moment.utc(end_time).format('DD-MM-YYYY HH:mm:ss')}
                     </Typography>
                     <Typography
                       color={'red'}

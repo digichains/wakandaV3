@@ -11,4 +11,7 @@ export interface IProposal {
   updated_on: string;
   yes_count: number;
   is_claimable: string;
+  total_votes: number;
+  yesPercentage: number;
+  noPercentage: number;
 }

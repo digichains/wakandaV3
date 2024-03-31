@@ -1,6 +1,8 @@
 import { useWallet } from '@txnlab/use-wallet'
 import React from 'react'
 import Navbar from '../components/Navbar/Navbar'
+import Footer from '../components/Footer'
+import Stake from '../stake/page'
 
 interface NavbarProps {
   toggleWalletModal: () => void
@@ -9,7 +11,15 @@ interface NavbarProps {
 const Governance: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
   const { activeAddress } = useWallet()
 
-  return <Navbar toggleWalletModal={toggleWalletModal} />
+  return (
+    <div>
+      <Navbar toggleWalletModal={toggleWalletModal} />
+      <>
+        <Stake />
+        <Footer />
+      </>
+    </div>
+  )
 }
 
 export default Governance

@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar/Navbar2'
+import Navbar2 from '../components/Navbar/Navbar2'
 import about from '../assets/about.jpg'
 import about2 from '../assets/about2.jpg'
 import { GoArrowUpRight } from 'react-icons/go'
@@ -8,8 +8,14 @@ import HrtOverview from '../modals/HrtOverview'
 import Distribution from '../modals/Distribution'
 import GovernanceView from '../modals/GovernanceView'
 import { useState } from 'react'
+import { useWallet } from '@txnlab/use-wallet'
 
-const About = () => {
+interface NavbarProps {
+  toggleWalletModal: () => void;
+}
+const About: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
+
+  const { activeAddress } = useWallet()
   const [showTokenOverview, setShowTokenOverview] = useState(false)
   const [showDistribution, setShowDistribution] = useState(false)
   const [showGovernanceView, setShowGovernanceView] = useState(false)
@@ -27,11 +33,7 @@ const About = () => {
   return (
     <>
       <div>
-        <Navbar
-          toggleWalletModal={function (): void {
-            throw new Error('Function not implemented.')
-          }}
-        />
+      <Navbar2 toggleWalletModal={toggleWalletModal} />
 
         <div
           className="hidden md:block"

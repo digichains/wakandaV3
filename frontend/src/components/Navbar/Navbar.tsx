@@ -1,9 +1,10 @@
 import { useWallet } from '@txnlab/use-wallet'
 import React, { useState } from 'react'
-import logo from '/src/assets/DaoWakanda - Black.png'
+import logo from '/src/assets/Dao.png'
 import { TbWallet } from 'react-icons/tb'
 import Stake from '../../stake/page'
 import Footer from '../Footer'
+import { Link } from 'react-router-dom'
 
 interface NavbarProps {
   toggleWalletModal: () => void
@@ -23,13 +24,18 @@ const Navbar: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
   return (
     <>
       <nav className="bg-[#1E1E1E]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4 md:justify-start md:space-x-10">
+        <div className="px-4 lg:px-8">
+          <div className="flex justify-between items-center p-3 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               {/* Brand */}
-              <img src={logo} alt="logo" width={'300px'} height={'100px'} />
+              <Link to="/">
+                <img src={logo} alt="logo" width={'50px'} height={'50px'} />
+              </Link>
+              {/* <span className="text-xl text-white ml-4 font-bold" style={{ fontFamily: "'Avenue', sans-serif" }}>
+                DaoWakanda
+              </span> */}
             </div>
-            <div className="-mr-2 -my-2 md:hidden">
+            <div className="mr-2 md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 type="button"
@@ -67,32 +73,37 @@ const Navbar: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
             <nav className="hidden md:flex space-x-10">
               <ul className="flex space-x-4">
                 <li>
-                  <a href="#" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+                  <Link to="/Governance" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
                     Governance
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
                     Communities
                   </a>
                 </li>
-                {/* <li>
-                  <a href="#" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
-                    Developers
-                  </a>
-                </li> */}
                 <li>
-                  <a href="#" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+                  <Link to="/About" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
                     About
-                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/Faucet" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+                    Faucet
+                  </Link>
                 </li>
               </ul>
             </nav>
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
               <button
                 data-test-id="connect-wallet"
-                className={`text-white  flex bg-[#4D4D4D] rounded-lg p-2 focus:outline-none ${activeAddress ? 'text-green-500' : ''}`}
-                onClick={toggleWalletModal}
+                className={`text-white  flex bg-[#4D4D4D] rounded-2xl p-2 focus:outline-none border border-white ${
+                  activeAddress ? 'text-green-500' : ''
+                }`}
+                onClick={() => {
+                  toggleWalletModal()
+                  console.log('working')
+                }}
               >
                 <TbWallet className="m-1" />
                 {activeAddress ? ` ${formatWalletAddress(activeAddress)}` : 'Connect Wallet'}
@@ -101,7 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
           </div>
         </div>
         {isOpen && (
-          <div className="md:hidden flex flex-col ml-[100px]">
+          <div className="md:hidden flex flex-col ml-[100px] ">
             <div className="px-5 pt-2 pb-5 space-y-1 sm:px-3">
               <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 Governance
@@ -129,12 +140,60 @@ const Navbar: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
           </div>
         )}
       </nav>
-      <>
-        <Stake />
-        <Footer />
-      </>
     </>
   )
 }
 
 export default Navbar
+
+// <div className="bg-[#1E1E1E]">
+// <nav className="p-7 h-screen bg-opacity-30 backdrop-blur-sm md:flex md:bg-[#1E1E1E] md:h-[80px] md:justify-between md:items-center">
+//   <div className="flex justify-between items-center cursor-pointer">
+//     <Link to="/">
+//       <img src={logo} alt="logo" width={'50px'} height={'50px'} />
+//     </Link>
+//     <span className="text-2xl text-white ml-4 font-bold" style={{ fontFamily: "'Avenue', sans-serif" }}>
+//       DaoWakanda
+//     </span>
+//   </div>
+
+//   <ul className="hidden md:flex md:items-center md:justify-between md:ml-[130px]">
+//     <li className="mx-4 my-10 md:my-0">
+//       <Link to="/Governance" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+//         Governance
+//       </Link>
+//     </li>
+//     <li className="mx-4 my-6 md:my-0">
+//       <Link to="/Communities" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+//         Communities
+//       </Link>
+//     </li>
+//     <li className="mx-4 my-6 md:my-0">
+//       <Link to="/About" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+//         About
+//       </Link>
+//     </li>
+//     <li className="mx-4 my-6 md:my-0">
+//       <Link to="/Faucet" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+//         Faucet
+//       </Link>
+//     </li>
+//   </ul>
+//   <div className="md:flex items-center justify-end md:flex-1 lg:w-0">
+//     {' '}
+//     <button
+//       data-test-id="connect-wallet"
+//       className={`text-white  flex bg-[#4D4D4D] rounded-2xl p-2 focus:outline-none border border-white ${
+//         activeAddress ? 'text-green-500' : ''
+//       }`}
+//       onClick={() => {
+//         toggleWalletModal()
+//         console.log('working')
+//       }}
+//     >
+//       <TbWallet className="m-1" />
+//       {activeAddress ? ` ${formatWalletAddress(activeAddress)}` : 'Connect Wallet'}
+//     </button>{' '}
+//   </div>
+// </nav>
+// </div>

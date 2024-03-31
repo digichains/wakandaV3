@@ -274,7 +274,7 @@ export type OnCompleteUpdApp =  { onCompleteAction: 'update_application' | OnApp
  */
 export type IntegerState = {
   /**
-   * Gets the state value as a BigInt 
+   * Gets the state value as a BigInt
    */
   asBigInt(): bigint
   /**
@@ -342,7 +342,7 @@ export type Proposals = {
         proposal_name: string
         membership_token?: number | bigint
       }
-      argsTuple: [proposal_name: string, membership_token: number | bigint | undefined]
+      argsTuple: [proposal_name: string, membership_token: number | bigint | undefined,]
       returns: void
     }>
     & Record<'generate_membership_token(pay,string)uint64' | 'generate_membership_token', {

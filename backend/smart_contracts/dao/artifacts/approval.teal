@@ -1,5 +1,5 @@
 #pragma version 8
-intcblock 0 1 591099355 29 65536
+intcblock 0 1 29 65536 627600640
 bytecblock 0x 0x00 0x151f7c75
 txn NumAppArgs
 intc_0 // 0
@@ -39,7 +39,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub generatemembershiptokencaster_12
+callsub generatemembershiptokencaster_13
 intc_1 // 1
 return
 main_l9:
@@ -51,7 +51,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub deleteproposalcaster_11
+callsub deleteproposalcaster_12
 intc_1 // 1
 return
 main_l10:
@@ -63,7 +63,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub votenocaster_10
+callsub votenocaster_11
 intc_1 // 1
 return
 main_l11:
@@ -75,7 +75,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub voteyescaster_9
+callsub voteyescaster_10
 intc_1 // 1
 return
 main_l12:
@@ -87,7 +87,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub readproposalcaster_8
+callsub readproposalcaster_9
 intc_1 // 1
 return
 main_l13:
@@ -99,7 +99,7 @@ intc_0 // 0
 !=
 &&
 assert
-callsub addproposalcaster_7
+callsub addproposalcaster_8
 intc_1 // 1
 return
 main_l14:
@@ -122,8 +122,14 @@ create_0:
 proto 0 0
 retsub
 
+// holds_any_wakanda_token
+holdsanywakandatoken_1:
+proto 1 1
+intc_0 // 0
+retsub
+
 // add_proposal
-addproposal_1:
+addproposal_2:
 proto 4 0
 intc_0 // 0
 bytec_0 // ""
@@ -132,15 +138,7 @@ dupn 3
 bytec_0 // ""
 dup
 txn Sender
-intc_2 // 591099355
-asset_holding_get AssetBalance
-store 1
-store 0
-load 1
-load 0
-intc_0 // 0
->
-&&
+callsub holdsanywakandatoken_1
 // unauthorized
 assert
 intc_1 // 1
@@ -155,7 +153,7 @@ frame_dig -4
 frame_bury 7
 frame_dig 7
 frame_bury 6
-intc_3 // 29
+intc_2 // 29
 frame_bury 4
 frame_dig 4
 frame_dig 7
@@ -163,7 +161,7 @@ len
 +
 frame_bury 5
 frame_dig 5
-intc 4 // 65536
+intc_3 // 65536
 <
 assert
 frame_dig 4
@@ -209,22 +207,22 @@ box_put
 retsub
 
 // read_proposal
-readproposal_2:
+readproposal_3:
 proto 1 1
 bytec_0 // ""
 frame_dig -1
 extract 2 0
 box_get
-store 3
-store 2
-load 3
+store 1
+store 0
+load 1
 assert
-load 2
+load 0
 frame_bury 0
 retsub
 
 // vote_yes
-voteyes_3:
+voteyes_4:
 proto 2 0
 intc_0 // 0
 bytec_0 // ""
@@ -236,12 +234,12 @@ dupn 3
 bytec_0 // ""
 dup
 txn Sender
-intc_2 // 591099355
+intc 4 // 627600640
 asset_holding_get AssetBalance
-store 5
-store 4
-load 5
-load 4
+store 3
+store 2
+load 3
+load 2
 intc_0 // 0
 >
 &&
@@ -250,11 +248,11 @@ assert
 frame_dig -2
 extract 2 0
 box_get
-store 7
-store 6
-load 7
+store 5
+store 4
+load 5
 assert
-load 6
+load 4
 frame_bury 1
 frame_dig 1
 pushint 13 // 13
@@ -288,7 +286,7 @@ frame_dig -2
 frame_bury 10
 frame_dig 10
 frame_bury 9
-intc_3 // 29
+intc_2 // 29
 frame_bury 7
 frame_dig 7
 frame_dig 10
@@ -296,7 +294,7 @@ len
 +
 frame_bury 8
 frame_dig 8
-intc 4 // 65536
+intc_3 // 65536
 <
 assert
 frame_dig 7
@@ -342,7 +340,7 @@ box_put
 retsub
 
 // vote_no
-voteno_4:
+voteno_5:
 proto 2 0
 intc_0 // 0
 bytec_0 // ""
@@ -354,12 +352,12 @@ dupn 3
 bytec_0 // ""
 dup
 txn Sender
-intc_2 // 591099355
+intc 4 // 627600640
 asset_holding_get AssetBalance
-store 9
-store 8
-load 9
-load 8
+store 7
+store 6
+load 7
+load 6
 intc_0 // 0
 >
 &&
@@ -368,11 +366,11 @@ assert
 frame_dig -2
 extract 2 0
 box_get
-store 11
-store 10
-load 11
+store 9
+store 8
+load 9
 assert
-load 10
+load 8
 frame_bury 1
 frame_dig 1
 pushint 21 // 21
@@ -406,7 +404,7 @@ frame_dig -2
 frame_bury 10
 frame_dig 10
 frame_bury 9
-intc_3 // 29
+intc_2 // 29
 frame_bury 7
 frame_dig 7
 frame_dig 10
@@ -414,7 +412,7 @@ len
 +
 frame_bury 8
 frame_dig 8
-intc 4 // 65536
+intc_3 // 65536
 <
 assert
 frame_dig 7
@@ -460,15 +458,15 @@ box_put
 retsub
 
 // delete_proposal
-deleteproposal_5:
+deleteproposal_6:
 proto 2 0
 txn Sender
-intc_2 // 591099355
+intc 4 // 627600640
 asset_holding_get AssetBalance
-store 13
-store 12
-load 13
-load 12
+store 11
+store 10
+load 11
+load 10
 intc_0 // 0
 >
 &&
@@ -481,7 +479,7 @@ pop
 retsub
 
 // generate_membership_token
-generatemembershiptoken_6:
+generatemembershiptoken_7:
 proto 2 1
 intc_0 // 0
 txn Sender
@@ -525,7 +523,7 @@ itxn_submit
 retsub
 
 // add_proposal_caster
-addproposalcaster_7:
+addproposalcaster_8:
 proto 0 0
 bytec_0 // ""
 dup
@@ -546,18 +544,18 @@ frame_dig 0
 frame_dig 1
 frame_dig 2
 frame_dig 3
-callsub addproposal_1
+callsub addproposal_2
 retsub
 
 // read_proposal_caster
-readproposalcaster_8:
+readproposalcaster_9:
 proto 0 0
 bytec_0 // ""
 dup
 txna ApplicationArgs 1
 frame_bury 1
 frame_dig 1
-callsub readproposal_2
+callsub readproposal_3
 frame_bury 0
 bytec_2 // 0x151f7c75
 frame_dig 0
@@ -566,7 +564,7 @@ log
 retsub
 
 // vote_yes_caster
-voteyescaster_9:
+voteyescaster_10:
 proto 0 0
 bytec_0 // ""
 intc_0 // 0
@@ -578,11 +576,11 @@ getbyte
 frame_bury 1
 frame_dig 0
 frame_dig 1
-callsub voteyes_3
+callsub voteyes_4
 retsub
 
 // vote_no_caster
-votenocaster_10:
+votenocaster_11:
 proto 0 0
 bytec_0 // ""
 intc_0 // 0
@@ -594,11 +592,11 @@ getbyte
 frame_bury 1
 frame_dig 0
 frame_dig 1
-callsub voteno_4
+callsub voteno_5
 retsub
 
 // delete_proposal_caster
-deleteproposalcaster_11:
+deleteproposalcaster_12:
 proto 0 0
 bytec_0 // ""
 intc_0 // 0
@@ -610,11 +608,11 @@ getbyte
 frame_bury 1
 frame_dig 0
 frame_dig 1
-callsub deleteproposal_5
+callsub deleteproposal_6
 retsub
 
 // generate_membership_token_caster
-generatemembershiptokencaster_12:
+generatemembershiptokencaster_13:
 proto 0 0
 intc_0 // 0
 dup
@@ -632,7 +630,7 @@ intc_1 // pay
 assert
 frame_dig 1
 frame_dig 2
-callsub generatemembershiptoken_6
+callsub generatemembershiptoken_7
 frame_bury 0
 bytec_2 // 0x151f7c75
 frame_dig 0
