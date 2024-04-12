@@ -14,7 +14,7 @@ const Home = () => {
   }
 
   return (
-    <div className="relative h-screen overflow-y-auto">
+    <div className="relative h-screen overflow-y-auto"  style={{ fontFamily: "'Avenue', sans-serif" }}>
       <div className="absolute inset-0 bg-cover" style={{ backgroundImage: 'url("src/assets/wakanda-warrior.jpg")' }} />
       <div className="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-900/70 to-neutral-900/25" />
       <HomeNav />
@@ -22,8 +22,8 @@ const Home = () => {
       <div className="flex flex-col justify-start items-start gap-8 text-white">
         {/* Increased z-index to 10 */}
         <div className="flex flex-col justify-start items-start z-20 ml-10 mb-[100px]">
-          <h1 className="mt-20 text-center text-[#C5EE4F] font-bold text-[60px] sm:text-4xl md:text-5xl">DaoWakanda</h1>
-          <p className="w-[90%] sm:w-[80%] md:w-[600px] text-white text-xl text-[25px] leading-7 sm:text-base md:text-lg">
+          <h1 className="mt-20 text-[#C5EE4F] font-bold text-[60px] sm:text-4xl md:text-5xl">DaoWakanda</h1>
+          <p className="w-[100%] md:w-[45%] text-white text-xl text-[25px] md:text-lg">
             This is a decentralized autonomous organization to revolutionize community engagement and participation within Algorand Nigeria.
           </p>
           <div className="md:flex md:flex-row sm:flex-col sm:items-center sm:justify-between mt-10 mb-10">

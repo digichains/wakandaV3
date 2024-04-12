@@ -242,10 +242,10 @@ const ProposalAccordion: React.FC<{
   return (
     <Box>
       <Grid container>
-        {showCongratulations && (
+        {/* {showCongratulations && (
           <Congratulations totalVotes={yes_count + no_count} yesPercentage={yesPercentage} noPercentage={noPercentage} />
         )}
-        {showDecline && <Decline totalVotes={yes_count + no_count} yesPercentage={yesPercentage} noPercentage={noPercentage} />}
+        {showDecline && <Decline totalVotes={yes_count + no_count} yesPercentage={yesPercentage} noPercentage={noPercentage} />} */}
         <Grid item xs={12}>
           <Accordion sx={{ bgcolor: '#222' }}>
             <AccordionSummary

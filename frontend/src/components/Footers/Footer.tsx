@@ -11,7 +11,7 @@ const Footer = () => {
     <div className="flex flex-col w-full bg-[#272727]">
       <div className="flex justify-center flex-col md:flex md:justify-center md:flex-col m-9 items-center">
         <h1 className="text-3xl font-bold text-white ">Join Our Commuity</h1>
-        <p className="text-sm mt-2 text-[#919094]">
+        <p className="text-sm mt-2 text-center text-[#919094]">
           Be part of the community and have a say in the future of the Algorand Nigeria community
         </p>
       </div>

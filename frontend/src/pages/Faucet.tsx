@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar/Navbar'
 import Footer from '../components/Footer'
 import payment from '../assets/Online-payment.png'
 import { RiArrowRightSLine } from 'react-icons/ri'
+import { Link } from 'react-router-dom'
 
 interface FaucetProps {
   toggleWalletModal: () => void
@@ -75,6 +76,13 @@ const Faucet: React.FC<FaucetProps> = ({ toggleWalletModal }) => {
     }
   }
 
+  const formatWalletAddress = (address: string | unknown) => {
+    if (!address) return ''
+    const firstThirteen = address.slice(0, 13)
+    const lastSix = address.slice(-6)
+    return `${firstThirteen}...........${lastSix}`
+  }
+
   return (
     <>
       <div className="bg-[#000] text-white" style={{ fontFamily: "'Avenue', sans-serif" }}>
@@ -130,17 +138,18 @@ const Faucet: React.FC<FaucetProps> = ({ toggleWalletModal }) => {
               <div className="mb-5 w-[100%]">
                 <div className="flex">
                   <h1 className="m-2 text-sm font-medium text-white">2.</h1>
-                  <div className="w-full flex bg-[#000] rounded-md text-sm">
+                  <div className="w-full flex bg-[#4D4D4D] rounded-md text-sm">
                     <input
                       type="text"
                       name="retweet"
                       placeholder="Like and retweet pinned tweet"
                       className=" p-2 md:p-2 pr-10 block w-[90%] shadow-sm sm:text-sm bg-[#4D4D4D] rounded-md"
-                      value={retweetValue}
-                      onChange={(e) => setRetweetValue(e.target.value)} // Update state when input changes
                     />
-                    <button className="m-3 text-[12px]" onClick={() => handlePasteButtonClick('retweet')}>
-                      Paste
+                    <button className="m-3 text-[22px]">
+                      <Link to={''}>
+                        {' '}
+                        <RiArrowRightSLine />
+                      </Link>
                     </button>
                   </div>
                 </div>
@@ -178,11 +187,13 @@ const Faucet: React.FC<FaucetProps> = ({ toggleWalletModal }) => {
                   <div className="w-full flex bg-[#000] text-sm rounded-md">
                     <input
                       type="text"
+                      disabled={activeAddress ? true : false}
                       name="walletAddress"
                       placeholder="Enter Wallet Address"
                       className=" p-2 md:p-2 pr-10 block w-[90%] shadow-sm sm:text-sm bg-[#4D4D4D] rounded-md"
-                      value={walletAddressValue}
-                      onChange={(e) => setWalletAddressValue(e.target.value)} // Update state when input changes
+                      value={formatWalletAddress(activeAddress)}
+                      onChange={() => setWalletAddressValue(formatWalletAddress(activeAddress))}
+                      // if active address ? show address  Update state when input changes
                     />
                     <button className="m-3 text-[12px]" onClick={() => handlePasteButtonClick('walletAddress')}>
                       Paste
@@ -208,14 +219,16 @@ const Faucet: React.FC<FaucetProps> = ({ toggleWalletModal }) => {
             </div>
           </div>
         </div>
+        <div className="relative">
+          <div className="flex justify-center items-center" />
+          <img src={payment} alt="Online payment" className="hidden md:block absolute bottom-5 right-5 w-[250px] h-auto" />
+        </div>
         <div className="m-10">
           <div className="flex justify-center items-center flex-col">
             <h1 className="flex justify-center text-center items-center mb-5 text-[16px] md:text-[25px] font-bold">
               Can I receive the Wakanda NFT more than once?
             </h1>
-            <p className="text-[#d8d8d8d0] text-center text-[13px] md:text-[16px]">
-              The Wakanda NFT Fuacet dispenses once to each wallet. To request in bulk please complete this form.
-            </p>
+            <p className="text-[#d8d8d8d0] text-center text-[13px] md:text-[16px]">The Wakanda NFT Faucet dispenses once to each wallet.</p>
           </div>
         </div>
       </div>

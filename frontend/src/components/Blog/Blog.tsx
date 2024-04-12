@@ -9,7 +9,7 @@ const Blog = () => {
       <div className="m-10">
         <div className="p-10 flex flex-col justify-center items-center">
           <h1 className="text-3xl font-bold text-white">From our blog</h1>
-          <p className="text-sm mt-2 text-[#919094]">Learn more about DaoWakanda, Algorand Nigeria community</p>
+          <p className="text-sm text-center mt-2 text-[#919094]">Learn more about DaoWakanda, Algorand Nigeria community</p>
         </div>
 
         <div className="sm:hidden md:flex md:justify-between">

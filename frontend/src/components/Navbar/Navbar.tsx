@@ -31,9 +31,12 @@ const Navbar: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
               <Link to="/">
                 <img src={logo} alt="logo" width={'50px'} height={'50px'} />
               </Link>
-              {/* <span className="text-xl text-white ml-4 font-bold" style={{ fontFamily: "'Avenue', sans-serif" }}>
+              <span
+                className="hidden sm:inline md:text-xl md:py-2 md:px-3 md:text-white md:ml-4 md:font-bold"
+                style={{ fontFamily: "'Avenue', sans-serif" }}
+              >
                 DaoWakanda
-              </span> */}
+              </span>
             </div>
             <div className="mr-2 md:hidden">
               <button
@@ -114,17 +117,17 @@ const Navbar: React.FC<NavbarProps> = ({ toggleWalletModal }) => {
         {isOpen && (
           <div className="md:hidden flex flex-col ml-[100px] ">
             <div className="px-5 pt-2 pb-5 space-y-1 sm:px-3">
-              <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
+              <a href="/Governance" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 Governance
               </a>
               <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 Communities
               </a>
-              {/* <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
-                Developers
-              </a> */}
-              <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
+              <a href="/About" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 About
+              </a>
+              <a href="/Faucet" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
+                Faucet
               </a>
             </div>
             <button
