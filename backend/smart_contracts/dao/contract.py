@@ -30,39 +30,32 @@ class AppState:
     )
 
     def __init__(self, *, max_members: int):
-        # Math for determining min balance based on expected size of boxes
-        self.minimum_balance = Int(
-            ASSET_MIN_BALANCE  # Cover min bal for member token
-            + (BOX_FLAT_MIN_BALANCE + (abi.size_of(abi.Address) * BOX_BYTE_MIN_BALANCE))
-            * max_members  # cover min bal for member record boxes we might create
-        )
-        self.membership_token = Int(591099355);
+        self.membership_token = Int(627600640)
 
 
 app = Application("proposals", state=AppState(max_members=2000)).apply(
     unconditional_create_approval, initialize_global_state=True
 )
 
-@Subroutine(TealType.uint64)
-def holds_any_wakanda_token(sender: Expr) -> Expr:
-    """Require that the sender of the app call holds > 0 of any asset in the list"""
-    asset_ids = [627600640, 627600224, 627600054]
+# @Subroutine(TealType.uint64)
+# def holds_any_wakanda_token(sender: Expr) -> Expr:
+#     """Require that the sender of the app call holds > 0 of any asset in the list"""
+#     asset_ids = [627600640, 627600224, 627600054]
 
-    # Loop through the asset_ids
-    for asset in asset_ids:
-        require_type(Int(asset), TealType.uint64)
-        If(
-            And(
-                (bal := AssetHolding.balance(sender, Int(asset))).hasValue(),
-                bal.value() > Int(0),
-            )
-        ).Then(Return(Int(1)))
+#     # Loop through the asset_ids
+#     for asset in asset_ids:
+#         require_type(Int(asset), TealType.uint64)
+#         If(
+#             And(
+#                 (bal := AssetHolding.balance(sender, Int(asset))).hasValue(),
+#                 bal.value() > Int(0),
+#             )
+#         ).Then(Return(Int(1)))
 
-    # If none of the conditions were met, return false
-    return Int(0)
+#     return Int(0)
 
 
-@app.external(authorize=holds_any_wakanda_token)
+@app.external(authorize=Authorize.holds_token(app.state.membership_token))
 def add_proposal(
     name: abi.String, description: abi.String, end_time: abi.Uint64,
     membership_token: abi.Asset = app.state.membership_token,
