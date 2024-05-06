@@ -125,7 +125,7 @@ retsub
 // holds_any_wakanda_token
 holdsanywakandatoken_1:
 proto 1 1
-intc_0 // 0
+intc_1 // 1
 retsub
 
 // add_proposal
@@ -495,12 +495,6 @@ gtxns Receiver
 global CurrentApplicationAddress
 ==
 // payment must be to app address
-assert
-frame_dig -2
-gtxns Amount
-pushint 30700000 // 30700000
->=
-// payment must be for >= 30700000
 assert
 itxn_begin
 pushint 3 // acfg
