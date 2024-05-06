@@ -117,6 +117,7 @@ const ProposalModal: React.FC<ProposalModalProps> = ({ open, toggle, typedClient
       description,
       end_time: endTimeString,
       app_id: appId,
+      mode: 'no-cors',
     })
 
     toast.dismiss('loader')

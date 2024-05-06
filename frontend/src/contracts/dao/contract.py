@@ -13,7 +13,8 @@ class Proposal(abi.NamedTuple):
     end_time: abi.Field[abi.Uint64]
     yes_count: abi.Field[abi.Uint64]
     no_count: abi.Field[abi.Uint64]
-    
+
+
 
 
 class AppState:
@@ -54,7 +55,7 @@ def read_proposal(name: abi.String, *, output: Proposal) -> Expr:
 @app.external
 def vote_yes(proposal_name: abi.String) -> Expr:
     yes = abi.Uint64()
-    
+
     return Seq(
         (proposal := Proposal()).decode(app.state.proposals[proposal_name.get()].get()),
         (proposal.yes_count.store_into(yes)),
@@ -73,7 +74,7 @@ def vote_yes(proposal_name: abi.String) -> Expr:
 @app.external
 def vote_no(proposal_name: abi.String,) -> Expr:
     no = abi.Uint64()
-    
+
     return Seq(
         (proposal := Proposal()).decode(app.state.proposals[proposal_name.get()].get()),
         (proposal.no_count.store_into(no)),
@@ -87,3 +88,4 @@ def vote_no(proposal_name: abi.String,) -> Expr:
         ),
         app.state.proposals[proposal_name.get()].set(proposal),
     )
+

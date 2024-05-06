@@ -11,10 +11,10 @@ import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import About from './pages/About'
 import Communities from './pages/Communities'
-import Developers from './pages/Developers'
 import Governance from './pages/Governance'
 import Home from './pages/Home'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
+import Faucet from './pages/Faucet'
 
 let providersArray: ProvidersArray
 if (import.meta.env.VITE_ALGOD_NETWORK === '') {
@@ -130,14 +130,12 @@ export default function App() {
             </button>
           )} */}
 
-
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Governance" element={<Governance toggleWalletModal={toggleWalletModal} />} />
             <Route path="/Communities" element={<Communities />} />
-            <Route path="/Developers" element={<Developers />} />
-            <Route path="/About" element={<About />} />
+            <Route path="/Faucet" element={<Faucet toggleWalletModal={toggleWalletModal} />} />
+            <Route path="/About" element={<About toggleWalletModal={toggleWalletModal} />} />
           </Routes>
 
           <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />

@@ -4,11 +4,11 @@ import logo from '/src/assets/DaoWakanda - Black.png'
 import { TbWallet } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
 
-interface Navbar2Props {
+interface Nav {
   toggleWalletModal: () => void
 }
 
-const Navbar2: React.FC<Navbar2Props> = ({ toggleWalletModal }) => {
+const Nav: React.FC<Nav> = ({ toggleWalletModal }) => {
   const { activeAddress } = useWallet()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -20,7 +20,7 @@ const Navbar2: React.FC<Navbar2Props> = ({ toggleWalletModal }) => {
   }
 
   return (
-    <>
+    <div>
       <nav className="bg-[#1E1E1E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4 md:justify-start md:space-x-10">
@@ -68,9 +68,9 @@ const Navbar2: React.FC<Navbar2Props> = ({ toggleWalletModal }) => {
             <nav className="hidden md:flex space-x-10">
               <ul className="flex space-x-4">
                 <li>
-                  <Link to="/Governance" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+                  <a href="#" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
                     Governance
-                  </Link>
+                  </a>
                 </li>
                 <li>
                   <a href="#" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
@@ -78,8 +78,8 @@ const Navbar2: React.FC<Navbar2Props> = ({ toggleWalletModal }) => {
                   </a>
                 </li>
                 <li>
-                  <Link to="" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
-                    About Us
+                  <Link to="/About" className="text-white hover:bg-[#919094] py-2 px-3 rounded-lg">
+                    About
                   </Link>
                 </li>
                 <li>
@@ -89,14 +89,17 @@ const Navbar2: React.FC<Navbar2Props> = ({ toggleWalletModal }) => {
                 </li>
               </ul>
             </nav>
-            <div className="hidden md:flex md:items-center md:justify-end md:flex-1 lg:w-0">
+            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
               <button
                 data-test-id="connect-wallet"
                 className={`text-white  flex bg-[#4D4D4D] rounded-lg p-2 focus:outline-none ${activeAddress ? 'text-green-500' : ''}`}
-                onClick={toggleWalletModal}
+                onClick={() => {
+                  toggleWalletModal()
+                  console.log('working')
+                }}
               >
                 <TbWallet className="m-1" />
-                {activeAddress ? `${formatWalletAddress(activeAddress)}` : 'Connect Wallet'}
+                {activeAddress ? ` ${formatWalletAddress(activeAddress)}` : 'Connect Wallet'}
               </button>
             </div>
           </div>
@@ -110,16 +113,18 @@ const Navbar2: React.FC<Navbar2Props> = ({ toggleWalletModal }) => {
               <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 Communities
               </a>
-              {/* <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
-                Developers
-              </a> */}
+              <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
+                Faucet
+              </a>
               <a href="#" className="text-white hover:bg-[#919094] block py-2 px-3 rounded-lg">
                 About
               </a>
             </div>
             <button
               data-test-id="connect-wallet"
-              className={`text-white  flex bg-[#4D4D4D] rounded-lg p-2 focus:outline-none ${activeAddress ? 'text-green-500' : ''}`}
+              className={`text-white mb-5 w-[150px] flex bg-[#4D4D4D] rounded-lg p-2 focus:outline-none ${
+                activeAddress ? 'text-green-500' : ''
+              }`}
               onClick={toggleWalletModal}
             >
               <TbWallet className="m-1" />
@@ -128,8 +133,8 @@ const Navbar2: React.FC<Navbar2Props> = ({ toggleWalletModal }) => {
           </div>
         )}
       </nav>
-    </>
+    </div>
   )
 }
 
-export default Navbar2
+export default Nav
