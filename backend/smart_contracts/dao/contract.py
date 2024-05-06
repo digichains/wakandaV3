@@ -36,7 +36,7 @@ class AppState:
             + (BOX_FLAT_MIN_BALANCE + (abi.size_of(abi.Address) * BOX_BYTE_MIN_BALANCE))
             * max_members  # cover min bal for member record boxes we might create
         )
-        self.membership_token = Int(591099355);
+        # self.membership_token = Int(591099355);
 
 
 app = Application("proposals", state=AppState(max_members=2000)).apply(

@@ -1,6 +1,6 @@
 #pragma version 8
-intcblock 0 1 29 65536 627600640
-bytecblock 0x 0x00 0x151f7c75
+intcblock 0 1 29 65536
+bytecblock 0x 0x00 0x6d656d626572736869705f746f6b656e 0x151f7c75
 txn NumAppArgs
 intc_0 // 0
 ==
@@ -234,7 +234,8 @@ dupn 3
 bytec_0 // ""
 dup
 txn Sender
-intc 4 // 627600640
+bytec_2 // "membership_token"
+app_global_get
 asset_holding_get AssetBalance
 store 3
 store 2
@@ -352,7 +353,8 @@ dupn 3
 bytec_0 // ""
 dup
 txn Sender
-intc 4 // 627600640
+bytec_2 // "membership_token"
+app_global_get
 asset_holding_get AssetBalance
 store 7
 store 6
@@ -461,7 +463,8 @@ retsub
 deleteproposal_6:
 proto 2 0
 txn Sender
-intc 4 // 627600640
+bytec_2 // "membership_token"
+app_global_get
 asset_holding_get AssetBalance
 store 11
 store 10
@@ -557,7 +560,7 @@ frame_bury 1
 frame_dig 1
 callsub readproposal_3
 frame_bury 0
-bytec_2 // 0x151f7c75
+bytec_3 // 0x151f7c75
 frame_dig 0
 concat
 log
@@ -632,7 +635,7 @@ frame_dig 1
 frame_dig 2
 callsub generatemembershiptoken_7
 frame_bury 0
-bytec_2 // 0x151f7c75
+bytec_3 // 0x151f7c75
 frame_dig 0
 itob
 concat
