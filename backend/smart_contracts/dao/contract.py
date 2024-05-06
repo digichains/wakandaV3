@@ -42,14 +42,18 @@ def holds_any_wakanda_token(sender: Expr) -> Expr:
     """Require that the sender of the app call holds > 0 of any asset in the list"""
     asset_ids = [627600640, 627600224, 627600054]
 
-    # Loop through the asset_ids
+    # Loop through the asset_ids and check authorization for each
     for asset in asset_ids:
-        is_authorized = Authorize.holds_token(asset)
+        is_authorized = Authorize.holds_token(Int(asset))
+        # OR the current authorization with the previous result
+        if is_authorized:
+            return Int(1)
 
-    return is_authorized
+    # If no authorization found for any asset, return 0
+    return Int(0)
 
 
-@app.external(authorize=Authorize.holds_token(app.state.membership_token))
+@app.external(authorize=holds_any_wakanda_token)
 def add_proposal(
     name: abi.String, description: abi.String, end_time: abi.Uint64,
     membership_token: abi.Asset = app.state.membership_token,
@@ -131,10 +135,10 @@ def generate_membership_token(
             seed.get().receiver() == Global.current_application_address(),
             comment="payment must be to app address",
         ),
-        Assert(
-            seed.get().amount() >= app.state.minimum_balance,
-            comment=f"payment must be for >= {app.state.minimum_balance.value}",
-        ),
+        # Assert(
+        #     seed.get().amount() >= app.state.minimum_balance,
+        #     comment=f"payment must be for >= {app.state.minimum_balance.value}",
+        # ),
         InnerTxnBuilder.Execute(
             {
                 TxnField.type_enum: TxnType.AssetConfig,
