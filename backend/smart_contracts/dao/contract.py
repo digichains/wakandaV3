@@ -30,13 +30,7 @@ class AppState:
     )
 
     def __init__(self, *, max_members: int):
-        # Math for determining min balance based on expected size of boxes
-        self.minimum_balance = Int(
-            ASSET_MIN_BALANCE  # Cover min bal for member token
-            + (BOX_FLAT_MIN_BALANCE + (abi.size_of(abi.Address) * BOX_BYTE_MIN_BALANCE))
-            * max_members  # cover min bal for member record boxes we might create
-        )
-        # self.membership_token = Int(591099355);
+        self.membership_token = Int(627600640)
 
 
 app = Application("proposals", state=AppState(max_members=2000)).apply(
@@ -50,19 +44,12 @@ def holds_any_wakanda_token(sender: Expr) -> Expr:
 
     # Loop through the asset_ids
     for asset in asset_ids:
-        require_type(Int(asset), TealType.uint64)
-        If(
-            And(
-                (bal := AssetHolding.balance(sender, Int(asset))).hasValue(),
-                bal.value() > Int(0),
-            )
-        ).Then(Return(Int(1)))
+        is_authorized = Authorize.holds_token(asset)
 
-    # If none of the conditions were met, return false
-    return Int(0)
+    return is_authorized
 
 
-@app.external(authorize=holds_any_wakanda_token)
+@app.external(authorize=Authorize.holds_token(app.state.membership_token))
 def add_proposal(
     name: abi.String, description: abi.String, end_time: abi.Uint64,
     membership_token: abi.Asset = app.state.membership_token,
