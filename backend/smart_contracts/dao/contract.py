@@ -12,6 +12,7 @@ from pyteal.types import require_type
 SECONDS_PER_DAY = Int(86400)
 WAKANDA_NFT_ASSET_ID = Int(591099355)
 
+
 class Proposal(abi.NamedTuple):
     name: abi.Field[abi.String]
     description: abi.Field[abi.String]
@@ -37,6 +38,7 @@ app = Application("proposals", state=AppState(max_members=2000)).apply(
     unconditional_create_approval, initialize_global_state=True
 )
 
+
 @Subroutine(TealType.uint64)
 def holds_any_wakanda_token(sender: Expr) -> Expr:
     """Require that the sender of the app call holds > 0 of any asset in the list"""
@@ -55,8 +57,9 @@ def holds_any_wakanda_token(sender: Expr) -> Expr:
 
 @app.external(authorize=holds_any_wakanda_token)
 def add_proposal(
-    name: abi.String, description: abi.String, end_time: abi.Uint64,
-    membership_token: abi.Asset = app.state.membership_token,
+    name: abi.String,
+    description: abi.String,
+    end_time: abi.Uint64,
 ) -> Expr:
     is_open = abi.Bool()
     proposal_obj = Proposal()
@@ -76,8 +79,8 @@ def read_proposal(name: abi.String, *, output: Proposal) -> Expr:
     return app.state.proposals[name.get()].store_into(output)
 
 
-@app.external(authorize=Authorize.holds_token(app.state.membership_token))
-def vote_yes(proposal_name: abi.String, membership_token: abi.Asset = app.state.membership_token,) -> Expr:
+@app.external(authorize=holds_any_wakanda_token)
+def vote_yes(proposal_name: abi.String) -> Expr:
     yes = abi.Uint64()
 
     return Seq(
@@ -95,10 +98,9 @@ def vote_yes(proposal_name: abi.String, membership_token: abi.Asset = app.state.
     )
 
 
-@app.external(authorize=Authorize.holds_token(app.state.membership_token))
+@app.external(authorize=holds_any_wakanda_token)
 def vote_no(
     proposal_name: abi.String,
-    membership_token: abi.Asset = app.state.membership_token,
 ) -> Expr:
     no = abi.Uint64()
 
@@ -117,8 +119,10 @@ def vote_no(
     )
 
 
-@app.external(authorize=Authorize.holds_token(app.state.membership_token))
-def delete_proposal(proposal_name: abi.String, membership_token: abi.Asset = app.state.membership_token,) -> Expr:
+@app.external(authorize=holds_any_wakanda_token)
+def delete_proposal(
+    proposal_name: abi.String,
+) -> Expr:
     return Pop(app.state.proposals[proposal_name.get()].delete())
 
 
