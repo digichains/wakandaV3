@@ -42,7 +42,18 @@ app = Application("proposals", state=AppState(max_members=2000)).apply(
 @Subroutine(TealType.uint64)
 def holds_any_wakanda_token(sender: Expr) -> Expr:
     """Require that the sender of the app call holds > 0 of any asset in the list"""
-    asset_ids = [627600640, 627600224, 627600054]
+    asset_ids = [
+        2033034056,
+        2002629726,
+        1907988027,
+        1864315348,
+        1853841958,
+        1819525433,
+        1808043536,
+        1743602682,
+        1703181671,
+        1585668221,
+    ]
 
     # Loop through the asset_ids and check authorization for each
     for asset in asset_ids:
